@@ -1,0 +1,148 @@
+.buscador {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding-top: 40vh;
+}
+
+.buscador2 {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 15vh;
+  width: 80vw;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+
+.buscador3-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  height: 100%;
+  padding: 2%;
+}
+
+.buscador3-2 {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.buscar {
+  margin: 0;
+  width: 95%;
+  height: 80%;
+  font-size: medium;
+  border-radius: 40px;
+}
+
+.button1 {
+  width: 35px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.button2 {
+  width: 35px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.spanP{
+  padding-inline: 12%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.selector {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #9A3B3B;
+  height: 34px;
+  background-color: transparent;
+  border-radius: 40px;
+}
+
+.labels{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+}
+
+.sublabels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5%;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.sublabels>div{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.icono{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+}
+
+.personas{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+}
+.date-picker {
+  background-color: transparent;
+  border: 1px solid #9A3B3B;
+  text-align: center;
+  width: 12rem;
+  border-radius: 40px;
+  z-index: 10;
+}
+
+.custom-month-container {
+  /*background-color: #F2ECBE;*/
+  z-index: 10;
+}
+
+.react-datepicker__header {
+  /*background-color: #F2ECBE !important;*/
+  z-index: 10;
+}
+
+.react-datepicker__day--in-range{
+background-color: #9A3B3B;
+
+}
+
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range){  background-color: #9A3B3B;
+  background-color: #9A3B3B;
+
+}
+
+.react-datepicker__day--selected{
+  background-color: #9A3B3B;
+
+}

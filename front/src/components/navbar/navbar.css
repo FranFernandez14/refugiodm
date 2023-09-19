@@ -1,0 +1,107 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  background-color: #9A3B3B;
+  color: white;
+  z-index: 1;
+  list-style: none;
+  transition: background-color 0.3s;
+  padding-left: 1%;
+}
+
+.logo {
+  color: white;
+  margin-left:0%;
+  font-weight: 200;
+}
+
+.botones {
+  opacity: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.botones>div {
+  margin: 10px;
+}
+
+.nav-link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link li {
+  list-style: none;
+}
+
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-icon .bar {
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  margin: 3px 0;
+  color: #F2ECBE;
+}
+
+.nav-links {
+  list-style: none;
+  display: none;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #9A3B3B;
+  z-index: 1;
+  color: white;
+}
+
+.nav-links.active li {
+  border: 1px solid #F2ECBE;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.nav-links.active li a {
+  padding: 0.5rem 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px
+}
+
+.nav-links.active li:hover {
+  background-color: #C08261; 
+}
+.nav-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+/*.navbar.scrolled {
+  background-color: #9A3B3B; 
+  height: 6.5vh;
+}

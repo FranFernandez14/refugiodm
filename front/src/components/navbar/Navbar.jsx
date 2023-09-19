@@ -1,0 +1,93 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import './navbar.css';
+import { decodeToken } from 'react-jwt';
+
+export default function Navbar() {
+  const navigate = useNavigate();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [userRoles, setUserRoles] = useState(0);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+
+    if (token) {
+      const decodedToken = decodeToken(token, 'secret');
+      const cantRoles = decodedToken.cantRoles;
+      setUserRoles(cantRoles);
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleToggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    navigate('/');
+    window.location.reload();
+  };
+
+  return (
+    <div className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div><Link to="/"><h2 className='logo'>Refugio de montaña</h2></Link></div>
+      <div className='botones'>
+        <div><li><a href="#cabañas">Nuestras cabañas</a></li></div>
+        <div><li><a href="#opiniones">Opiniones</a></li></div>
+        <div>
+          <div className={`menu-icon ${menuVisible ? 'open' : ''}`} onClick={handleToggleMenu}>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </div>
+        </div>
+      </div>
+      <ol className={`nav-links ${menuVisible ? 'active' : ''}`}>
+        {userRoles === 0 && (
+          <>
+            <li><Link to="/login" onClick={handleToggleMenu}>Iniciar Sesión</Link></li>
+            <li><Link to="/registro" onClick={handleToggleMenu}>Registrarse</Link></li>
+          </>
+        )}
+        {userRoles === 1 && (
+          <>
+            <li><Link to="/perfil">Mi perfil</Link></li>
+            <li><Link to="/reservas">Mis reservas</Link></li>
+            <li><Link onClick={handleLogout} >Cerrar sesión</Link></li>
+          </>
+        )}
+        {userRoles === 2 && (
+          <>
+            <li><Link to="/perfil">Mi perfil</Link></li>
+            <li><Link to="/reservas">Mis reservas</Link></li>
+            <li><Link to="/admin/reservas">Menú de administrador</Link></li>
+            <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
+          </>
+        )}
+        {userRoles === 3 && (
+          <>
+            <li><Link to="/perfil">Mi perfil</Link></li>
+            <li><Link to="/reservas">Mis reservas</Link></li>
+            <li><Link to="/admin/reservas">Menú de administrador</Link></li>
+            <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
+          </>
+        )}
+      </ol>
+    </div>
+  );
+}

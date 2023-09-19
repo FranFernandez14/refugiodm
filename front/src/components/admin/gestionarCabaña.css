@@ -1,0 +1,60 @@
+/* Estilos para el contenedor principal */
+.gestionar-cabaña-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  /* Estilos para la sección de imágenes existentes */
+  .imagenes-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Estilos para cada imagen individual */
+  .imagen-item {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .imagen-item img {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen al contenedor */
+    height: auto;
+  }
+  
+  /* Estilos para el botón Eliminar */
+  .imagen-item button {
+    margin-top: 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para la sección de agregar nueva imagen */
+  h3 {
+    margin-top: 20px;
+  }
+  
+  /* Estilos para el botón Agregar Imagen */
+  input[type="file"] {
+    margin-right: 10px;
+  }
+  
+  /* Estilos para el botón Agregar Imagen */
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
