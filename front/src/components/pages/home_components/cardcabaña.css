@@ -1,0 +1,71 @@
+.cabin-card {
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    overflow: hidden; /* Para ocultar el desbordamiento de la imagen */
+  }
+  
+  .cabin-image-container {
+    position: relative;
+  }
+  
+  .cabin-image {
+    width: 100%;
+    height: 30rem;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .cabin-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el texto */
+    padding: 10px;
+    color: white;
+  }
+  
+  .cabin-text h3 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .cabin-icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .cabin-icons div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cabin-icons svg {
+    margin-right: 5px;
+    font-size: 1.2rem;
+  }
+  
+  .reserve-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px;
+    font-weight: bold;
+  }
+  
+  .reserve-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cabin-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px;
+  }
+  

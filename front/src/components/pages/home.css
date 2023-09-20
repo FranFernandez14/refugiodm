@@ -1,0 +1,9 @@
+.home {
+    background-image: url('../../assets/homeBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 108vh;
+    padding-top: -8vh;
+    
+}

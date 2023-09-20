@@ -35,8 +35,8 @@ public class CabañaControlador {
     @Autowired
     private CabañaServicio cabañaServicio;
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    //@Value("${file.upload-dir}")
+    //private String uploadDir;
 
     @Autowired
     private TipoCabañaRepositorio tipoCabañaRepositorio;

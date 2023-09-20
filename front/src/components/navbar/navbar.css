@@ -1,17 +1,19 @@
 .navbar {
   display: flex;
   flex-direction: row;
-  position: relative;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 8vh;
+  z-index: 2;
   background-color: #9A3B3B;
   color: white;
-  z-index: 1;
+
   list-style: none;
-  transition: background-color 0.3s;
+  transition: 0.3s;
   padding-left: 1%;
+
 }
 
 .logo {
@@ -101,7 +103,7 @@
   margin: 5px 0;
 }
 
-/*.navbar.scrolled {
+.navbar.scrolled {
   background-color: #9A3B3B; 
   height: 6.5vh;
 }

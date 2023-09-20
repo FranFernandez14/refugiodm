@@ -146,3 +146,7 @@ background-color: #9A3B3B;
   background-color: #9A3B3B;
 
 }
+
+.react-datepicker-popper{
+  z-index: 3;
+}

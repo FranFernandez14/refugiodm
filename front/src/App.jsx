@@ -15,6 +15,7 @@ import { decodeToken } from 'react-jwt';
 import Home from './components/pages/Home';
 import './app.css'
 import GestionarCabaña from './components/admin/GestionarCabaña';
+import Perfil from './components/perfil/Perfil';
 
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
@@ -49,6 +50,7 @@ const App = () => {
         {userRoles >= 1 && (
           <>
             <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
+            <Route path="/perfil" element={<Perfil/>}/>
           </>
         )}
 
