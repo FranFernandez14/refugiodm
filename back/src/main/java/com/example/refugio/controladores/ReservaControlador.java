@@ -47,7 +47,4 @@ public class ReservaControlador {
     public ResponseEntity<String> reservar(@RequestBody ReservaDTO reservaDTO){
        return reservaServicio.reservar(reservaDTO);
     }
-
-
-
 }

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import es from 'date-fns/locale/es';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './gestionarCabaña.css'
 
 
 const GestionarCabaña = () => {
@@ -130,136 +131,163 @@ const GestionarCabaña = () => {
   const currentImage = cabaña.imagenes && cabaña.imagenes[imagenIndex];
 
   return (
-    <div>
-      <h2>Gestionar Cabaña {id}</h2>
-      <h3>Imágenes Existentes</h3>
-      <div>
-        {currentImage && (
-          <div>
-            <img
-              src={`http://localhost:8080/api/cabañas/${id}/imagenes/${currentImage.id}`}
-              alt="Cabaña"
-              style={{ maxWidth: '100%', maxHeight: '400px' }}
-            />
-            <button onClick={handlePrevImage}>Anterior</button>
-            <button onClick={handleNextImage}>Siguiente</button>
-            <button onClick={() => handleEliminarImagen(currentImage.id)}>Eliminar</button>
+    <div className='gestionar-container'>
+      <div className='gestionar-container2'>
+        <div><h2>Gestionar Cabaña {id}</h2></div>
+        <div>Tipo: {cabaña.tipocabaña}</div>
+        <div>Capacidad: {cabaña.tamaño}</div>
+        
+        <div><h3>Imágenes Existentes</h3></div>
+        <div>
+          {currentImage && (
+            <div id="imagen-container">
+              <div id='cabaña-imagen-container'>
+                <img className='cabaña-imagen'
+                  src={`http://localhost:8080/api/cabañas/${id}/imagenes/${currentImage.id}`}
+                  alt="Cabaña"
+                />
+              </div>
+              <div className='botones-gestionar'>
+                <div>
+                  <button onClick={handlePrevImage}>Anterior</button>
+                </div>
+                <div>
+                  <button onClick={() => handleEliminarImagen(currentImage.id)}>Eliminar</button>
+                </div>
+                <div>
+                  <button onClick={handleNextImage}>Siguiente</button>
+                </div>
+
+                <div>
+                  <div><input
+                    type="file"
+                    name=""
+                    onChange={(e) => setNuevaImagen(e.target.files)}
+                    multiple  // Permite la selección múltiple de archivos
+                  />
+                  </div>
+                  <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <br></br>
+        <div id='calendario-estados-container'>
+          <div id='calendario-container'>
+            <div><h3>Calendario de Estados</h3></div>
+            <div>
+              <DatePicker
+                minDate={new Date()}
+                renderCustomHeader={({
+                  monthDate,
+                  customHeaderCount,
+                  decreaseMonth,
+                  increaseMonth,
+                }) => (
+                  <div>
+                    <button
+                      aria-label="Previous Month"
+                      className={
+                        "react-datepicker__navigation react-datepicker__navigation--previous"
+                      }
+                      style={customHeaderCount === 1 ? { visibility: "hidden" } : null}
+                      onClick={decreaseMonth}
+                    >
+                      <span
+                        className={
+                          "react-datepicker__navigation-icon react-datepicker__navigation-icon--previous"
+                        }
+                      >
+                        {"<"}
+                      </span>
+                    </button>
+                    <span className="react-datepicker__current-month">
+                      {monthDate.toLocaleString("es", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <button
+                      aria-label="Next Month"
+                      className={
+                        "react-datepicker__navigation react-datepicker__navigation--next"
+                      }
+                      style={customHeaderCount === 0 ? { visibility: "hidden" } : null}
+                      onClick={increaseMonth}
+                    >
+                      <span
+                        className={
+                          "react-datepicker__navigation-icon react-datepicker__navigation-icon--next"
+                        }
+                      >
+                        {">"}
+                      </span>
+                    </button>
+                  </div>
+                )}
+                selected={null}
+                inline
+                excludeDateIntervals={getExcludedDateIntervals()}
+                dateFormat="dd/MM/yyyy"
+                className="date-picker"
+                monthsShown={2}
+                selectsRange
+                startDate={selectedDateRange[0]}
+                endDate={selectedDateRange[1]}
+                onChange={(dates) => setSelectedDateRange(dates)}
+                locale={es}
+              />
+            </div>
+            <div><button onClick={handleEnviarMantenimiento}>Enviar Mantenimiento</button></div>
           </div>
-        )}
+          <br></br>
+          <div id='estados-container'>
+            <div><h3>Estados</h3></div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {estados.map((estado) => (
+                    <tr key={estado.id}>
+                      <td>
+                        {estado.fechaInicio ? (
+                          new Date(estado.fechaInicio).toLocaleDateString('es', { locale: es })
+                        ) : (
+                          'Fecha no disponible'
+                        )}
+                      </td>
+                      <td>
+                        {estado.fechaFin ? (
+                          new Date(estado.fechaFin).toLocaleDateString('es', { locale: es })
+                        ) : (
+                          'Fecha no disponible'
+                        )}
+                      </td>
+                      <td>{estado.nombre}</td>
+                      <td>
+                        {estado.nombre === 'Mantenimiento' && (
+                          <button onClick={() => handleEliminarMantenimiento(estado.id)}>
+                            Eliminar Mantenimiento
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-      <h3>Agregar Nueva Imagen</h3>
-      <input
-        type="file"
-        name="files"
-        onChange={(e) => setNuevaImagen(e.target.files)}
-        multiple  // Permite la selección múltiple de archivos
-      />
-      <button onClick={handleAgregarImagen}>Agregar Imágenes</button>
-      <br></br>
-      <h3>Calendario de Estados</h3>
-      <DatePicker
-        renderCustomHeader={({
-          monthDate,
-          customHeaderCount,
-          decreaseMonth,
-          increaseMonth,
-        }) => (
-          <div>
-            <button
-              aria-label="Previous Month"
-              className={
-                "react-datepicker__navigation react-datepicker__navigation--previous"
-              }
-              style={customHeaderCount === 1 ? { visibility: "hidden" } : null}
-              onClick={decreaseMonth}
-            >
-              <span
-                className={
-                  "react-datepicker__navigation-icon react-datepicker__navigation-icon--previous"
-                }
-              >
-                {"<"}
-              </span>
-            </button>
-            <span className="react-datepicker__current-month">
-              {monthDate.toLocaleString("es", {
-                month: "long",
-                year: "numeric",
-              })}
-            </span>
-            <button
-              aria-label="Next Month"
-              className={
-                "react-datepicker__navigation react-datepicker__navigation--next"
-              }
-              style={customHeaderCount === 0 ? { visibility: "hidden" } : null}
-              onClick={increaseMonth}
-            >
-              <span
-                className={
-                  "react-datepicker__navigation-icon react-datepicker__navigation-icon--next"
-                }
-              >
-                {">"}
-              </span>
-            </button>
-          </div>
-        )}
-
-
-        selected={null}
-        inline
-        excludeDateIntervals={getExcludedDateIntervals()}
-        dateFormat="dd/MM/yyyy"
-        className="date-picker"
-        monthsShown={2}
-        selectsRange
-        startDate={selectedDateRange[0]}
-        endDate={selectedDateRange[1]}
-        onChange={(dates) => setSelectedDateRange(dates)}
-        locale={es}
-      />
-      <button onClick={handleEnviarMantenimiento}>Enviar Mantenimiento</button>
-      <br></br>
-      <h3>Estados</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha de Inicio</th>
-            <th>Fecha de Fin</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {estados.map((estado) => (
-            <tr key={estado.id}>
-              <td>
-                {estado.fechaInicio ? (
-                  new Date(estado.fechaInicio).toLocaleDateString('es', { locale: es })
-                ) : (
-                  'Fecha no disponible'
-                )}
-              </td>
-              <td>
-                {estado.fechaFin ? (
-                  new Date(estado.fechaFin).toLocaleDateString('es', { locale: es })
-                ) : (
-                  'Fecha no disponible'
-                )}
-              </td>
-              <td>{estado.nombre}</td>
-              <td>
-                {estado.nombre === 'Mantenimiento' && (
-                  <button onClick={() => handleEliminarMantenimiento(estado.id)}>
-                    Eliminar Mantenimiento
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };
