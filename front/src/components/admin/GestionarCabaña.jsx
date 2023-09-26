@@ -136,7 +136,7 @@ const GestionarCabaña = () => {
         <div><h2>Gestionar Cabaña {id}</h2></div>
         <div>Tipo: {cabaña.tipocabaña}</div>
         <div>Capacidad: {cabaña.tamaño}</div>
-        
+
         <div><h3>Imágenes Existentes</h3></div>
         <div>
           {currentImage && (
@@ -158,19 +158,23 @@ const GestionarCabaña = () => {
                   <button onClick={handleNextImage}>Siguiente</button>
                 </div>
 
-                <div>
-                  <div><input
-                    type="file"
-                    name=""
-                    onChange={(e) => setNuevaImagen(e.target.files)}
-                    multiple  // Permite la selección múltiple de archivos
-                  />
-                  </div>
-                  <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
-                </div>
+
               </div>
             </div>
           )}
+          <div>
+            <div>
+              <div><input
+                type="file"
+                name=""
+                onChange={(e) => setNuevaImagen(e.target.files)}
+                multiple  
+              />
+              </div>
+              <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
+            </div>
+
+          </div>
         </div>
 
         <br></br>

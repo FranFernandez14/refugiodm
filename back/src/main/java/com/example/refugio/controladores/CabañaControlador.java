@@ -2,9 +2,11 @@ package com.example.refugio.controladores;
 
 import com.example.refugio.dto.BuscarCabañaDTO;
 import com.example.refugio.dto.CabañaDTO;
+import com.example.refugio.dto.CambiarTipoDTO;
 import com.example.refugio.dto.RegistroDTO;
 import com.example.refugio.dto.salida.EstadoDTO;
 import com.example.refugio.entidades.*;
+import com.example.refugio.repositorios.CabañaImagenRepositorio;
 import com.example.refugio.repositorios.TipoCabañaRepositorio;
 import com.example.refugio.servicios.CabañaServicio;
 import com.example.refugio.servicios.TipoCabañaServicio;
@@ -35,6 +37,8 @@ public class CabañaControlador {
     @Autowired
     private CabañaServicio cabañaServicio;
 
+    @Autowired
+    private CabañaImagenRepositorio cabañaImagenRepositorio;
     //@Value("${file.upload-dir}")
     //private String uploadDir;
 
@@ -42,26 +46,27 @@ public class CabañaControlador {
     private TipoCabañaRepositorio tipoCabañaRepositorio;
 
     @GetMapping
-    public List<Cabaña> getCabañas (){
+    public List<Cabaña> getCabañas() {
         return cabañaServicio.getCabañas();
     }
 
     @GetMapping("/{id}")
-    public Optional<Cabaña> getById (@PathVariable ("id") Long id){
+    public Optional<Cabaña> getById(@PathVariable("id") Long id) {
         return cabañaServicio.getCabaña(id);
     }
+
     @PostMapping
-    public void saveUpdate (@RequestBody Cabaña cabaña){
+    public void saveUpdate(@RequestBody Cabaña cabaña) {
         cabañaServicio.saveOrUpdate(cabaña);
     }
 
-    @DeleteMapping ("/{Id}")
-    public void delete(@PathVariable("Id") Long id){
+    @DeleteMapping("/{Id}")
+    public void delete(@PathVariable("Id") Long id) {
         cabañaServicio.deleteById(id);
     }
 
-    @PostMapping ("crear")
-    public ResponseEntity<String> crear(@RequestBody CabañaDTO cabañaDTO){
+    @PostMapping("crear")
+    public ResponseEntity<String> crear(@RequestBody CabañaDTO cabañaDTO) {
 
         Cabaña cabaña = new Cabaña();
 
@@ -92,6 +97,7 @@ public class CabañaControlador {
 
         return cabañaServicio.buscar(buscarCabañaDTO);
     }
+
     @PostMapping("/{id}/imagenes")
     public ResponseEntity<String> uploadImages(@PathVariable Long id, @RequestParam("files") List<MultipartFile> files) {
         try {
@@ -169,8 +175,28 @@ public class CabañaControlador {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/{cabañaId}/imagenes/{imagenId}")
+    public ResponseEntity<String> deleteImagen(@PathVariable Long cabañaId, @PathVariable Long imagenId) {
+        Optional<Cabaña> cabaña = cabañaServicio.getCabaña(cabañaId);
+
+        if (cabaña.isPresent()) {
+            List<CabañaImagen> imagenes = cabaña.get().getImagenes();
+
+            for (CabañaImagen imagen : imagenes) {
+                if (imagen.getId().equals(imagenId)) {
+                    imagenes.remove(imagen);
+                    cabañaImagenRepositorio.deleteById(imagenId);
+                    return new ResponseEntity<>("Imagen eliminada correctamente", HttpStatus.OK);
+                }
+            }
+        }
+
+        return new ResponseEntity<>("No se encontró la cabaña o la imagen especificada", HttpStatus.NOT_FOUND);
+    }
+
+
     @GetMapping("/{idCabaña}/estados")
-    public List<EstadoDTO> getEstados(@PathVariable("idCabaña") Long id){
+    public List<EstadoDTO> getEstados(@PathVariable("idCabaña") Long id) {
         Optional<Cabaña> cabaña = cabañaServicio.getCabaña(id);
 
         List<CabañaEstado> estados = cabaña.get().getEstados();
@@ -190,7 +216,14 @@ public class CabañaControlador {
     }
 
     @PostMapping("/{idCabaña}/mantenimiento")
-    public void setMantenimiento(@PathVariable("idCabaña") Long id, @RequestBody EstadoDTO estadoDTO){
+    public void setMantenimiento(@PathVariable("idCabaña") Long id, @RequestBody EstadoDTO estadoDTO) {
         cabañaServicio.setMantenimiento(id, estadoDTO);
     }
+
+
+    @PostMapping("/{idCabaña}/cambiarTipo")
+    public void cambiarTipo(@RequestBody CambiarTipoDTO cambiarTipoDTO) {
+        cabañaServicio.cambiarTipo(cambiarTipoDTO);
+    }
 }
+    

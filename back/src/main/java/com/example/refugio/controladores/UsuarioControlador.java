@@ -1,5 +1,6 @@
 package com.example.refugio.controladores;
 
+import com.example.refugio.dto.ModificarDatosDTO;
 import com.example.refugio.entidades.Usuario;
 import com.example.refugio.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class UsuarioControlador {
     @GetMapping("/{id}")
     public Optional<Usuario> getById (@PathVariable ("id") Long id){
         return usuarioServicio.getUsuario(id);
+    }
+
+    @PostMapping("/modificarDatos")
+    public void modificarDatos(@RequestBody ModificarDatosDTO modificarDatosDTO){
+        usuarioServicio.modificarDatos(modificarDatosDTO);
     }
 
     }

@@ -11,7 +11,6 @@ const ModificarUsuario = ({ usuario }) => {
       });
 
       if (response.status === 200) {
-        // Actualizar la lista de usuarios u otras acciones necesarias
       }
     } catch (error) {
       console.error('Error al asignar rol:', error);

@@ -1,12 +1,15 @@
 package com.example.refugio.servicios;
 
 import com.example.refugio.dto.BuscarCabañaDTO;
+import com.example.refugio.dto.CambiarTipoDTO;
 import com.example.refugio.dto.salida.EstadoDTO;
 import com.example.refugio.entidades.Cabaña;
 import com.example.refugio.entidades.CabañaEstado;
+import com.example.refugio.entidades.TipoCabaña;
 import com.example.refugio.repositorios.CabañaEstadoRepositorio;
 import com.example.refugio.repositorios.CabañaRepositorio;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
+import com.example.refugio.repositorios.TipoCabañaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,9 @@ public class CabañaServicio {
 
     @Autowired
     CabañaRepositorio cabañaRepositorio;
+
+    @Autowired
+    TipoCabañaRepositorio tipoCabañaRepositorio;
 
     @Autowired
     EstadoCabañaRepositorio estadoCabañaRepositorio;
@@ -82,5 +88,21 @@ public class CabañaServicio {
         cabañaEstadoRepositorio.save(cabañaEstado);
         cabaña.getEstados().add(cabañaEstado);
         cabañaRepositorio.save(cabaña);
+    }
+
+    public void cambiarTipo(CambiarTipoDTO cambiarTipoDTO) {
+
+        Cabaña cabaña = cabañaRepositorio.getReferenceById(cambiarTipoDTO.getIdCabaña());
+
+        TipoCabaña tipoCabaña = tipoCabañaRepositorio.getReferenceById(cambiarTipoDTO.getIdTipoCabaña());
+
+        cabaña.setTipoCabaña(tipoCabaña);
+
+        cabañaRepositorio.save(cabaña);
+
+    }
+
+    public void deleteImagen(Long cabañaId, Long imagenId) {
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.refugio.servicios;
 
+import com.example.refugio.dto.ModificarDatosDTO;
 import com.example.refugio.entidades.Usuario;
 import com.example.refugio.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,26 @@ public class UsuarioServicio {
         usuarioRepositorio.deleteById(id);
     }
 
+    public void modificarDatos(ModificarDatosDTO modificarDatosDTO) {
+
+        Usuario usuario = usuarioRepositorio.getReferenceById(modificarDatosDTO.getIdUsuario());
+
+        if(modificarDatosDTO.getDni()!=null){
+            usuario.setDni(modificarDatosDTO.getDni());
+        }
+        if(modificarDatosDTO.getNombre()!=null){
+            usuario.setNombre(modificarDatosDTO.getNombre());
+        }
+        if(modificarDatosDTO.getApellido()!=null){
+            usuario.setApellido(modificarDatosDTO.getApellido());
+        }
+        if(modificarDatosDTO.getEmail()!=null){
+            usuario.setEmail(modificarDatosDTO.getEmail());
+        }
+        if(modificarDatosDTO.getTelefono()!=null){
+            usuario.setNroTelefono(modificarDatosDTO.getTelefono());
+        }
+
+        usuarioRepositorio.save(usuario);
+    }
 }

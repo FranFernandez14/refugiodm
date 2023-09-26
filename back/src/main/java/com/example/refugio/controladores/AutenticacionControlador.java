@@ -1,6 +1,7 @@
 package com.example.refugio.controladores;
 
 import com.example.refugio.dto.AuthResponseDTO;
+import com.example.refugio.dto.CambiarContraseñaDTO;
 import com.example.refugio.dto.LoginDTO;
 import com.example.refugio.dto.RegistroDTO;
 import com.example.refugio.entidades.Rol;
@@ -79,5 +80,16 @@ public class AutenticacionControlador {
         return new ResponseEntity<>("Usuario registrado correctamente", HttpStatus.OK);
     }
 
+
+    @PostMapping("cambiarContraseña")
+    public ResponseEntity<String> cambiarContraseña(@RequestBody CambiarContraseñaDTO cambiarContraseñaDTO){
+        Usuario usuario = usuarioRepositorio.getReferenceById(cambiarContraseñaDTO.getIdUsuario());
+        if(passwordEncoder.encode(cambiarContraseñaDTO.getContraseñaActual()).equals(usuario.getPassword())){
+            usuario.setPassword(passwordEncoder.encode(cambiarContraseñaDTO.getContraseñaNueva()));
+            return new ResponseEntity<>("Contraseña cambiada correctamente", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Contraseña actual incorrecta", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
