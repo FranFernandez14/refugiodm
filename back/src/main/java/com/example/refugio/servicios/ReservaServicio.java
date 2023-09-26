@@ -1,6 +1,7 @@
 package com.example.refugio.servicios;
 
 
+import com.example.refugio.dto.CambiarEstadoReservaDTO;
 import com.example.refugio.dto.ReservaDTO;
 import com.example.refugio.entidades.*;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
@@ -87,7 +88,7 @@ public class ReservaServicio {
             reserva.setCabaña(cabaña);
 
             ReservaEstado reservaEstado = new ReservaEstado();
-            reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Reservada").get());
+            reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Pendiente").get());
             reserva.setReservasEstado(Collections.singletonList(reservaEstado));
 
             reserva.setFechaReserva(LocalDateTime.now());
@@ -121,4 +122,82 @@ public class ReservaServicio {
 
     }
 
+    public void cancelarByUsuario(Long id) {
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
+
+        reservasEstado.forEach(re -> {
+            if (re.getFechafinRE() != null) {
+                re.setFechafinRE(LocalDateTime.now());
+            }
+        });
+
+        ReservaEstado reservaEstado = new ReservaEstado();
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el cliente").get());
+        reservaEstado.setFechaInicioRE(LocalDateTime.now());
+        reservaEstado.setReserva(reserva);
+        reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reservaRepositorio.save(reserva);
+
+    }
+
+    public void cancelarByAdmin(Long id) {
+
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
+
+        reservasEstado.forEach(re -> {
+            if (re.getFechafinRE() != null) {
+                re.setFechafinRE(LocalDateTime.now());
+            }
+        });
+
+        ReservaEstado reservaEstado = new ReservaEstado();
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el usuario").get());
+        reservaEstado.setFechaInicioRE(LocalDateTime.now());
+        reservaEstado.setReserva(reserva);
+        reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reservaRepositorio.save(reserva);
+
+    }
+
+    public void aceptarByAdmin(Long id) {
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
+
+        reservasEstado.forEach(re -> {
+            if (re.getFechafinRE() != null) {
+                re.setFechafinRE(LocalDateTime.now());
+            }
+        });
+
+        ReservaEstado reservaEstado = new ReservaEstado();
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Aceptada").get());
+        reservaEstado.setFechaInicioRE(LocalDateTime.now());
+        reservaEstado.setReserva(reserva);
+        reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reservaRepositorio.save(reserva);
+    }
+
+    public void finalizarByAdmin(Long id) {
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
+
+        reservasEstado.forEach(re -> {
+            if (re.getFechafinRE() != null) {
+                re.setFechafinRE(LocalDateTime.now());
+            }
+        });
+
+        ReservaEstado reservaEstado = new ReservaEstado();
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Finalizada").get());
+        reservaEstado.setFechaInicioRE(LocalDateTime.now());
+        reservaEstado.setReserva(reserva);
+        reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reservaRepositorio.save(reserva);
+    }
 }

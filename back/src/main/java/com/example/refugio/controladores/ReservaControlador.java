@@ -1,5 +1,6 @@
 package com.example.refugio.controladores;
 
+import com.example.refugio.dto.CambiarEstadoReservaDTO;
 import com.example.refugio.dto.ReservaDTO;
 import com.example.refugio.entidades.*;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
@@ -46,5 +47,25 @@ public class ReservaControlador {
     @PostMapping ("/reservar")
     public ResponseEntity<String> reservar(@RequestBody ReservaDTO reservaDTO){
        return reservaServicio.reservar(reservaDTO);
+    }
+
+    @PostMapping("/{id}/cancelarByUsuario")
+    public void cancelarByUsuario(@PathVariable ("id") Long id){
+        reservaServicio.cancelarByUsuario(id);
+    }
+
+    @PostMapping("/{id}/cancelarByAdmin")
+    public void cancelarByAdmin(@PathVariable ("id") Long id){
+        reservaServicio.cancelarByAdmin(id);
+    }
+
+    @PostMapping("/{id}/aceptarByAdmin")
+    public void aceptarByAdmin(@PathVariable ("id") Long id){
+        reservaServicio.aceptarByAdmin(id);
+    }
+
+    @PostMapping("/{id}/finalizarByAdmin")
+    public void finalizarByAdmin(@PathVariable ("id") Long id){
+        reservaServicio.finalizarByAdmin(id);
     }
 }
