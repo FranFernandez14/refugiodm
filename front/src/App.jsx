@@ -16,6 +16,7 @@ import Home from './components/pages/Home';
 import './app.css'
 import GestionarCabaña from './components/admin/GestionarCabaña';
 import Perfil from './components/perfil/Perfil';
+import GestionarReserva from './components/admin/GestionarReserva';
 
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
@@ -58,6 +59,7 @@ const App = () => {
           <>
             <Route path="/admin" element={<RutaAdmin />} />
             <Route path="/admin/reservas" element={<ReservaContainer />} />
+            <Route path="/gestionarreserva/:id" element={<GestionarReserva />} />
           </>
         )}
 

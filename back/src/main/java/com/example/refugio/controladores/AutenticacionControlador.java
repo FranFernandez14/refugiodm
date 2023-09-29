@@ -84,11 +84,12 @@ public class AutenticacionControlador {
     @PostMapping("cambiarContraseña")
     public ResponseEntity<String> cambiarContraseña(@RequestBody CambiarContraseñaDTO cambiarContraseñaDTO){
         Usuario usuario = usuarioRepositorio.getReferenceById(cambiarContraseñaDTO.getIdUsuario());
-        if(passwordEncoder.encode(cambiarContraseñaDTO.getContraseñaActual()).equals(usuario.getPassword())){
+        if(passwordEncoder.matches(cambiarContraseñaDTO.getContraseñaActual(), usuario.getPassword())){
             usuario.setPassword(passwordEncoder.encode(cambiarContraseñaDTO.getContraseñaNueva()));
+            usuarioRepositorio.save(usuario);
             return new ResponseEntity<>("Contraseña cambiada correctamente", HttpStatus.OK);
         }else{
-            return new ResponseEntity<>("Contraseña actual incorrecta", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Contraseña actual incorrecta" , HttpStatus.BAD_REQUEST);
         }
     }
 

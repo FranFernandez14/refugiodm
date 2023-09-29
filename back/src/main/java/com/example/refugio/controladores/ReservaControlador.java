@@ -2,6 +2,8 @@ package com.example.refugio.controladores;
 
 import com.example.refugio.dto.CambiarEstadoReservaDTO;
 import com.example.refugio.dto.ReservaDTO;
+import com.example.refugio.dto.salida.VerReservaDTO;
+import com.example.refugio.dto.salida.VerReservasDTO;
 import com.example.refugio.entidades.*;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
 import com.example.refugio.repositorios.EstadoReservaRepositorio;
@@ -24,10 +26,26 @@ public class ReservaControlador {
     @Autowired
     private ReservaServicio reservaServicio;
 
-    @GetMapping
-    public List<Reserva> getReservas(){
-        return reservaServicio.getReservas();
+    @GetMapping("/pendientes")
+    public List<VerReservasDTO> getReservasPendientes(){
+        return reservaServicio.getReservasPendientes();
     }
+
+    @GetMapping("/aceptadas")
+    public List<VerReservasDTO> getReservasAceptadas(){
+        return reservaServicio.getReservasAceptadas();
+    }
+
+    @GetMapping("/canceladas")
+    public List<VerReservasDTO> getReservasCanceladas(){
+        return reservaServicio.getReservasCanceladas();
+    }
+
+    @GetMapping("/finalizadas")
+    public List<VerReservasDTO> getReservasFinalizadas(){
+        return reservaServicio.getReservasFinalizadas();
+    }
+
 
     @PostMapping
     public void saveUpdate (@RequestBody Reserva reserva){
@@ -40,7 +58,7 @@ public class ReservaControlador {
     }
 
     @GetMapping("/{id}")
-    public Optional<Reserva> getById (@PathVariable ("id") Long id){
+    public VerReservaDTO getReserva (@PathVariable ("id") Long id){
         return reservaServicio.getReserva(id);
     }
 

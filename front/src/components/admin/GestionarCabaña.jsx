@@ -173,7 +173,6 @@ const GestionarCabaña = () => {
               </div>
               <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
             </div>
-
           </div>
         </div>
 

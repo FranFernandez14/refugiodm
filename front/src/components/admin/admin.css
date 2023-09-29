@@ -15,3 +15,21 @@
     flex-direction: column;
     align-items: center;
 }
+
+#reserva-buttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#reserva-buttons>div{
+    border: 1px solid #C08261;
+    border-bottom: 1px solid #C08261;
+    transition: background-color 0.3s ease; 
+    padding: 10px;
+}
+
+#reserva-buttons>div:hover{
+    background-color: #f5f5f5; 
+}
+

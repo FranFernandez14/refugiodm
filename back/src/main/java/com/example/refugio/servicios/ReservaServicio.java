@@ -3,6 +3,9 @@ package com.example.refugio.servicios;
 
 import com.example.refugio.dto.CambiarEstadoReservaDTO;
 import com.example.refugio.dto.ReservaDTO;
+import com.example.refugio.dto.salida.ReservaEstadoDTO;
+import com.example.refugio.dto.salida.VerReservaDTO;
+import com.example.refugio.dto.salida.VerReservasDTO;
 import com.example.refugio.entidades.*;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
 import com.example.refugio.repositorios.EstadoReservaRepositorio;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -42,12 +46,108 @@ public class ReservaServicio {
     @Autowired
     private CabañaEstadoServicio cabañaEstadoServicio;
 
-    public List<Reserva> getReservas(){
-        return reservaRepositorio.findAll();
+    public List<VerReservasDTO> getReservasPendientes(){
+
+        List<Reserva> reservas = reservaRepositorio.findAll();
+
+        List<VerReservasDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            String estadoActual = null;
+
+            for (ReservaEstado reservaEstado : reserva.getReservasEstado()) {
+                if (reservaEstado.getFechafinRE() == null) {
+                    EstadoReserva estadoReserva = reservaEstado.getEstadoReserva();
+                    if (estadoReserva != null) {
+                        estadoActual = estadoReserva.getNombreER();
+                        break;
+                    }
+                }
+            }
+
+            if ("Pendiente".equals(estadoActual)) {
+                VerReservasDTO reservaDTO = new VerReservasDTO();
+                reservaDTO.setIdReserva(reserva.getIdReserva());
+                reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+                reservaDTO.setCantPersonas(reserva.getCantPersonas());
+                reservaDTO.setFechaInicio(reserva.getFechaInicio());
+                reservaDTO.setFechaFin(reserva.getFechaFin());
+                reservaDTO.setMontoTotal(reserva.getMontoTotal());
+                reservaDTO.setEstadoActual(estadoActual);
+                reservasDTO.add(reservaDTO);
+            }
+        }
+        return reservasDTO;
     }
 
-    public Optional<Reserva> getReserva(Long id){
-        return reservaRepositorio.findById(id);
+    public List<VerReservasDTO> getReservasAceptadas(){
+
+        List<Reserva> reservas = reservaRepositorio.findAll();
+
+        List<VerReservasDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            String estadoActual = null;
+
+            for (ReservaEstado reservaEstado : reserva.getReservasEstado()) {
+                if (reservaEstado.getFechafinRE() == null) {
+                    EstadoReserva estadoReserva = reservaEstado.getEstadoReserva();
+                    if (estadoReserva != null) {
+                        estadoActual = estadoReserva.getNombreER();
+                        break;
+                    }
+                }
+            }
+
+            if ("Aceptada".equals(estadoActual)) {
+                VerReservasDTO reservaDTO = new VerReservasDTO();
+                reservaDTO.setIdReserva(reserva.getIdReserva());
+                reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+                reservaDTO.setCantPersonas(reserva.getCantPersonas());
+                reservaDTO.setFechaInicio(reserva.getFechaInicio());
+                reservaDTO.setFechaFin(reserva.getFechaFin());
+                reservaDTO.setMontoTotal(reserva.getMontoTotal());
+                reservaDTO.setEstadoActual(estadoActual);
+
+                reservasDTO.add(reservaDTO);
+            }
+        }
+        return reservasDTO;
+    }
+
+
+
+    public VerReservaDTO getReserva(Long id){
+
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        VerReservaDTO verReservaDTO = new VerReservaDTO();
+
+        verReservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+        verReservaDTO.setCantPersonas(reserva.getCantPersonas());
+        verReservaDTO.setMontoTotal(reserva.getMontoTotal());
+        verReservaDTO.setFechaReserva(reserva.getFechaReserva());
+        verReservaDTO.setFechaInicio(reserva.getFechaInicio());
+        verReservaDTO.setFechaFin(reserva.getFechaFin());
+
+        List<ReservaEstado> reservaEstados = reserva.getReservasEstado();
+
+        for (ReservaEstado reservaEstado: reservaEstados ) {
+            ReservaEstadoDTO reservaEstadoDTO = new ReservaEstadoDTO();
+            reservaEstadoDTO.setFechaInicioRE(reservaEstado.getFechaInicioRE());
+            reservaEstadoDTO.setFechaFinRE(reservaEstado.getFechafinRE());
+            reservaEstadoDTO.setNombre(reservaEstado.getEstadoReserva().getNombreER());
+            verReservaDTO.getEstados().add(reservaEstadoDTO);
+
+            if (reservaEstado.getFechafinRE() == null){
+                verReservaDTO.setEstadoActual(reservaEstado.getEstadoReserva().getNombreER());
+            }
+        }
+
+        verReservaDTO.setNombreUsuario(reserva.getUsuario().getNombre()+" "+reserva.getUsuario().getApellido());
+        verReservaDTO.setDni(reserva.getUsuario().getDni());
+        verReservaDTO.setEmail(reserva.getUsuario().getEmail());
+        verReservaDTO.setTelefono(reserva.getUsuario().getNroTelefono());
+        return verReservaDTO;
     }
 
 
@@ -148,16 +248,18 @@ public class ReservaServicio {
         List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
 
         reservasEstado.forEach(re -> {
-            if (re.getFechafinRE() != null) {
+            if (re.getFechafinRE() == null) {
                 re.setFechafinRE(LocalDateTime.now());
             }
         });
 
         ReservaEstado reservaEstado = new ReservaEstado();
-        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el usuario").get());
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el admin").get());
         reservaEstado.setFechaInicioRE(LocalDateTime.now());
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reserva.getReservasEstado().add(reservaEstado);
 
         reservaRepositorio.save(reserva);
 
@@ -168,7 +270,7 @@ public class ReservaServicio {
         List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
 
         reservasEstado.forEach(re -> {
-            if (re.getFechafinRE() != null) {
+            if (re.getFechafinRE() == null) {
                 re.setFechafinRE(LocalDateTime.now());
             }
         });
@@ -179,6 +281,8 @@ public class ReservaServicio {
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
 
+        reserva.getReservasEstado().add(reservaEstado);
+
         reservaRepositorio.save(reserva);
     }
 
@@ -187,7 +291,7 @@ public class ReservaServicio {
         List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
 
         reservasEstado.forEach(re -> {
-            if (re.getFechafinRE() != null) {
+            if (re.getFechafinRE() == null) {
                 re.setFechafinRE(LocalDateTime.now());
             }
         });
@@ -198,6 +302,81 @@ public class ReservaServicio {
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
 
+        reserva.getReservasEstado().add(reservaEstado);
+
         reservaRepositorio.save(reserva);
+    }
+
+
+    public List<VerReservasDTO> getReservasCanceladas() {
+
+
+        List<Reserva> reservas = reservaRepositorio.findAll();
+
+        List<VerReservasDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            String estadoActual = null;
+
+            for (ReservaEstado reservaEstado : reserva.getReservasEstado()) {
+                if (reservaEstado.getFechafinRE() == null) {
+                    EstadoReserva estadoReserva = reservaEstado.getEstadoReserva();
+                    if (estadoReserva != null) {
+                        estadoActual = estadoReserva.getNombreER();
+                        break;
+                    }
+                }
+            }
+
+            if (estadoActual != null && estadoActual.startsWith("Cancelada")) {
+                VerReservasDTO reservaDTO = new VerReservasDTO();
+                reservaDTO.setIdReserva(reserva.getIdReserva());
+                reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+                reservaDTO.setCantPersonas(reserva.getCantPersonas());
+                reservaDTO.setFechaInicio(reserva.getFechaInicio());
+                reservaDTO.setFechaFin(reserva.getFechaFin());
+                reservaDTO.setMontoTotal(reserva.getMontoTotal());
+                reservaDTO.setEstadoActual(estadoActual);
+
+                reservasDTO.add(reservaDTO);
+            }
+        }
+        return reservasDTO;
+
+    }
+
+    public List<VerReservasDTO> getReservasFinalizadas() {
+
+        List<Reserva> reservas = reservaRepositorio.findAll();
+
+        List<VerReservasDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            String estadoActual = null;
+
+            for (ReservaEstado reservaEstado : reserva.getReservasEstado()) {
+                if (reservaEstado.getFechafinRE() == null) {
+                    EstadoReserva estadoReserva = reservaEstado.getEstadoReserva();
+                    if (estadoReserva != null) {
+                        estadoActual = estadoReserva.getNombreER();
+                        break;
+                    }
+                }
+            }
+
+            if ("Finalizada".equals(estadoActual)) {
+                VerReservasDTO reservaDTO = new VerReservasDTO();
+                reservaDTO.setIdReserva(reserva.getIdReserva());
+                reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+                reservaDTO.setCantPersonas(reserva.getCantPersonas());
+                reservaDTO.setFechaInicio(reserva.getFechaInicio());
+                reservaDTO.setFechaFin(reserva.getFechaFin());
+                reservaDTO.setMontoTotal(reserva.getMontoTotal());
+                reservaDTO.setEstadoActual(estadoActual);
+
+                reservasDTO.add(reservaDTO);
+            }
+        }
+        return reservasDTO;
     }
 }

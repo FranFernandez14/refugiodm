@@ -1,11 +1,16 @@
 import React from 'react';
-import Sidebar from './Sidebar';
-import './admin.css'
+import './admin.css';
+import { Link } from 'react-router-dom';
 
-const Reserva = ({ reservas }) => {
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+const Reserva = ({ reservas, estadoReserva }) => {
   return (
     <div className='admin-right-content'>
-      <h2>Reservas</h2>
+      <h2>Reservas {estadoReserva}</h2>
       <table>
         <thead>
           <tr>
@@ -13,23 +18,25 @@ const Reserva = ({ reservas }) => {
             <th>Cantidad de Personas</th>
             <th>Número de cabaña</th>
             <th>Monto Total</th>
-            <th>Nombre</th>
             <th>Fecha de inicio</th>
             <th>Fecha de fin</th>
-
+            <th>Estado Actual</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {reservas.map((reserva) => (
             <tr key={reserva.idReserva}>
               <td>{reserva.idReserva}</td>
-              <td>{reserva.cabaña.idcabaña}</td>
+              <td>{reserva.idCabaña}</td>
               <td>{reserva.cantPersonas}</td>
               <td>{reserva.montoTotal}</td>
-              <td>{reserva.usuario.nombre + ' ' +reserva.usuario.apellido}</td>
-              <td>{reserva.fechaInicio}</td>
-              <td>{reserva.fechaFin}</td>
-              {/* Agrega más celdas aquí */}
+              <td>{formatDate(reserva.fechaInicio)}</td>
+              <td>{formatDate(reserva.fechaFin)}</td>
+              <td>{reserva.estadoActual}</td>
+              <td>
+                <Link to={`/gestionarreserva/${reserva.idReserva}`}>Gestionar reserva</Link>
+              </td>
             </tr>
           ))}
         </tbody>
