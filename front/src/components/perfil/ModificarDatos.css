@@ -28,29 +28,3 @@
     display: flex;
 }
 
-p{
-    display: inline;
-    color: rgb(255, 255, 255);
-    margin-left: 10px;
-}
-
-
-div.botones1{
-    justify-content: space-between;
-    display: flex;
-}
-
-button{
-    margin-top: 20px;
-    background-color: #ce8c61;
-    justify-content: space-between;
-    width: 48%;
-}
-
-a.contra{
-    color: black;
-    margin-top: 10px;
-    display: block;
-    text-align: center;
-
-}

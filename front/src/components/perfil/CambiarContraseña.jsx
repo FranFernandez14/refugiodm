@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const CambiarContraseña = () => {
   const [userId, setUserId] = useState(0);
   const [usuario, setUsuario] = useState({});
-  const [contrasenaActual, setContraseñaActual] = useState('');
-  const [contrasenaNueva, setContraseñaNueva] = useState('');
+  const [contraseñaActual, setContraseñaActual] = useState('');
+  const [contraseñaNueva, setContraseñaNueva] = useState('');
   const [repeticion, setRepeticion] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
@@ -44,9 +44,9 @@ const CambiarContraseña = () => {
     } else {
       try {
         const response = await axios.post(`http://localhost:8080/api/auth/cambiarContraseña`, {
-          userId: userId,
+          idUsuario: userId,
           contraseñaActual: contraseñaActual,
-          contraseñaNueva: ContraNueva
+          contraseñaNueva: contraseñaNueva
         });
 
         if (response.status === 200) {
