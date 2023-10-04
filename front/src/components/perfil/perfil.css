@@ -1,0 +1,57 @@
+.perfil{
+    align-items: center;
+    justify-content: center;
+}
+
+.Titulo{
+    text-align: center;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.Datos{
+ align-items: center;
+ background-color: #9A3B3B;
+ max-width: 500px;
+ height: 30vh;
+ width: 80vw;
+ border-radius: 10px;
+ padding: auto;
+ margin:auto;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+}
+
+.interior{
+    text-align: left;
+    display: inline;
+}
+
+.interior.div{
+    font-weight: 300;
+    display: flex;
+}
+
+.datoPersona{
+    display: flex;
+    margin: 5px;
+}
+
+p{
+    color: white;
+    margin-left: 10px;
+}
+
+
+.botones{
+    justify-content: space-between;
+    display: flex;
+}
+
+button{
+    margin-top: 25px;
+    background-color: #ce8c61;
+    justify-content: space-between;
+    width: 48%;
+}

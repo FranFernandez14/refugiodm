@@ -17,7 +17,8 @@ import './app.css'
 import GestionarCabaña from './components/admin/GestionarCabaña';
 import Perfil from './components/perfil/Perfil';
 import GestionarReserva from './components/admin/GestionarReserva';
-
+import ModificarDatos from './components/perfil/ModificarDatos';
+import CambiarContraseña from './components/perfil/CambiarContraseña';
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
 
@@ -52,6 +53,8 @@ const App = () => {
           <>
             <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
             <Route path="/perfil" element={<Perfil/>}/>
+            <Route path="/perfil/modificardatos" element={<ModificarDatos/>}/>
+            <Route path="/perfil/cambiarcontraseña" element={<CambiarContraseña/>}/>
           </>
         )}
 
