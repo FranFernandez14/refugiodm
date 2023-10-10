@@ -38,9 +38,19 @@
     margin: 5px;
 }
 
-
 .botones{
     justify-content: space-between;
     display: flex;
 }
 
+.dato{
+    color: white;
+    margin-left: 10px;
+}
+
+.b1{
+    margin-top: 25px;
+    background-color: #ce8c61;
+    justify-content: space-between;
+    width: 48%;
+}

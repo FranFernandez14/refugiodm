@@ -1,0 +1,42 @@
+
+.reservas-usuario-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 2%;
+  }
+  
+  .reservas-titulo {
+    font-size: 3vw;
+    margin-bottom: 1%;
+  }
+  
+  .reservas-error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .reservas-vacias {
+    font-style: italic;
+  }
+  
+  .reservas-lista {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .reserva-item {
+    border: 1px solid #ccc;
+    padding: 2%;
+    margin: 2% 0;
+  }
+  
+  .reserva-id {
+    font-size: 2vw;
+    font-weight: bold;
+  }
+  
+  .reserva-fecha,
+  .reserva-descripcion {
+    font-size: 1.5vw;
+    margin-bottom: 1%;
+  }
