@@ -28,3 +28,22 @@
     display: flex;
 }
 
+.b1{
+    margin-top: 20px;
+    background-color: #ce8c61;
+    justify-content: space-between;
+    width: 48%;
+}
+
+.contra{
+    color: black;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+
+}
+
+.botones1a{
+    justify-content: space-between;
+    display: flex;
+}

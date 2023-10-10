@@ -70,8 +70,8 @@ const CambiarContraseña = () => {
         <div>Nueva Contraseña <input type='password' id='ContraNueva' placeholder='*****' onChange={(e) => setContraseñaNueva(e.target.value)} /></div>
         <div>Repetir Contraseña <input type='password' id='Repeticion' placeholder='*****' value={repeticion} onChange={(e) => setRepeticion(e.target.value)} /></div>
         <div className='ContenedorBotones'>
-          <button><Link to="/perfil/modificardatos">Cancelar</Link></button>
-          <button onClick={handleConfirmarClick}>Confirmar</button>
+          <button className='b1'><Link to="/perfil/modificardatos">Cancelar</Link></button>
+          <button className='b1' onClick={handleConfirmarClick}>Confirmar</button>
         </div>
         {error && <p className="error">{error}</p>}
         {mensaje && <p className="mensaje">{mensaje}</p>}

@@ -1,6 +1,7 @@
 package com.example.refugio.controladores;
 
 
+import com.example.refugio.dto.CalificarDTO;
 import com.example.refugio.entidades.Calificacion;
 import com.example.refugio.servicios.CalificacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,15 @@ public class CalificacionControlador {
     @GetMapping ("/{Id}")
     public Optional<Calificacion> getById (@PathVariable ("id") Long id) {
         return calificacionServicio.getCalificacion(id);
+    }
+
+    @PostMapping("/calificar/{id}")
+    public void calificar(@PathVariable ("id") Long id, @RequestBody CalificarDTO calificarDTO){
+        calificacionServicio.calificar(id, calificarDTO);
+    }
+
+    @PutMapping("editar/{id}")
+    public void editar(@PathVariable ("id")Long id, @RequestBody CalificarDTO calificarDTO){
+        calificacionServicio.editar(id, calificarDTO);
     }
 }

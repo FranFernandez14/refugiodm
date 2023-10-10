@@ -38,14 +38,14 @@ const Perfil = ()  => {
       <br></br>
       <div className='Datos'>
         <div className='interior'>
-          <div className='datoPersona'>Nombre: <p>{usuario.nombre}</p></div>
-          <div className='datoPersona'>Apellido: <p>{usuario.apellido}</p></div>
-          <div className='datoPersona'>Correo electrónico: <p>{usuario.email}</p></div>
-          <div className='datoPersona'>Teléfono: <p>{telefono (usuario)}</p></div>
-          <div className='datoPersona'>DNI: <p>{dni (usuario)}</p></div>
+          <div className='datoPersona'>Nombre: <p className='dato'> {usuario.nombre}</p></div>
+          <div className='datoPersona'>Apellido: <p className='dato'> {usuario.apellido}</p></div>
+          <div className='datoPersona'>Correo electrónico: <p className='dato'> {usuario.email}</p></div>
+          <div className='datoPersona'>Teléfono: <p className='dato'> {telefono (usuario)}</p></div>
+          <div className='datoPersona'>DNI: <p className='dato'> {dni (usuario)}</p></div>
           <div className='botones'>
-          <button><Link to="/">Volver Atrás</Link></button>
-          <button><Link to="/perfil/modificardatos">Modificar Datos</Link></button>
+          <button className='b1'><Link to="/">Volver Atrás</Link></button>
+          <button className='b1'><Link to="/perfil/modificardatos">Modificar Datos</Link></button>
         </div>
         </div>
       </div>

@@ -86,4 +86,9 @@ public class ReservaControlador {
     public void finalizarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.finalizarByAdmin(id);
     }
+
+    @GetMapping("/misreservas/{idUsuario}")
+    public List<VerReservasDTO> getReservasByUsuario(@PathVariable ("idUsuario") Long id){
+        return reservaServicio.getReservasByUsuario(id);
+    }
 }

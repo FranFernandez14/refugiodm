@@ -379,4 +379,23 @@ public class ReservaServicio {
         }
         return reservasDTO;
     }
+
+    public List<VerReservasDTO> getReservasByUsuario(Long id) {
+        List<Reserva> reservas =  reservaRepositorio.getReservasByUsuario(id);
+
+        List<VerReservasDTO> reservasDTOS = new ArrayList<>();
+
+        for (Reserva reserva: reservas) {
+            VerReservasDTO reservaDTO = new VerReservasDTO();
+            reservaDTO.setIdReserva(reserva.getIdReserva());
+            reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+            reservaDTO.setFechaInicio(reserva.getFechaInicio());
+            reservaDTO.setFechaFin(reserva.getFechaFin());
+            reservaDTO.setCantPersonas(reserva.getCantPersonas());
+            reservaDTO.setMontoTotal(reserva.getMontoTotal());
+            reservasDTOS.add(reservaDTO);
+        }
+        
+        return reservasDTOS;
+    }
 }

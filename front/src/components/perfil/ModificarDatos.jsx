@@ -5,10 +5,14 @@ import axios from 'axios';
 import './ModificarDatos.css';
 import { Link } from 'react-router-dom';
 
-const ModificarDatos = ()  => {
-  
+const ModificarDatos = () => {
   const [userId, setUserId] = useState(0);
   const [usuario, setUsuario] = useState([]);
+  const [nombreIngresado, setNombre] = useState('');
+  const [apellidoIngresado, setApellido] = useState('');
+  const [emailIngresado, setEmail] = useState('');
+  const [nroTelefonoIngresado, setTelefono] = useState('');
+  const [dniIngresado, setDni] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -22,6 +26,15 @@ const ModificarDatos = ()  => {
     }
   }, []);
 
+  useEffect(() => {
+
+    setNombre(usuario.nombre || '');
+    setApellido(usuario.apellido || '');
+    setEmail(usuario.email || '');
+    setTelefono(usuario.nro_telefono || '');
+    setDni(usuario.dni || '');
+  }, [usuario]);
+
   const fetchUsuario = async (userId) => {
     try {
       const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`);
@@ -30,7 +43,28 @@ const ModificarDatos = ()  => {
       console.error('Error fetching data:', error);
     }
   };
-  
+
+  const handleModificarDatos = async () => {
+   
+    const datosModificados = {
+      id: userId,
+      nombre: nombreIngresado,
+      apellido: apellidoIngresado,
+      email: emailIngresado,
+      telefono: nroTelefonoIngresado,
+      dni: dniIngresado,
+    };
+
+    try {
+      // Envía una solicitud POST al servidor con los datos modificados
+      const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', datosModificados);
+      console.log('Datos modificados con éxito:', response.data);
+    
+    } catch (error) {
+      console.error('Error al modificar datos:', error);
+    }
+  };
+
   return (
     <div className='perfil1'>
       <br></br>
@@ -38,39 +72,20 @@ const ModificarDatos = ()  => {
       <br></br>
       <div className='Datos1'>
         <div className='interior1'>
-        <div>Nombre: <input type='text' id='nombre' placeholder={usuario.nombre}/></div>
-        <div>Apellido: <input type='text' id='apellido' placeholder={usuario.apellido}/> </div>
-        <div>Correo electrónico: <input type='text' id='mail' placeholder={usuario.email}/></div>
-        <div>Teléfono: <input type='text' id='mail' placeholder={telefono (usuario)}/></div>
-        <div>DNI: 
-        <input type='text' id='dni' placeholder={dni (usuario)}/>
-        </div>
-        <a className='contra'><h5><Link to="/perfil/cambiarcontraseña">Cambiar Contraseña</Link></h5></a>
-        <div className='botones1'>
-          <button><Link to="/perfil">Cancelar</Link></button>
-          <button><Link to="/perfil">Guardar</Link></button>
-        </div>
+          <div>Nombre: <input type='text' id='nombre' value={nombreIngresado} onChange={(e) => setNombre(e.target.value)} /></div>
+          <div>Apellido: <input type='text' id='apellido' value={apellidoIngresado} onChange={(e) => setApellido(e.target.value)} /> </div>
+          <div>Correo electrónico: <input type='text' id='mail' value={emailIngresado} onChange={(e) => setEmail(e.target.value)} /></div>
+          <div>Teléfono: <input type='text' id='mail' value={nroTelefonoIngresado} onChange={(e) => setTelefono(e.target.value)} /></div>
+          <div>DNI: <input type='text' id='dni' value={dniIngresado} onChange={(e) => setDni(e.target.value)} /></div>
+          <a className='contra'><h5><Link to="/perfil/cambiarcontraseña">Cambiar Contraseña</Link></h5></a>
+          <div className='botones1a'>
+            <button className='b1'><Link to="/perfil">Cancelar</Link></button>
+            <button className='b1' onClick={handleModificarDatos}>Guardar</button>
+          </div>
         </div>
       </div>
     </div>
   )
-}
-
-function telefono (usuario){
-  const num = usuario.nro_telefono;
-  if (num == null){
-    return ('Agregar teléfono')
-  }else{
-    return (usuario.nro_telefono)
-  }
-}
-function dni (usuario){
-  const num_dni = usuario.dni;
-  if (num_dni == null){
-    return ('Agregar DNI')
-   }else{
-    return (usuario.dni)
-   }
 }
 
 export default ModificarDatos;
