@@ -4,6 +4,7 @@ import com.example.refugio.dto.CalificarDTO;
 import com.example.refugio.entidades.Calificacion;
 import com.example.refugio.entidades.Reserva;
 import com.example.refugio.repositorios.CalificacionRepositorio;
+import com.example.refugio.repositorios.EstadoReservaRepositorio;
 import com.example.refugio.repositorios.ReservaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,22 @@ public class CalificacionServicio {
     @Autowired
     private ReservaRepositorio reservaRepositorio;
 
+    @Autowired
+    private EstadoReservaRepositorio estadoReservaRepositorio;
 
     public List<Calificacion> getCalificaciones(){
         return calificacionRepositorio.findAll();
     }
 
-    public Optional<Calificacion> getCalificacion(Long id){
-        return calificacionRepositorio.findById(id);
+    public CalificarDTO getCalificacion(Long id){
+        Calificacion calificacion = reservaRepositorio.getReferenceById(id).getCalificacion();
+
+        CalificarDTO calificarDTO = new CalificarDTO();
+
+        calificarDTO.setPuntaje(calificacion.getPuntaje());
+        calificarDTO.setReseña(calificacion.getReseña());
+
+        return calificarDTO;
     }
 
 
@@ -50,11 +60,12 @@ public class CalificacionServicio {
 
         calificacionRepositorio.save(calificacion);
         reserva.setCalificacion(calificacion);
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Calificada").get());
         reservaRepositorio.save(reserva);
     }
 
     public void editar(Long id, CalificarDTO calificarDTO) {
-        Calificacion calificacion = calificacionRepositorio.getReferenceById(id);
+        Calificacion calificacion = reservaRepositorio.getReferenceById(id).getCalificacion();
         calificacion.setReseña(calificarDTO.getReseña());
         calificacion.setPuntaje(calificarDTO.getPuntaje());
         calificacionRepositorio.save(calificacion);

@@ -20,6 +20,8 @@ import GestionarReserva from './components/admin/GestionarReserva';
 import ModificarDatos from './components/perfil/ModificarDatos';
 import CambiarContraseña from './components/perfil/CambiarContraseña';
 import ReservasUsuario from './components/reservas_usuario/ReservasUsuario';
+import Calificar from './components/reservas_usuario/Calificar';
+import EditarCalificacion from './components/reservas_usuario/EditarCalificacion';
 
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
@@ -58,6 +60,8 @@ const App = () => {
             <Route path="/perfil/modificardatos" element={<ModificarDatos/>}/>
             <Route path="/perfil/cambiarcontraseña" element={<CambiarContraseña/>}/>
             <Route path="/reservas" element={<ReservasUsuario/>}/>
+            <Route path="/calificar/:idReserva" element={<Calificar/>}/>
+            <Route path="/editar-calificacion/:idReserva" element={<EditarCalificacion/>}/>
           </>
         )}
 

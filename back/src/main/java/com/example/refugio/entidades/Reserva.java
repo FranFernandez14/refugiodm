@@ -36,7 +36,14 @@ public class Reserva {
     private List<ReservaEstado> reservasEstado;
 
     @ManyToOne
+    @JoinColumn(name = "IDEstado")
+    private EstadoReserva estadoActual;
+
+    @ManyToOne
     @JoinColumn (name = "IDCabaña")
     @JsonIgnoreProperties("reservas")
     private Cabaña cabaña;
+
+
+
 }

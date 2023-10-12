@@ -165,15 +165,6 @@ public class ReservaServicio {
                 return new ResponseEntity<>("La cabaña no admite tantas personas", HttpStatus.BAD_REQUEST);
             }
 
-            /*
-            List<CabañaEstado> estados = cabañaServicio.getCabaña(reservaDTO.getIDCabaña()).get().getEstados();
-            for (CabañaEstado estado: estados) {
-                if(true){
-                    return new ResponseEntity<>("Ya hay una reserva en esas fechas", HttpStatus.BAD_REQUEST);
-                }
-            }
-            */
-
             Reserva reserva = new Reserva();
             reserva.setMontoTotal(reservaDTO.getMontoTotal());
             reserva.setFechaInicio(reservaDTO.getFechaInicio());
@@ -190,6 +181,7 @@ public class ReservaServicio {
             ReservaEstado reservaEstado = new ReservaEstado();
             reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Pendiente").get());
             reserva.setReservasEstado(Collections.singletonList(reservaEstado));
+            reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Pendiente").get());
 
             reserva.setFechaReserva(LocalDateTime.now());
 
@@ -238,6 +230,8 @@ public class ReservaServicio {
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
 
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Cancelada por el cliente").get());
+
         reservaRepositorio.save(reserva);
 
     }
@@ -254,10 +248,12 @@ public class ReservaServicio {
         });
 
         ReservaEstado reservaEstado = new ReservaEstado();
-        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el admin").get());
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el adminastrador").get());
         reservaEstado.setFechaInicioRE(LocalDateTime.now());
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Cancelada por el administrador").get());
 
         reserva.getReservasEstado().add(reservaEstado);
 
@@ -281,6 +277,8 @@ public class ReservaServicio {
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
 
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Aceptada").get());
+
         reserva.getReservasEstado().add(reservaEstado);
 
         reservaRepositorio.save(reserva);
@@ -303,6 +301,7 @@ public class ReservaServicio {
         reservaEstadoServicio.saveOrUpdate(reservaEstado);
 
         reserva.getReservasEstado().add(reservaEstado);
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Finalizada").get());
 
         reservaRepositorio.save(reserva);
     }
@@ -393,6 +392,10 @@ public class ReservaServicio {
             reservaDTO.setFechaFin(reserva.getFechaFin());
             reservaDTO.setCantPersonas(reserva.getCantPersonas());
             reservaDTO.setMontoTotal(reserva.getMontoTotal());
+            if(reserva.getEstadoActual()!=null){
+                reservaDTO.setEstadoActual(reserva.getEstadoActual().getNombreER());
+            }
+
             reservasDTOS.add(reservaDTO);
         }
         

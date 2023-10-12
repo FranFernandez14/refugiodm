@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/reservas/calificaciones")
@@ -31,8 +30,8 @@ public class CalificacionControlador {
         calificacionServicio.delete(id);
     }
 
-    @GetMapping ("/{Id}")
-    public Optional<Calificacion> getById (@PathVariable ("id") Long id) {
+    @GetMapping ("/{id}")
+    public CalificarDTO getCalificacion (@PathVariable ("id") Long id) {
         return calificacionServicio.getCalificacion(id);
     }
 
