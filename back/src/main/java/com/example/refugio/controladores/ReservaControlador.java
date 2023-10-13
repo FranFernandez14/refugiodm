@@ -46,6 +46,11 @@ public class ReservaControlador {
         return reservaServicio.getReservasFinalizadas();
     }
 
+    @GetMapping("/iniciadas")
+    public List<VerReservasDTO> getReservasIniciadas(){
+        return reservaServicio.getReservasIniciadas();
+    }
+
 
     @PostMapping
     public void saveUpdate (@RequestBody Reserva reserva){
@@ -85,6 +90,11 @@ public class ReservaControlador {
     @PostMapping("/{id}/finalizarByAdmin")
     public void finalizarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.finalizarByAdmin(id);
+    }
+
+    @PostMapping("/{id}/iniciarByAdmin")
+    public void iniciarByAdmin(@PathVariable ("id") Long id){
+        reservaServicio.iniciarByAdmin(id);
     }
 
     @GetMapping("/misreservas/{idUsuario}")

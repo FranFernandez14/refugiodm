@@ -9,6 +9,7 @@ import com.example.refugio.dto.salida.VerReservasDTO;
 import com.example.refugio.entidades.*;
 import com.example.refugio.repositorios.EstadoCabañaRepositorio;
 import com.example.refugio.repositorios.EstadoReservaRepositorio;
+import com.example.refugio.repositorios.GananciaRepositorio;
 import com.example.refugio.repositorios.ReservaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,8 +27,12 @@ import java.util.Optional;
 @Service
 public class ReservaServicio {
 
+
     @Autowired
     ReservaRepositorio reservaRepositorio;
+
+    @Autowired
+    GananciaServicio gananciaServicio;
 
     @Autowired
     private CabañaServicio cabañaServicio;
@@ -284,6 +290,28 @@ public class ReservaServicio {
         reservaRepositorio.save(reserva);
     }
 
+    public void iniciarByAdmin(Long id) {
+        Reserva reserva = reservaRepositorio.getReferenceById(id);
+        List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
+
+        reservasEstado.forEach(re -> {
+            if (re.getFechafinRE() == null) {
+                re.setFechafinRE(LocalDateTime.now());
+            }
+        });
+
+        ReservaEstado reservaEstado = new ReservaEstado();
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Iniciada").get());
+        reservaEstado.setFechaInicioRE(LocalDateTime.now());
+        reservaEstado.setReserva(reserva);
+        reservaEstadoServicio.saveOrUpdate(reservaEstado);
+
+        reserva.getReservasEstado().add(reservaEstado);
+        reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Iniciada").get());
+
+        reservaRepositorio.save(reserva);
+    }
+
     public void finalizarByAdmin(Long id) {
         Reserva reserva = reservaRepositorio.getReferenceById(id);
         List<ReservaEstado> reservasEstado = reserva.getReservasEstado();
@@ -304,6 +332,11 @@ public class ReservaServicio {
         reserva.setEstadoActual(estadoReservaRepositorio.findByNombreER("Finalizada").get());
 
         reservaRepositorio.save(reserva);
+
+        Ganancia ganancia = new Ganancia();
+        ganancia.setFecha(LocalDate.now());
+        ganancia.setMonto(reserva.getMontoTotal());
+        gananciaServicio.saveOrUpdate(ganancia);
     }
 
 
@@ -401,4 +434,39 @@ public class ReservaServicio {
         
         return reservasDTOS;
     }
+
+    public List<VerReservasDTO> getReservasIniciadas() {
+        List<Reserva> reservas = reservaRepositorio.findAll();
+
+        List<VerReservasDTO> reservasDTO = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            String estadoActual = null;
+
+            for (ReservaEstado reservaEstado : reserva.getReservasEstado()) {
+                if (reservaEstado.getFechafinRE() == null) {
+                    EstadoReserva estadoReserva = reservaEstado.getEstadoReserva();
+                    if (estadoReserva != null) {
+                        estadoActual = estadoReserva.getNombreER();
+                        break;
+                    }
+                }
+            }
+
+            if ("Iniciada".equals(estadoActual)) {
+                VerReservasDTO reservaDTO = new VerReservasDTO();
+                reservaDTO.setIdReserva(reserva.getIdReserva());
+                reservaDTO.setIdCabaña(reserva.getCabaña().getIDCabaña());
+                reservaDTO.setCantPersonas(reserva.getCantPersonas());
+                reservaDTO.setFechaInicio(reserva.getFechaInicio());
+                reservaDTO.setFechaFin(reserva.getFechaFin());
+                reservaDTO.setMontoTotal(reserva.getMontoTotal());
+                reservaDTO.setEstadoActual(estadoActual);
+                reservasDTO.add(reservaDTO);
+            }
+        }
+        return reservasDTO;
+    }
+
+
 }

@@ -39,6 +39,9 @@ const ReservaContainer = () => {
             <Link onClick={() => fetchReservas("aceptadas")}>Ver reservas aceptadas</Link>
           </div>
           <div>
+            <Link onClick={() => fetchReservas("iniciadas")}>Ver reservas iniciadas</Link>
+          </div>
+          <div>
             <Link onClick={() => fetchReservas("finalizadas")}>Ver reservas finalizadas</Link>
           </div>
         </div>

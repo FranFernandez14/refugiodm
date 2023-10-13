@@ -22,6 +22,7 @@ import CambiarContraseña from './components/perfil/CambiarContraseña';
 import ReservasUsuario from './components/reservas_usuario/ReservasUsuario';
 import Calificar from './components/reservas_usuario/Calificar';
 import EditarCalificacion from './components/reservas_usuario/EditarCalificacion';
+import Ganancia from './components/admin/Ganancia';
 
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
@@ -81,6 +82,7 @@ const App = () => {
             <Route path="/gestionarcabaña/:id" element={<GestionarCabaña />} />
             <Route path="/admin/tipos-cabaña" element={<TipoCabañaContainer />} />
             <Route path="/admin/caracteristicas" element={<CaracteristicaContainer />} />
+            <Route path="/admin/ganancias" element={<Ganancia/>}/>
           </>
         )}
 

@@ -52,6 +52,16 @@ const GestionarReserva = ({}) => {
     }
   };
 
+  const handleIniciarByAdmin = async () => {
+    try {
+      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/iniciarByAdmin`);
+      // Realizar alguna acción después de aceptar la reserva
+      fetchReserva(); // Refetch de los datos después de la acción
+    } catch (error) {
+      console.error('Error aceptando la reserva:', error);
+    }
+  };
+
   const formatDate = (dateString) => {
     if (dateString) {
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -91,6 +101,11 @@ const GestionarReserva = ({}) => {
         {reserva.estadoActual === 'Aceptada' && (
           <div>
             <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
+            <button onClick={handleIniciarByAdmin}>Iniciar Reserva</button>
+          </div>
+        )}
+        {reserva.estadoActual === 'Iniciada' && (
+          <div>
             <button onClick={handleFinalizarByAdmin}>Finalizar Reserva</button>
           </div>
         )}
