@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { decodeToken } from 'react-jwt';
-import UsuarioContainer from '../admin/containers/UsuarioContainer';
 import axios from 'axios';
 import './ModificarDatos.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ModificarDatos = () => {
   const [userId, setUserId] = useState(0);
@@ -13,6 +12,8 @@ const ModificarDatos = () => {
   const [emailIngresado, setEmail] = useState('');
   const [nroTelefonoIngresado, setTelefono] = useState('');
   const [dniIngresado, setDni] = useState('');
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -31,7 +32,7 @@ const ModificarDatos = () => {
     setNombre(usuario.nombre || '');
     setApellido(usuario.apellido || '');
     setEmail(usuario.email || '');
-    setTelefono(usuario.nro_telefono || '');
+    setTelefono(usuario.nroTelefono || '');
     setDni(usuario.dni || '');
   }, [usuario]);
 
@@ -47,7 +48,7 @@ const ModificarDatos = () => {
   const handleModificarDatos = async () => {
    
     const datosModificados = {
-      id: userId,
+      idUsuario: userId,
       nombre: nombreIngresado,
       apellido: apellidoIngresado,
       email: emailIngresado,
@@ -59,6 +60,9 @@ const ModificarDatos = () => {
       // Envía una solicitud POST al servidor con los datos modificados
       const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', datosModificados);
       console.log('Datos modificados con éxito:', response.data);
+      if(response.status == 200){
+        navigate("/perfil")
+      }
     
     } catch (error) {
       console.error('Error al modificar datos:', error);
@@ -79,7 +83,7 @@ const ModificarDatos = () => {
           <div>DNI: <input type='text' id='dni' value={dniIngresado} onChange={(e) => setDni(e.target.value)} /></div>
           <a className='contra'><h5><Link to="/perfil/cambiarcontraseña">Cambiar Contraseña</Link></h5></a>
           <div className='botones1a'>
-            <button className='b1'><Link to="/perfil">Cancelar</Link></button>
+            <button className='b1'><Link to="/perfil">Atrás</Link></button>
             <button className='b1' onClick={handleModificarDatos}>Guardar</button>
           </div>
         </div>

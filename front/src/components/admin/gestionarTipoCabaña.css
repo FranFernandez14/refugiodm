@@ -1,0 +1,104 @@
+/* Clase para centrar contenido en el div principal */
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  /* Estilo para los recuadros de contenido */
+  .content-box {
+    margin: 16px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 75%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  /* Estilo para títulos */
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  
+  /* Estilo para subtítulos */
+  .subsection-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+  
+  /* Estilo para tablas */
+  .table-container {
+    width: 100%;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Estilo para celdas de tabla en hover */
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  /* Estilo para campos de texto */
+  .text-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    max-height: 200px;
+  }
+  
+  /* Estilo para el botón Confirmar */
+  .confirm-button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+  
+  /* Estilo para el mensaje de éxito */
+  .success-message {
+    color: #28a745;
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+  
+  /* Estilo para el botón de Modificar descripción */
+  .modify-description-button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+  
+  /* Estilo para centrar el botón de Modificar descripción */
+  .center-modify-button {
+    text-align: center;
+  }
+  

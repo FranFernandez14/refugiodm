@@ -47,8 +47,8 @@ export default function Navbar() {
     <div className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div><Link to="/"><h2 className='logo'>Refugio de montaña</h2></Link></div>
       <div className='botones'>
-        <div><li><a href="#cabañas">Nuestras cabañas</a></li></div>
-        <div><li><a href="#opiniones">Opiniones</a></li></div>
+        <div><li><Link to="/cabañas">Nuestras cabañas</Link></li></div>
+        <div><li><Link to= "/opiniones">Opiniones</Link></li></div>
         <div>
           <div className={`menu-icon ${menuVisible ? 'open' : ''}`} onClick={handleToggleMenu}>
             <div className="bar"></div>

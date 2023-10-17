@@ -5,7 +5,6 @@ import ReservaContainer from './components/admin/containers/ReservaContainer';
 import UsuarioContainer from './components/admin/containers/UsuarioContainer';
 import CabañaContainer from './components/admin/containers/CabañaContainer';
 import TipoCabañaContainer from './components/admin/containers/TipoCabañaContainer';
-import CaracteristicaContainer from './components/admin/containers/CaracteristicaContainer';
 import RutaAdmin from './routes/RutaAdmin';
 import Login from './components/login/Login';
 import Registro from './components/registro/Registro';
@@ -22,7 +21,15 @@ import CambiarContraseña from './components/perfil/CambiarContraseña';
 import ReservasUsuario from './components/reservas_usuario/ReservasUsuario';
 import Calificar from './components/reservas_usuario/Calificar';
 import EditarCalificacion from './components/reservas_usuario/EditarCalificacion';
+import CalificacionContainer from './components/Calificaciones/CalificacionContainer'
 import Ganancia from './components/admin/Ganancia';
+import VerificacionDeToken from './components/recuperacion/VerificacionDeToken';
+import RecuperarContraseña from './components/recuperacion/RecuperarContraseña';
+import GeneracionDeToken from './components/recuperacion/GeneracionDeToken';
+import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
+import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
+
+
 
 const App = () => {
   const [userRoles, setUserRoles] = useState(0);
@@ -46,11 +53,16 @@ const App = () => {
         <Route path="/" element={<Home/>}/>
         <Route path="/resultados-busqueda" element={<ResultadosBusquedaCabaña />} />
         <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
+        <Route path="/opiniones" element={<CalificacionContainer/>}/>
+        <Route path="/cabañas" element={<NuestrasCabañas/>}/>
 
         {userRoles === 0 && (
           <>
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
+            <Route path="/generar-token" element={<GeneracionDeToken/>}/>
+            <Route path="/verificar-token" element={<VerificacionDeToken/>}/>
+            <Route path="/recuperar-contraseña" element={<RecuperarContraseña/>}/>
           </>
         )}
 
@@ -71,6 +83,7 @@ const App = () => {
             <Route path="/admin" element={<RutaAdmin />} />
             <Route path="/admin/reservas" element={<ReservaContainer />} />
             <Route path="/gestionarreserva/:id" element={<GestionarReserva />} />
+            <Route path="/gestionartipo/:id" element={<GestionarTipoCabaña/>}/>
           </>
         )}
 
@@ -81,7 +94,6 @@ const App = () => {
             <Route path="/admin/cabañas" element={<CabañaContainer />} />
             <Route path="/gestionarcabaña/:id" element={<GestionarCabaña />} />
             <Route path="/admin/tipos-cabaña" element={<TipoCabañaContainer />} />
-            <Route path="/admin/caracteristicas" element={<CaracteristicaContainer />} />
             <Route path="/admin/ganancias" element={<Ganancia/>}/>
           </>
         )}

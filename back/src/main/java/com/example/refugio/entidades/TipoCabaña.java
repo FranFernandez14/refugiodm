@@ -16,6 +16,8 @@ public class TipoCabaña {
     private Long IDTipoCabaña;
     private String nombre;
 
+    private String descripcion;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoCabaña")
     @JsonIgnoreProperties("tipoCabaña")
     private List<Cabaña> cabañas = new ArrayList<>();
@@ -24,10 +26,8 @@ public class TipoCabaña {
     @JsonIgnoreProperties("tipoCabaña")
     private List<CostoTipoCabaña> costos = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "tipocabaña_caracteristica",
-            joinColumns = @JoinColumn(name = "tipocabaña_id", referencedColumnName = "IDTipoCabaña"),
-            inverseJoinColumns = @JoinColumn(name = "caracteristica_id", referencedColumnName = "idCaracteristica"))
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idTipoCabaña")
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
 }

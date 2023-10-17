@@ -1,50 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import './admin.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const TipoCabaña = ({
-  tipoCabaña,
-  caracteristicas,
-  selectedCaracteristicaId,
-  onAgregarCaracteristica,
-  onEliminarCaracteristica,
-  onCaracteristicaChange,
-}) => {
-  const [costoActual, setCostoActual] = useState(null); // Estado para almacenar el costo actual
+const GestionarTipoCabaña = () => {
+  const { id } = useParams();
+
+  const [costos, setCostos] = useState([]);
   const [nuevoCosto, setNuevoCosto] = useState({ valorInicial: 0, valorPorPersona: 0 });
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [caracteristicas, setCaracteristicas] = useState([]);
+  const [selectedCaracteristica, setSelectedCaracteristica] = useState('');
+
+  // Función para formatear la fecha
+  const formatFecha = (fecha) => {
+    const date = new Date(fecha);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleDateString('es-ES', options);
+  };
+
+  const fetchCostos = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/costos/vercostos/${id}`);
+      setCostos(response.data);
+    } catch (error) {
+      console.error('Error fetching costos:', error);
+    }
+  };
+
+  const fetchCaracteristicas = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}/caracteristicas`);
+      setCaracteristicas(response.data);
+    } catch (error) {
+      console.error('Error fetching características:', error);
+    }
+  };
 
   useEffect(() => {
-    // Obtener el costo actual del tipo de cabaña al cargar el componente
-    axios
-      .get(`http://localhost:8080/api/cabañas/tipos/${tipoCabaña.idtipoCabaña}/costoactual`)
-      .then((response) => {
-        setCostoActual(response.data);
-      })
-      .catch((error) => {
-        console.error('Error al obtener el costo actual:', error);
-      });
-  }, [tipoCabaña.idtipoCabaña]);
+    fetchCostos();
+    fetchCaracteristicas();
+  }, [id]);
 
   const handleAgregarCosto = async () => {
     try {
       const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/costos/crear`, {
         ...nuevoCosto,
-        idTipoCabaña: tipoCabaña.idtipoCabaña,
+        idTipoCabaña: id,
       });
 
       if (response.status === 200) {
-        // Refrescar el costo actual después de una creación exitosa
-        axios
-          .get(`http://localhost:8080/api/cabañas/tipos/${tipoCabaña.idtipoCabaña}/costoactual`)
-          .then((response) => {
-            setCostoActual(response.data);
-          })
-          .catch((error) => {
-            console.error('Error al obtener el costo actual:', error);
-          });
-
-        // Reiniciar el formulario y ocultar el formulario de creación
+        fetchCostos();
         setNuevoCosto({ valorInicial: 0, valorPorPersona: 0 });
         setMostrarFormulario(false);
       }
@@ -53,69 +58,127 @@ const TipoCabaña = ({
     }
   };
 
+  const handleAgregarCaracteristica = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/agregarCaracteristica`, {
+        idTipoCabaña: id,
+        idCaracteristica: selectedCaracteristica,
+      });
+
+      if (response.status === 200) {
+        fetchCaracteristicas();
+      }
+    } catch (error) {
+      console.error('Error al agregar la característica:', error);
+    }
+  };
+
+  const handleEliminarCaracteristica = async (idCaracteristica) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/eliminarCaracteristica`, {
+        idTipoCabaña: id,
+        idCaracteristica,
+      });
+
+      if (response.status === 200) {
+        fetchCaracteristicas();
+      }
+    } catch (error) {
+      console.error('Error al eliminar la característica:', error);
+    }
+  };
+
   return (
-    <div className='admin-right-content'>
-      <h3>{tipoCabaña.nombre}</h3>
-      <p>ID: {tipoCabaña.idtipoCabaña}</p>
-      <h4>Características:</h4>
-      <ul>
-        {tipoCabaña.caracteristicas.map((caracteristica) => (
-          <li key={caracteristica.idCaracteristica}>
-            {caracteristica.nombreCaracteristica}{' '}
-            <button onClick={() => onEliminarCaracteristica(tipoCabaña.idtipoCabaña, caracteristica.idCaracteristica)}>
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
-      <select onChange={onCaracteristicaChange} value={selectedCaracteristicaId}>
-        <option value="">Seleccionar Característica</option>
-        {caracteristicas.map((caracteristica) => (
-          <option key={caracteristica.idCaracteristica} value={caracteristica.idCaracteristica}>
-            {caracteristica.nombreCaracteristica}
-          </option>
-        ))}
-      </select>
-      <button onClick={() => onAgregarCaracteristica(tipoCabaña.idtipoCabaña)}>Agregar</button>
+    <div className="admin-container">
+      <div className="admin-right-content">
+        <h3>Editar Tipo de Cabaña con ID: {id}</h3>
 
-      <h4>Costo Actual:</h4>
-      {costoActual ? (
-        <p>
-          Valor Inicial: {costoActual.valorInicial} | Valor por Persona: {costoActual.valorPorPersona}
-        </p>
-      ) : (
-        <p>No hay costo actual disponible.</p>
-      )}
+        <h4>Historial de Costos:</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>ID de Costo</th>
+              <th>Valor Inicial</th>
+              <th>Valor por Persona</th>
+              <th>Fecha/Hora de Alta</th>
+              <th>Fecha/Hora de Baja</th>
+            </tr>
+          </thead>
+          <tbody>
+            {costos.map((costo) => (
+              <tr key={costo.IDCostoTipoCabaña}>
+                <td>{costo.IDCostoTipoCabaña}</td>
+                <td>{costo.valorInicial}</td>
+                <td>{costo.valorPorPersona}</td>
+                <td>{formatFecha(costo.fechaHoraAlta)}</td>
+                <td>{costo.fechaHoraBaja ? formatFecha(costo.fechaHoraBaja) : '-'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {mostrarFormulario ? (
+        {mostrarFormulario ? (
+          <div>
+            <h4>Nuevo Costo:</h4>
+            <div>
+              <label>Valor Inicial:</label>
+              <input
+                type="number"
+                value={nuevoCosto.valorInicial}
+                onChange={(e) => setNuevoCosto({ ...nuevoCosto, valorInicial: parseFloat(e.target.value) })}
+              />
+            </div>
+            <div>
+              <label>Valor por Persona:</label>
+              <input
+                type="number"
+                value={nuevoCosto.valorPorPersona}
+                onChange={(e) => setNuevoCosto({ ...nuevoCosto, valorPorPersona: parseFloat(e.target.value) })}
+              />
+            </div>
+            <button onClick={handleAgregarCosto}>Confirmar</button>
+          </div>
+        ) : (
+          <button onClick={() => setMostrarFormulario(true)}>Agregar Nuevo Costo</button>
+        )}
+
+        <h4>Características:</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>ID de Característica</th>
+              <th>Nombre de Característica</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {caracteristicas.map((caracteristica) => (
+              <tr key={caracteristica.idCaracteristica}>
+                <td>{caracteristica.idCaracteristica}</td>
+                <td>{caracteristica.nombreCaracteristica}</td>
+                <td>
+                  <button onClick={() => handleEliminarCaracteristica(caracteristica.idCaracteristica)}>Eliminar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         <div>
-          <h4>Nuevo Costo:</h4>
-          <div>
-            <label>Valor Inicial:</label>
-            <input
-              type='number'
-              value={nuevoCosto.valorInicial}
-              onChange={(e) => setNuevoCosto({ ...nuevoCosto, valorInicial: parseFloat(e.target.value) })}
-            />
-          </div>
-          <div>
-            <label>Valor por Persona:</label>
-            <input
-              type='number'
-              value={nuevoCosto.valorPorPersona}
-              onChange={(e) => setNuevoCosto({ ...nuevoCosto, valorPorPersona: parseFloat(e.target.value) })}
-            />
-          </div>
-          <button onClick={handleAgregarCosto}>Confirmar</button>
+          <h4>Agregar Característica:</h4>
+          <select onChange={(e) => setSelectedCaracteristica(e.target.value)}>
+            <option value="">Seleccionar Característica</option>
+            {caracteristicas.map((caracteristica) => (
+              <option key={caracteristica.idCaracteristica} value={caracteristica.idCaracteristica}>
+                {caracteristica.nombreCaracteristica}
+              </option>
+            ))}
+          </select>
+          <button onClick={handleAgregarCaracteristica}>Agregar Característica</button>
         </div>
-      ) : (
-        <button onClick={() => setMostrarFormulario(true)}>Agregar Nuevo Costo</button>
-      )}
+      </div>
     </div>
   );
 };
 
-export default TipoCabaña;
-
-
-
+export default GestionarTipoCabaña;

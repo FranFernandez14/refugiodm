@@ -9,7 +9,7 @@ const Cabaña = ({ cabañas, tiposCabaña, selectedTipoCabaña, selectedTamaño,
       <select value={selectedTipoCabaña} onChange={onTipoCabañaChange}>
         <option value="">Seleccione un tipo de cabaña</option>
         {tiposCabaña.map((tipoCabaña) => (
-          <option key={tipoCabaña.idtipoCabaña} value={tipoCabaña.nombre}>
+          <option key={tipoCabaña.IDTipoCabaña} value={tipoCabaña.nombre}>
             {tipoCabaña.nombre}
           </option>
         ))}

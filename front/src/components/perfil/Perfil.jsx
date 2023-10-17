@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { decodeToken } from 'react-jwt';
-import UsuarioContainer from '../admin/containers/UsuarioContainer';
 import axios from 'axios';
 import './perfil.css';
 import { Link } from 'react-router-dom';
@@ -54,11 +53,11 @@ const Perfil = ()  => {
 }
 
 function telefono (usuario){
-  const num = usuario.nro_telefono;
+  const num = usuario.nroTelefono;
   if (num == null){
     return ('-')
   }else{
-    return (usuario.nro_telefono)
+    return (num)
   }
 }
 function dni (usuario){

@@ -68,7 +68,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           /></div>
           <div>{error && <p style={{ color: 'red' }}>{error}</p>} { }</div>
-          <div className='links'>Recuperar contraseña</div>
+          <div className='links'><Link to="/generar-token">Recuperar contraseña</Link></div>
         </div>
         <div className='login1'>
           <button type="button" onClick={handleLogin}>

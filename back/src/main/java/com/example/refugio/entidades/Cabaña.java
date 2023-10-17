@@ -20,7 +20,7 @@ public class Cabaña {
     private int tamaño;
     private LocalDate fechaHoraBajaCabaña;
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn (name = "IDTipocabaña")
     @JsonIgnoreProperties("cabañas")
     private TipoCabaña tipoCabaña;

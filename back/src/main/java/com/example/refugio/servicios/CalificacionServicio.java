@@ -1,6 +1,7 @@
 package com.example.refugio.servicios;
 
-import com.example.refugio.dto.CalificarDTO;
+import com.example.refugio.dto.CalificacionDTO;
+import com.example.refugio.dto.salida.CalificacionesDTO;
 import com.example.refugio.entidades.Calificacion;
 import com.example.refugio.entidades.Reserva;
 import com.example.refugio.repositorios.CalificacionRepositorio;
@@ -9,9 +10,10 @@ import com.example.refugio.repositorios.ReservaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CalificacionServicio {
@@ -25,19 +27,33 @@ public class CalificacionServicio {
     @Autowired
     private EstadoReservaRepositorio estadoReservaRepositorio;
 
-    public List<Calificacion> getCalificaciones(){
-        return calificacionRepositorio.findAll();
+    public List<CalificacionesDTO> getCalificaciones(){
+        List<Calificacion> calificaciones = calificacionRepositorio.findAll();
+
+        List<CalificacionesDTO> calificacionesDTO = new ArrayList<>();
+
+        for (Calificacion calificacion: calificaciones) {
+            CalificacionesDTO dto = new CalificacionesDTO();
+
+            dto.setFecha(calificacion.getFechaReseña());
+            dto.setNombreUsuario(calificacion.getReserva().getUsuario().getNombre() + " " + calificacion.getReserva().getUsuario().getApellido());
+            dto.setReseña(calificacion.getReseña());
+            dto.setPuntaje(calificacion.getPuntaje());
+            calificacionesDTO.add(dto);
+        }
+
+        return calificacionesDTO;
     }
 
-    public CalificarDTO getCalificacion(Long id){
+    public CalificacionDTO getCalificacion(Long id){
         Calificacion calificacion = reservaRepositorio.getReferenceById(id).getCalificacion();
 
-        CalificarDTO calificarDTO = new CalificarDTO();
+        CalificacionDTO calificacionDTO = new CalificacionDTO();
 
-        calificarDTO.setPuntaje(calificacion.getPuntaje());
-        calificarDTO.setReseña(calificacion.getReseña());
+        calificacionDTO.setPuntaje(calificacion.getPuntaje());
+        calificacionDTO.setReseña(calificacion.getReseña());
 
-        return calificarDTO;
+        return calificacionDTO;
     }
 
 
@@ -50,13 +66,13 @@ public class CalificacionServicio {
     }
 
 
-    public void calificar(Long id, CalificarDTO calificarDTO) {
+    public void calificar(Long id, CalificacionDTO calificacionDTO) {
         Calificacion calificacion = new Calificacion();
         Reserva reserva = reservaRepositorio.getReferenceById(id);
-        calificacion.setReseña(calificarDTO.getReseña());
-        calificacion.setPuntaje(calificarDTO.getPuntaje());
+        calificacion.setReseña(calificacionDTO.getReseña());
+        calificacion.setPuntaje(calificacionDTO.getPuntaje());
         calificacion.setReserva(reserva);
-        calificacion.setFechaReseña(LocalDateTime.now());
+        calificacion.setFechaReseña(LocalDate.now());
 
         calificacionRepositorio.save(calificacion);
         reserva.setCalificacion(calificacion);
@@ -64,10 +80,10 @@ public class CalificacionServicio {
         reservaRepositorio.save(reserva);
     }
 
-    public void editar(Long id, CalificarDTO calificarDTO) {
+    public void editar(Long id, CalificacionDTO calificacionDTO) {
         Calificacion calificacion = reservaRepositorio.getReferenceById(id).getCalificacion();
-        calificacion.setReseña(calificarDTO.getReseña());
-        calificacion.setPuntaje(calificarDTO.getPuntaje());
+        calificacion.setReseña(calificacionDTO.getReseña());
+        calificacion.setPuntaje(calificacionDTO.getPuntaje());
         calificacionRepositorio.save(calificacion);
     }
 }

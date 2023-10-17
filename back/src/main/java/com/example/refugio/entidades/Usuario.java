@@ -38,8 +38,5 @@ public class Usuario {
     @JsonIgnoreProperties("usuario")
     private List<Reserva> reservas;
 
-    @PrePersist
-    public void prePersist() {
-        fechaHoraAlta = LocalDateTime.now();
-    }
+    private String tokenRecuperacion;
 }

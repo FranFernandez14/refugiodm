@@ -6,5 +6,5 @@ import lombok.Data;
 public class TipoCabañaCaracteristicaDTO {
 
     private Long idTipoCabaña;
-    private Long idCaracteristica;
+    private String nombreCaracteristica;
 }

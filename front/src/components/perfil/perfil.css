@@ -11,10 +11,9 @@
 
 .Datos{
  align-items: center;
- background-color: #9A3B3B;
- max-width: 500px;
- height: 30vh;
- width: 80vw;
+ background-color: white;
+ height: 60vh;
+ width: 40vw;
  border-radius: 10px;
  padding: auto;
  margin:auto;
@@ -44,7 +43,7 @@
 }
 
 .dato{
-    color: white;
+    color: black;
     margin-left: 10px;
 }
 

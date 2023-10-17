@@ -4,8 +4,7 @@ package com.example.refugio.entidades;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -16,18 +15,14 @@ public class CostoTipoCabaña {
     private long IDCostoTipoCabaña;
     private float valorInicial;
     private float valorPorPersona;
-    private LocalDateTime fechaHoraAlta;
-    private LocalDateTime fechaHoraBaja;
+    private LocalDate fechaHoraAlta;
+    private LocalDate fechaHoraBaja;
 
     @ManyToOne
     @JoinColumn (name = "IDTipoCabaña")
     @JsonIgnoreProperties("costos")
     private TipoCabaña tipoCabaña;
 
-    @PrePersist
-    public void prePersist() {
-        fechaHoraAlta = LocalDateTime.now();
-    }
 
 
 

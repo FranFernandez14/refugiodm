@@ -14,6 +14,4 @@ public class Caracteristica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCaracteristica;
     private String nombreCaracteristica;
-
-
 }

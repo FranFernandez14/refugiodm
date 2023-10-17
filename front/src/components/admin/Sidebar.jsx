@@ -28,7 +28,6 @@ const Sidebar = () => {
                         <li><Link to="/admin/usuarios">Usuarios</Link></li>
                         <li><Link to="/admin/tipos-cabaña">Tipos de Cabaña</Link></li>
                         <li><Link to="/admin/cabañas">Cabañas</Link></li>
-                        <li><Link to="/admin/caracteristicas">Características</Link></li>
                         <li><Link to="/admin/ganancias">Ganancias</Link></li>
                     </>)}
             </ol>

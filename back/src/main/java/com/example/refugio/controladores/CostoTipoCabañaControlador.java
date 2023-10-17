@@ -2,6 +2,7 @@ package com.example.refugio.controladores;
 
 
 import com.example.refugio.dto.CrearCostoDTO;
+import com.example.refugio.dto.salida.VerCostosDTO;
 import com.example.refugio.entidades.Caracteristica;
 import com.example.refugio.entidades.CostoTipoCabaña;
 import com.example.refugio.servicios.CaracteristicaServicio;
@@ -19,9 +20,9 @@ public class CostoTipoCabañaControlador {
     @Autowired
     private CostoTipoCabañaServicio costoTipoCabañaServicio;
 
-    @GetMapping
-    public List<CostoTipoCabaña> getCostos (){
-        return costoTipoCabañaServicio.getCostos();
+    @GetMapping("/vercostos/{idTipoCabaña}")
+    public List<VerCostosDTO> getCostosByTipoCabaña (@PathVariable("idTipoCabaña") Long id){
+        return costoTipoCabañaServicio.getCostos(id);
     }
     @PostMapping
     public void saveUpdate (@RequestBody CostoTipoCabaña costoTipoCabaña){
@@ -33,10 +34,6 @@ public class CostoTipoCabañaControlador {
         costoTipoCabañaServicio.delete(id);
     }
 
-    @GetMapping ("/{Id}")
-    public Optional<CostoTipoCabaña> getById (@PathVariable ("id") Long id) {
-        return costoTipoCabañaServicio.getCosto(id);
-    }
 
 
     @PostMapping("/crear")

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Cabaña from '../../admin/Cabaña';
 import axios from 'axios';
 import Sidebar from '../Sidebar';
-import '../admin.css'
+import '../admin.css';
 import { useNavigate } from 'react-router-dom';
 
 const CabañaContainer = () => {
@@ -25,13 +24,13 @@ const CabañaContainer = () => {
       try {
         // Find the selected tipoCabaña by its nombre
         const selectedTipoCabañaObj = tiposCabaña.find((tipoCabaña) => tipoCabaña.nombre === selectedTipoCabaña);
-
-        const response = await axios.post('http://localhost:8080/api/cabañas', {
+  
+        const response = await axios.post('http://localhost:8080/api/cabañas/crear', {
           tamaño: selectedTamaño,
-          tipoCabaña: { idtipoCabaña: selectedTipoCabañaObj.idtipoCabaña }
+          idTipoCabaña: selectedTipoCabañaObj.id // Enviar el id del tipoCabaña
         });
-
-        if (response.status === 201) {
+  
+        if (response.status === 200) {
           // Refetch cabañas after successful POST
           fetchCabañas();
         }
@@ -42,6 +41,8 @@ const CabañaContainer = () => {
       console.log('El tamaño debe ser 1 o mayor');
     }
   };
+  
+
 
   const fetchCabañas = async () => {
     try {
@@ -65,17 +66,47 @@ const CabañaContainer = () => {
 
   return (
     <div className='admin-container'>
-      <Sidebar/>
-      <Cabaña
-        cabañas={cabañas}
-        tiposCabaña={tiposCabaña}
-        selectedTipoCabaña={selectedTipoCabaña}
-        selectedTamaño={selectedTamaño}
-        onTipoCabañaChange={handleTipoCabañaChange}
-        onTamañoChange={handleTamañoChange}
-        onAddCabaña={handleAddCabaña}
-        onGestionarCabaña={handleGestionarCabaña}
-      />
+      <Sidebar />
+      <div className='admin-right-content'>
+        <h2>Cabañas</h2>
+        <select value={selectedTipoCabaña} onChange={handleTipoCabañaChange}>
+          <option value="">Seleccione un tipo de cabaña</option>
+          {tiposCabaña.map((tipoCabaña) => (
+            <option key={tipoCabaña.id} value={tipoCabaña.nombre}>
+              {tipoCabaña.nombre}
+            </option>
+          ))}
+        </select>
+        <input
+          type="number"
+          value={selectedTamaño}
+          onChange={handleTamañoChange}
+          placeholder="Tamaño de Cabaña"
+        />
+        <button onClick={handleAddCabaña}>Agregar Cabaña</button>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tamaño</th>
+              <th>Tipo de Cabaña</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cabañas.map((cabaña) => (
+              <tr key={cabaña.idcabaña}>
+                <td>{cabaña.idcabaña}</td>
+                <td>{cabaña.tamaño}</td>
+                <td>{cabaña.tipoCabaña.nombre}</td>
+                <td>
+                  <button onClick={() => handleGestionarCabaña(cabaña.idcabaña)}>Gestionar Cabaña</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

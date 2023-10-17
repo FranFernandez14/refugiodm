@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class CalificarDTO {
+public class CalificacionDTO {
     private String reseña;
     private int puntaje;
 
