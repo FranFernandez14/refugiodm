@@ -6,6 +6,8 @@ import com.example.refugio.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +57,21 @@ public class UsuarioServicio {
         }
 
         usuarioRepositorio.save(usuario);
+    }
+
+    public void cancelarBaja(Long id) {
+        Usuario usuario = usuarioRepositorio.getReferenceById(id);
+        if (usuario.getFechaHoraBaja()==null){
+            usuario.setFechaHoraBaja(LocalDateTime.now());
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    public void darDeBaja(Long id) {
+        Usuario usuario = usuarioRepositorio.getReferenceById(id);
+        if (usuario.getFechaHoraBaja()!=null){
+            usuario.setFechaHoraBaja(null);
+            usuarioRepositorio.save(usuario);
+        }
     }
 }

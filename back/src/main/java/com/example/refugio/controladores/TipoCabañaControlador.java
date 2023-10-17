@@ -110,4 +110,6 @@ public class TipoCabañaControlador {
     public void modificarDescripcion(@PathVariable("id") Long id, @RequestBody ModificarDescripcionDTO descripcion){
         tipoCabañaServicio.modificarDescripcion(id, descripcion);
     }
+
+
 }

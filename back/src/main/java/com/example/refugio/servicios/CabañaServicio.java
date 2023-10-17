@@ -102,7 +102,19 @@ public class CabañaServicio {
 
     }
 
-    public void deleteImagen(Long cabañaId, Long imagenId) {
+    public void darDeBaja(Long id) {
+        Cabaña cabaña = cabañaRepositorio.getReferenceById(id);
+        if (cabaña.getFechaHoraBajaCabaña()==null){
+            cabaña.setFechaHoraBajaCabaña(LocalDate.now());
+            cabañaRepositorio.save(cabaña);
+        }
+    }
 
+    public void cancelarBaja(Long id) {
+        Cabaña cabaña = cabañaRepositorio.getReferenceById(id);
+        if (cabaña.getFechaHoraBajaCabaña()!=null){
+            cabaña.setFechaHoraBajaCabaña(null);
+            cabañaRepositorio.save(cabaña);
+        }
     }
 }

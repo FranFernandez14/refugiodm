@@ -38,4 +38,14 @@ public class UsuarioControlador {
         usuarioServicio.modificarDatos(modificarDatosDTO);
     }
 
+    @PutMapping("/darDeBaja/{id}")
+    public void darDeBaja(@PathVariable("id") Long id){
+        usuarioServicio.darDeBaja(id);
+    }
+
+    @PutMapping("/cancelarBaja/{id}")
+    public void cancelarBaja(@PathVariable("id") Long id){
+        usuarioServicio.cancelarBaja(id);
+    }
+
     }

@@ -227,5 +227,16 @@ public class CabañaControlador {
     public void cambiarTipo(@RequestBody CambiarTipoDTO cambiarTipoDTO) {
         cabañaServicio.cambiarTipo(cambiarTipoDTO);
     }
+
+    @PutMapping("/darDeBaja/{id}")
+    public void darDeBaja(@PathVariable("id") Long id){
+        cabañaServicio.darDeBaja(id);
+    }
+
+    @PutMapping("/cancelarBaja/{id}")
+    public void cancelarBaja(@PathVariable("id") Long id){
+        cabañaServicio.cancelarBaja(id);
+    }
+
 }
     
