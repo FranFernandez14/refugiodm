@@ -83,6 +83,7 @@ public class CabañaControlador {
         tipoCabañaRepositorio.save(tipoCabaña);
 
 
+
         return new ResponseEntity<>("Cabaña creada correctamente", HttpStatus.OK);
     }
 

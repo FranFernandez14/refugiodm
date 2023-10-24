@@ -61,17 +61,18 @@ public class UsuarioServicio {
 
     public void cancelarBaja(Long id) {
         Usuario usuario = usuarioRepositorio.getReferenceById(id);
-        if (usuario.getFechaHoraBaja()==null){
-            usuario.setFechaHoraBaja(LocalDateTime.now());
+        if (usuario.getFechaHoraBaja()!=null){
+            usuario.setFechaHoraBaja(null);
             usuarioRepositorio.save(usuario);
         }
     }
 
     public void darDeBaja(Long id) {
         Usuario usuario = usuarioRepositorio.getReferenceById(id);
-        if (usuario.getFechaHoraBaja()!=null){
-            usuario.setFechaHoraBaja(null);
+        if (usuario.getFechaHoraBaja()==null){
+            usuario.setFechaHoraBaja(LocalDateTime.now());
             usuarioRepositorio.save(usuario);
+            System.out.println("hola");
         }
     }
 }

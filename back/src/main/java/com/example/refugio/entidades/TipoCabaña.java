@@ -22,11 +22,11 @@ public class TipoCabaña {
     @JsonIgnoreProperties("tipoCabaña")
     private List<Cabaña> cabañas = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoCabaña")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoCabaña", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("tipoCabaña")
     private List<CostoTipoCabaña> costos = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idTipoCabaña")
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 

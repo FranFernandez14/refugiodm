@@ -14,7 +14,8 @@ const Usuario = ({ usuarios }) => {
               <th>Email</th>
               <th>Nombre</th>
               <th>Tipo de usuario</th>
-              <th>Modificar usuario</th> {/* Nueva columna */}
+              <th>Estado</th>
+              <th>Acciones</th> {/* Nueva columna */}
             </tr>
           </thead>
           <tbody>
@@ -24,6 +25,10 @@ const Usuario = ({ usuarios }) => {
                 <td>{usuario.email}</td>
                 <td>{usuario.nombre + ' ' + usuario.apellido}</td>
                 <td>{getTipoUsuario(usuario)}</td>
+                <td>
+                  {usuario.fechaHoraBaja == null && <div>Alta</div>}
+                  {usuario.fechaHoraBaja != null && <div>Baja</div>}
+                </td>
                 <td>
                   <ModificarUsuario usuario={usuario} />
                 </td>

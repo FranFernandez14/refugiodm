@@ -128,6 +128,33 @@ const GestionarCabaña = () => {
     }
   };
 
+  const handleDarBaja = async () => {
+    try {
+      const response = await axios.put('http://localhost:8080/api/cabañas/darDeBaja/' + id, {
+      });
+
+      if (response.status == 200) {
+        fetchCabaña();
+      }
+    } catch (error) {
+      console.error('Error al dar de baja:', error);
+    }
+  };
+
+  const handleCancelarBaja = async () => {
+    try {
+      const response = await axios.put('http://localhost:8080/api/cabañas/cancelarBaja/' + id, {
+      });
+
+      if (response.status == 200) {
+        fetchCabaña();
+      }
+    } catch (error) {
+      console.error('Error al cancelar baja:', error);
+    }
+  };
+
+
   const currentImage = cabaña.imagenes && cabaña.imagenes[imagenIndex];
 
   return (
@@ -168,7 +195,7 @@ const GestionarCabaña = () => {
                 type="file"
                 name=""
                 onChange={(e) => setNuevaImagen(e.target.files)}
-                multiple  
+                multiple
               />
               </div>
               <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
@@ -291,6 +318,18 @@ const GestionarCabaña = () => {
           </div>
         </div>
       </div>
+      {cabaña.fechaHoraBajaCabaña == null &&
+
+        <div>
+          <button onClick={() =>handleDarBaja()}>Dar de baja</button>
+        </div>
+      }
+      {cabaña.fechaHoraBajaCabaña != null &&
+
+        <div>
+          <button onClick={() =>handleCancelarBaja()}>Cancelar baja</button>
+        </div>
+      }
     </div>
   );
 };
