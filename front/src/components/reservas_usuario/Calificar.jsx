@@ -38,29 +38,35 @@ const Calificar = () => {
   };
 
   return (
-    <div>
-      <h1>Calificar Servicio</h1>
-      <div>
-        <label>Calificación:</label>
-        <ReactStars
-          count={5}
-          onChange={handleRatingChange}
-          size={24}
-          activeColor="#ffd700"
-        />
+    <div className='container-calificacion'>
+      <div className='card-calificacion'>
+
+        <h1>Calificar Servicio</h1>
+        <div>
+
+          <div className='estrellas-calificacion'>
+            <ReactStars
+              count={5}
+              onChange={handleRatingChange}
+              size={24}
+              activeColor="#ffd700"
+            />
+          </div>
+          <div>
+            <textarea
+              rows="4"
+              cols="50"
+              value={review}
+              onChange={handleReviewChange}
+              className='input-calificacion'
+              />
+          </div>
+          <div className='container-button-calificacion'>
+          <button onClick={handleSubmit} className='button-calificacion' >Enviar reseña</button>
+          </div>
+          {error && <p>{error}</p>}
+        </div>
       </div>
-      <div>
-        <label>Reseña:</label>
-        <textarea
-          rows="4"
-          cols="50"
-          value={review}
-          onChange={handleReviewChange}
-          style={{ resize: 'none' }} // Hace que el recuadro de texto no sea redimensionable
-        />
-      </div>
-      <button onClick={handleSubmit}>Enviar reseña</button>
-      {error && <p>{error}</p>}
     </div>
   );
 };

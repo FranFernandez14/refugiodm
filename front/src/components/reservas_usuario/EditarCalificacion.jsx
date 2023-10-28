@@ -49,20 +49,20 @@ const EditarCalificacion = () => {
 
   const handleGuardar = async () => {
     try {
-        const response = await axios.put(`http://localhost:8080/api/reservas/calificaciones/editar/${idReserva}`, {
-          puntaje: rating,
-          reseña: review,
-        });
-  
-        if (response.status === 200) {
-          navigate('/reservas');
-        } else {
-          setError('Error al guardar la calificación.');
-        }
-      } catch (error) {
-        setError('Error al guardar la calificación. Inténtalo de nuevo.');
-        console.error('Error al guardar la calificación:', error);
+      const response = await axios.put(`http://localhost:8080/api/reservas/calificaciones/editar/${idReserva}`, {
+        puntaje: rating,
+        reseña: review,
+      });
+
+      if (response.status === 200) {
+        navigate('/reservas');
+      } else {
+        setError('Error al guardar la calificación.');
       }
+    } catch (error) {
+      setError('Error al guardar la calificación. Inténtalo de nuevo.');
+      console.error('Error al guardar la calificación:', error);
+    }
   };
 
   const handleCancelar = () => {
@@ -70,39 +70,41 @@ const EditarCalificacion = () => {
   };
 
   return (
-    <div>
-      <h1>Editar Calificación</h1>
-      {isLoading ? (
-        <p>Cargando datos...</p>
-      ) : (
-        <div>
-          <div>
-            <label>Calificación:</label>
-            <ReactStars
-              count={5}
-              value={rating} // Usar el estado rating para el valor
-              onChange={handleRatingChange}
-              size={24}
-              activeColor="#ffd700"
-            />
+    <div className='container-calificacion'>
+      <div className='card-calificacion'>
+        <h1>Editar Calificación</h1>
+        {isLoading ? (
+          <p>Cargando datos...</p>
+        ) : (
+          <div >
+            <div className='estrellas-calificacion'>
+              <ReactStars
+                count={5}
+                value={rating} // Usar el estado rating para el valor
+                onChange={handleRatingChange}
+                size={24}
+                activeColor="#ffd700"
+              />
+            </div>
+            <div>
+
+              <textarea
+                rows="4"
+                cols="50"
+                value={review}
+                onChange={handleReviewChange}
+                className='input-calificacion'
+              />
+            </div>
+            <div className='container-button-calificacion'>
+              <button onClick={handleGuardar} className='button-calificacion'>Guardar</button>
+              <button onClick={handleCancelar} className='button-calificacion'>Cancelar</button>
+            </div>
+            {error && <p>{error}</p>}
           </div>
-          <div>
-            <label>Reseña:</label>
-            <textarea
-              rows="4"
-              cols="50"
-              value={review}
-              onChange={handleReviewChange}
-              style={{ resize: 'none' }}
-            />
-          </div>
-          <div>
-            <button onClick={handleGuardar}>Guardar</button>
-            <button onClick={handleCancelar}>Cancelar</button>
-          </div>
-          {error && <p>{error}</p>}
-        </div>
-      )}
+        )}
+      </div>
+
     </div>
   );
 };

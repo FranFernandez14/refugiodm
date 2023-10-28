@@ -5,8 +5,7 @@
     overflow: hidden;
 }
 .sidebar-buttons li {
-    border-top: 1px solid #C08261;
-    border-bottom: 1px solid #C08261;
+    border-bottom: 1px solid brown;
     transition: background-color 0.3s ease; 
 }
 
@@ -21,4 +20,6 @@
     height: 100%;
     text-decoration: none;
     color: inherit;
+    margin-left: 1rem;
 }
+
