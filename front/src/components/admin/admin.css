@@ -53,3 +53,13 @@ td, th{
 table{
     border-collapse: collapse;
 }
+
+.modal-content{
+    display: flex;
+}
+
+.modal-content button{
+    flex-grow: 1;
+    border-radius: 0;
+
+}

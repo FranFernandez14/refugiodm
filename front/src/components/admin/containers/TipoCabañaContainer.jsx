@@ -22,6 +22,7 @@ const TipoCabañaContainer = () => {
     <div className='admin-container'>
       <Sidebar/>
       <div className="admin-right-content">
+        <div><h2>Tipos de cabaña</h2></div>
         <table>
           <thead>
             <tr>

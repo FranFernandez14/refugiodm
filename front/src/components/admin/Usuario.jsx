@@ -15,7 +15,7 @@ const Usuario = ({ usuarios }) => {
               <th>Nombre</th>
               <th>Tipo de usuario</th>
               <th>Estado</th>
-              <th>Acciones</th> {/* Nueva columna */}
+              <th>Acciones</th> 
             </tr>
           </thead>
           <tbody>

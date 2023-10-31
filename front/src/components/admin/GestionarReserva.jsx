@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './gestionarReserva.css'
 
-const GestionarReserva = ({}) => {
+const GestionarReserva = ({ }) => {
   const [reserva, setReserva] = useState(null);
 
   const { id } = useParams();
@@ -75,64 +76,66 @@ const GestionarReserva = ({}) => {
   }
 
   return (
-    <div>
-      <h2>Gestionar Reserva</h2>
-      <div>
-        <h3>Detalles de la reserva:</h3>
-        <p>ID de Cabaña: {reserva.idCabaña}</p>
-        <p>Cantidad de Personas: {reserva.cantPersonas}</p>
-        <p>Monto Total: {reserva.montoTotal}</p>
-        <p>Fecha de Reserva: {reserva.fechaReservaFormatted}</p>
-        <p>Fecha de Inicio: {formatDate(reserva.fechaInicio)}</p>
-        <p>Fecha de Fin: {formatDate(reserva.fechaFin)}</p>
-        <p>Estado Actual: {reserva.estadoActual}</p>
-        <p>Nombre de Usuario: {reserva.nombreUsuario}</p>
-        <p>DNI: {reserva.dni}</p>
-        <p>Email: {reserva.email}</p>
-        <p>Teléfono: {reserva.telefono}</p>
-      </div>
-      <div>
-        {reserva.estadoActual === 'Pendiente' && (
-          <div>
-            <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
-            <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
-          </div>
-        )}
-        {reserva.estadoActual === 'Aceptada' && (
-          <div>
-            <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
-            <button onClick={handleIniciarByAdmin}>Iniciar Reserva</button>
-          </div>
-        )}
-        {reserva.estadoActual === 'Iniciada' && (
-          <div>
-            <button onClick={handleFinalizarByAdmin}>Finalizar Reserva</button>
-          </div>
-        )}
-        {reserva.estadoActual === 'Cancelada' && (
-          <div>
-            <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
-          </div>
-        )}
-      </div>
-      <div>
-        <h3>Estados de la reserva:</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reserva.estados.map((estado, index) => (
-              <tr key={index}>
-                <td>{estado.nombre}</td>
-                <td>{estado.fechaInicioREFormatted}</td>
+    <div className='gestionar-reserva-container'>
+      <div className='gestionar-reserva'>
+        <h2>Gestionar Reserva</h2>
+        <div>
+          <h3>Detalles de la reserva:</h3>
+          <p>ID de Cabaña: {reserva.idCabaña}</p>
+          <p>Cantidad de Personas: {reserva.cantPersonas}</p>
+          <p>Monto Total: {reserva.montoTotal}</p>
+          <p>Fecha de Reserva: {reserva.fechaReservaFormatted}</p>
+          <p>Fecha de Inicio: {formatDate(reserva.fechaInicio)}</p>
+          <p>Fecha de Fin: {formatDate(reserva.fechaFin)}</p>
+          <p>Estado Actual: {reserva.estadoActual}</p>
+          <p>Nombre de Usuario: {reserva.nombreUsuario}</p>
+          <p>DNI: {reserva.dni}</p>
+          <p>Email: {reserva.email}</p>
+          <p>Teléfono: {reserva.telefono}</p>
+        </div>
+        <div>
+          {reserva.estadoActual === 'Pendiente' && (
+            <div>
+              <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
+              <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
+            </div>
+          )}
+          {reserva.estadoActual === 'Aceptada' && (
+            <div>
+              <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
+              <button onClick={handleIniciarByAdmin}>Iniciar Reserva</button>
+            </div>
+          )}
+          {reserva.estadoActual === 'Iniciada' && (
+            <div>
+              <button onClick={handleFinalizarByAdmin}>Finalizar Reserva</button>
+            </div>
+          )}
+          {reserva.estadoActual === 'Cancelada' && (
+            <div>
+              <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
+            </div>
+          )}
+        </div>
+        <div>
+          <h3>Estados de la reserva:</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Fecha</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {reserva.estados.map((estado, index) => (
+                <tr key={index}>
+                  <td>{estado.nombre}</td>
+                  <td>{estado.fechaInicioREFormatted}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

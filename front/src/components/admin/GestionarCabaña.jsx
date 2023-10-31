@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import es from 'date-fns/locale/es';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -14,6 +14,7 @@ const GestionarCabaña = () => {
   const [nuevaImagen, setNuevaImagen] = useState(null);
   const [estados, setEstados] = useState([]);
   const [selectedDateRange, setSelectedDateRange] = useState([null, null]);
+  const navigate = useNavigate();
 
   const fetchCabaña = async () => {
     try {
@@ -154,14 +155,20 @@ const GestionarCabaña = () => {
     }
   };
 
+  const handleCancelar = async () => {
+    navigate('/admin/cabañas')
+  }
+
 
   const currentImage = cabaña.imagenes && cabaña.imagenes[imagenIndex];
 
   return (
     <div className='gestionar-container'>
       <div className='gestionar-container2'>
-        <div><h2>Gestionar Cabaña {id}</h2></div>
-        <div>Tipo: {cabaña.tipocabaña}</div>
+        <div className='titulo'>
+          
+          <div><button onClick={handleCancelar}>Atrás</button></div>
+          <div><h2>Gestionar Cabaña {id}</h2></div></div>
         <div>Capacidad: {cabaña.tamaño}</div>
 
         <div><h3>Imágenes Existentes</h3></div>

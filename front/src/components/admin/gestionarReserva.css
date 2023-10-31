@@ -1,0 +1,16 @@
+.gestionar-reserva-container{
+    background-image: url('../../assets/loginBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gestionar-reserva{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+
+}

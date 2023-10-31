@@ -74,3 +74,13 @@
   .react-datepicker__day--in-range{
     background-color: #9A3B3B;
   }
+  .titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 1rem;
+  }
+
+  .titulo>div{
+    padding: 10px;
+  }

@@ -73,7 +73,6 @@ public class CostoTipoCabañaServicio {
         tipoCabaña.getCostos().add(costo);
         tipoCabañaRepositorio.save(tipoCabaña);
 
-        costoTipoCabañaRepositorio.save(costo);
 
     }
 }

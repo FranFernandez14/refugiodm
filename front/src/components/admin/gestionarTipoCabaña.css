@@ -101,4 +101,10 @@
   .center-modify-button {
     text-align: center;
   }
+
+  .desc{
+    resize: none;
+    width: 80vw;
+    height: 30vh;
+  }
   

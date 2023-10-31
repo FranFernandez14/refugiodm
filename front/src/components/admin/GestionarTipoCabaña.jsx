@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import './gestionarTipoCabaña.css'
 
 const GestionarTipoCabaña = () => {
     const { id } = useParams();
@@ -143,24 +144,19 @@ const GestionarTipoCabaña = () => {
                         <h3>Tipo de cabaña: {tipoCabaña.nombre}</h3>
                         <div>
                             <h4>Descripción:</h4>
-                            {modificandoDescripcion ? (
-                                <div>
-                                    <textarea
-                                        value={nuevaDescripcion}
-                                        onChange={(e) => setNuevaDescripcion(e.target.value)}
-                                    />
-                                    <button onClick={handleModificarDescripcion}>Guardar Descripción</button>
-                                    {descripcionModificada && (
-                                        <p style={{ color: 'green' }}>Descripción modificada correctamente</p>
+                            <div>
+                                <textarea
+                                    value={nuevaDescripcion}
+                                    onChange={(e) => setNuevaDescripcion(e.target.value)
+                                    }
+                                    className='desc'
+                                ></textarea>
+                                <button onClick={handleModificarDescripcion}>Guardar Descripción</button>
+                                {descripcionModificada && (
+                                    <p style={{ color: 'green' }}>Descripción modificada correctamente</p>
 
-                                    )}
-                                </div>
-                            ) : (
-                                <div>
-                                    <p>{tipoCabaña.descripcion}</p>
-                                    <button onClick={handleModificarDescripcionClick}>Modificar Descripción</button>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
                 )}
@@ -169,29 +165,27 @@ const GestionarTipoCabaña = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID de Costo</th>
                             <th>Valor Inicial</th>
                             <th>Valor por Persona</th>
-                            <th>Fecha/Hora de Alta</th>
-                            <th>Fecha/Hora de Baja</th>
+                            <th>Fecha de Alta</th>
+                            <th>Fecha de Baja</th>
                         </tr>
                     </thead>
                     <tbody>
                         {costos.map((costo) => (
                             <tr key={costo.IDCostoTipoCabaña}>
-                                <td>{costo.IDCostoTipoCabaña}</td>
                                 <td>{costo.valorInicial}</td>
                                 <td>{costo.valorPorPersona}</td>
                                 <td>{formatearFecha(new Date(costo.fechaHoraAlta))}</td>
                                 <td>
-                                    {costo.fechaHoraBaja ? new Date(costo.fechaHoraBaja).toLocaleString() : '-'}
+                                    {costo.fechaHoraBaja ? (formatearFecha(new Date(costo.fechaHoraBaja))) : '-'}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
 
-                {mostrarFormulario ? (
+                
                     <div>
                         <h4>Nuevo Costo:</h4>
                         <div>
@@ -212,9 +206,6 @@ const GestionarTipoCabaña = () => {
                         </div>
                         <button onClick={handleAgregarCosto}>Confirmar</button>
                     </div>
-                ) : (
-                    <button onClick={() => setMostrarFormulario(true)}>Agregar Nuevo Costo</button>
-                )}
 
                 <h4>Características del Tipo de Cabaña:</h4>
                 <table>
