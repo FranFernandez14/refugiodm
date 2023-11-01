@@ -1,20 +1,33 @@
+.perfil1-container{
+    background-image: url('../../assets/loginBackground.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .perfil1{
+    width: 40vw;
+    height: 86vh;
+    background-color: white;
+    border-radius: 10px;
     align-items: center;
     justify-content: center;
 }
 
-.Titulo1{
+.Titulo2{
     text-align: center;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 25px;
+    padding-top: 0.5rem;
 }
 
 .Datos1{
  align-items: center;
- background-color: white;
- height: 58vh;
- width: 80vw;
- border-radius: 10px;
+
  padding: auto;
  margin:auto;
  display: flex;
@@ -27,12 +40,6 @@
     display: flex;
 }
 
-.b1{
-    margin-top: 20px;
-    background-color: #ce8c61;
-    justify-content: space-between;
-    width: 48%;
-}
 
 .contra{
     color: black;

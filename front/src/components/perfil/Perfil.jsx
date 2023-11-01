@@ -4,8 +4,8 @@ import axios from 'axios';
 import './perfil.css';
 import { Link } from 'react-router-dom';
 
-const Perfil = ()  => {
-  
+const Perfil = () => {
+
   const [userId, setUserId] = useState(0);
   const [usuario, setUsuario] = useState([]);
 
@@ -29,44 +29,44 @@ const Perfil = ()  => {
       console.error('Error fetching data:', error);
     }
   };
-  
+
   return (
-    <div className='perfil'>
-      <br></br>
-      <div className='Titulo'>Mi Perfil</div>
-      <br></br>
-      <div className='Datos'>
-        <div className='interior'>
-          <div className='datoPersona'>Nombre: <p className='dato'> {usuario.nombre}</p></div>
-          <div className='datoPersona'>Apellido: <p className='dato'> {usuario.apellido}</p></div>
-          <div className='datoPersona'>Correo electrónico: <p className='dato'> {usuario.email}</p></div>
-          <div className='datoPersona'>Teléfono: <p className='dato'> {telefono (usuario)}</p></div>
-          <div className='datoPersona'>DNI: <p className='dato'> {dni (usuario)}</p></div>
-          <div className='botones'>
-          <button className='b1'><Link to="/">Volver Atrás</Link></button>
-          <button className='b1'><Link to="/perfil/modificardatos">Modificar Datos</Link></button>
-        </div>
+    <div className='perfil-container'>
+      <div className='perfil'>
+        <div className='Titulo'>Mi Perfil</div>
+        <div className='Datos'>
+          <div className='interior'>
+            <div className='datoPersona'>Nombre: <p className='dato'> {usuario.nombre}</p></div>
+            <div className='datoPersona'>Apellido: <p className='dato'> {usuario.apellido}</p></div>
+            <div className='datoPersona'>Correo electrónico: <p className='dato'> {usuario.email}</p></div>
+            <div className='datoPersona'>Teléfono: <p className='dato'> {telefono(usuario)}</p></div>
+            <div className='datoPersona'>DNI: <p className='dato'> {dni(usuario)}</p></div>
+            <div className='botones'>
+              <button className='b2'><Link to="/">Volver Atrás</Link></button>
+              <button className='b2'><Link to="/perfil/modificardatos">Modificar Datos</Link></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-function telefono (usuario){
+function telefono(usuario) {
   const num = usuario.nroTelefono;
-  if (num == null){
+  if (num == null) {
     return ('-')
-  }else{
+  } else {
     return (num)
   }
 }
-function dni (usuario){
+function dni(usuario) {
   const num_dni = usuario.dni;
-  if (num_dni == null){
+  if (num_dni == null) {
     return ('-')
-   }else{
+  } else {
     return (usuario.dni)
-   }
+  }
 }
 
 export default Perfil;

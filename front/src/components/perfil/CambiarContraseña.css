@@ -1,6 +1,21 @@
-.perfil1{
+.ccontraseña-container{
+    background-image: url('../../assets/loginBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 92vh;
+    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.ccontraseña{
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    height: 50vh;
+    padding: 1rem;
 }
 
 .Titulo1{
@@ -11,10 +26,7 @@
 
 .Campos{
  align-items: center;
- background-color: #9A3B3B;
- max-width: 500px;
  height: 45vh;
- width: 80vw;
  border-radius: 10px;
  padding: auto;
  margin:auto;

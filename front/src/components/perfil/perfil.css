@@ -1,22 +1,32 @@
+.perfil-container{
+    background-image: url('../../assets/loginBackground.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .perfil{
     align-items: center;
     justify-content: center;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .Titulo{
     text-align: center;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 25px;
+    padding-top: 1rem;
 }
 
 .Datos{
  align-items: center;
- background-color: white;
- height: 60vh;
+ height: 40vh;
  width: 40vw;
- border-radius: 10px;
- padding: auto;
- margin:auto;
  display: flex;
  flex-direction: column;
  justify-content: center;
@@ -24,7 +34,6 @@
 
 .interior{
     text-align: left;
-    display: inline;
 }
 
 .interior.div{
@@ -47,9 +56,9 @@
     margin-left: 10px;
 }
 
-.b1{
+.b2{
     margin-top: 25px;
-    background-color: #ce8c61;
-    justify-content: space-between;
-    width: 48%;
+    background-color: #9A3B3B;
+    justify-content: space-around;
+    width: 40%;
 }

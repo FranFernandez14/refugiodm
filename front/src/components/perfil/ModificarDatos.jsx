@@ -45,8 +45,12 @@ const ModificarDatos = () => {
     }
   };
 
+  const handleAtras = async () => {
+    navigate("/perfil")
+  }
+
   const handleModificarDatos = async () => {
-   
+
     const datosModificados = {
       idUsuario: userId,
       nombre: nombreIngresado,
@@ -60,31 +64,31 @@ const ModificarDatos = () => {
       // Envía una solicitud POST al servidor con los datos modificados
       const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', datosModificados);
       console.log('Datos modificados con éxito:', response.data);
-      if(response.status == 200){
+      if (response.status == 200) {
         navigate("/perfil")
       }
-    
+
     } catch (error) {
       console.error('Error al modificar datos:', error);
     }
   };
 
   return (
-    <div className='perfil1'>
-      <br></br>
-      <div className='Titulo1'>Mi Perfil</div>
-      <br></br>
-      <div className='Datos1'>
-        <div className='interior1'>
-          <div>Nombre: <input type='text' id='nombre' value={nombreIngresado} onChange={(e) => setNombre(e.target.value)} /></div>
-          <div>Apellido: <input type='text' id='apellido' value={apellidoIngresado} onChange={(e) => setApellido(e.target.value)} /> </div>
-          <div>Correo electrónico: <input type='text' id='mail' value={emailIngresado} onChange={(e) => setEmail(e.target.value)} /></div>
-          <div>Teléfono: <input type='text' id='mail' value={nroTelefonoIngresado} onChange={(e) => setTelefono(e.target.value)} /></div>
-          <div>DNI: <input type='text' id='dni' value={dniIngresado} onChange={(e) => setDni(e.target.value)} /></div>
-          <a className='contra'><h5><Link to="/perfil/cambiarcontraseña">Cambiar Contraseña</Link></h5></a>
-          <div className='botones1a'>
-            <button className='b1'><Link to="/perfil">Atrás</Link></button>
-            <button className='b1' onClick={handleModificarDatos}>Guardar</button>
+    <div className='perfil1-container'>
+      <div className='perfil1'>
+        <div className='Titulo2'>Mi Perfil</div>
+        <div className='Datos1'>
+          <div className='interior1'>
+            <div>Nombre: <input type='text' id='nombre' value={nombreIngresado} onChange={(e) => setNombre(e.target.value)} /></div>
+            <div>Apellido: <input type='text' id='apellido' value={apellidoIngresado} onChange={(e) => setApellido(e.target.value)} /> </div>
+            <div>Correo electrónico: <input type='text' id='mail' value={emailIngresado} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div>Teléfono: <input type='text' id='mail' value={nroTelefonoIngresado} onChange={(e) => setTelefono(e.target.value)} /></div>
+            <div>DNI: <input type='text' id='dni' value={dniIngresado} onChange={(e) => setDni(e.target.value)} /></div>
+            <a className='contra'><h5><Link to="/perfil/cambiarcontraseña">Cambiar Contraseña</Link></h5></a>
+            <div className='botones1a'>
+              <button className='b2' onClick={handleAtras}>Atrás</button>
+              <button className='b2' onClick={handleModificarDatos}>Guardar</button>
+            </div>
           </div>
         </div>
       </div>

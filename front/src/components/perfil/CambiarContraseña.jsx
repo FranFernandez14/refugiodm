@@ -57,24 +57,23 @@ const CambiarContraseña = () => {
       } catch (error) {
         setError('Error al cambiar la contraseña. Inténtalo de nuevo.');
         console.error('Error al cambiar la contraseña:', error);
-      }
-    }
-  };
+      }
+    }
+  };
   return (
-    <div className='perfil1'>
-      <br />
-      <div className='Titulo1'>Cambiar Contraseña</div>
-      <br />
-      <div className='Campos'>
-        <div>Contraseña Actual <input type='password' id='ContraActual' placeholder='*****' onChange={(e) => setContraseñaActual(e.target.value)}/></div>
-        <div>Nueva Contraseña <input type='password' id='ContraNueva' placeholder='*****' onChange={(e) => setContraseñaNueva(e.target.value)} /></div>
-        <div>Repetir Contraseña <input type='password' id='Repeticion' placeholder='*****' value={repeticion} onChange={(e) => setRepeticion(e.target.value)} /></div>
-        <div className='ContenedorBotones'>
-          <button className='b1'><Link to="/perfil/modificardatos">Cancelar</Link></button>
-          <button className='b1' onClick={handleConfirmarClick}>Confirmar</button>
+    <div className='ccontraseña-container'>
+      <div className='ccontraseña'>
+        <div className='Campos'>
+          <div>Contraseña Actual <input type='password' id='ContraActual' placeholder='*****' onChange={(e) => setContraseñaActual(e.target.value)} /></div>
+          <div>Nueva Contraseña <input type='password' id='ContraNueva' placeholder='*****' onChange={(e) => setContraseñaNueva(e.target.value)} /></div>
+          <div>Repetir Contraseña <input type='password' id='Repeticion' placeholder='*****' value={repeticion} onChange={(e) => setRepeticion(e.target.value)} /></div>
+          <div className='ContenedorBotones'>
+            <button className='b1'><Link to="/perfil/modificardatos">Cancelar</Link></button>
+            <button className='b1' onClick={handleConfirmarClick}>Confirmar</button>
+          </div>
+          {error && <p className="error">{error}</p>}
+          {mensaje && <p className="mensaje">{mensaje}</p>}
         </div>
-        {error && <p className="error">{error}</p>}
-        {mensaje && <p className="mensaje">{mensaje}</p>}
       </div>
     </div>
   );
