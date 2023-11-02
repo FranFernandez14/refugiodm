@@ -59,6 +59,7 @@ public class CabañaServicio {
     public List<Cabaña> buscar(BuscarCabañaDTO buscarCabañaDTO) {
         return cabañaRepositorio.findAll().stream()
                 .filter(cabaña -> cabaña.getTamaño() >= buscarCabañaDTO.getCantPersonas())
+                .filter(cabaña -> cabaña.getFechaHoraBajaCabaña() == null)
                 .filter(cabaña -> buscarCabañaDTO.getIdTipoCabaña() == 0 || buscarCabañaDTO.getIdTipoCabaña() == cabaña.getTipoCabaña().getIDTipoCabaña())
                 .filter(cabaña -> {
                     List<CabañaEstado> estados = cabaña.getEstados();

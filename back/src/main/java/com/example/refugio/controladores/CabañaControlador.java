@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -135,29 +136,31 @@ public class CabañaControlador {
         }
         return ResponseEntity.badRequest().body("No se han proporcionado imágenes");
     }
+    
 
     @GetMapping("/{id}/imagenes")
-    public ResponseEntity<List<byte[]>> getImagenes(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getImagenes(@PathVariable Long id) throws IOException {
         Optional<Cabaña> cabaña = cabañaServicio.getCabaña(id);
 
         if (cabaña.isPresent()) {
             List<CabañaImagen> imagenes = cabaña.get().getImagenes();
-            List<byte[]> imagenBytesList = new ArrayList<>();
 
+            // Concatenar todas las imágenes en un solo array de bytes
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             for (CabañaImagen imagen : imagenes) {
-                imagenBytesList.add(imagen.getImagen());
+                byteArrayOutputStream.write(imagen.getImagen());
             }
+            byte[] imagenBytes = byteArrayOutputStream.toByteArray();
 
             // Configura el tipo de contenido de la respuesta como imagen JPEG (o el adecuado)
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
 
-            return new ResponseEntity<>(imagenBytesList, headers, HttpStatus.OK);
+            return new ResponseEntity<>(imagenBytes, headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @GetMapping("/{cabañaId}/imagenes/{imagenId}")
     public ResponseEntity<byte[]> getImagen(@PathVariable Long cabañaId, @PathVariable Long imagenId) {
         Optional<Cabaña> cabaña = cabañaServicio.getCabaña(cabañaId);

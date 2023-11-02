@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './recuperacion.css'
 
 function GeneracionDeToken() {
   const [email, setEmail] = useState('');
@@ -26,13 +27,22 @@ function GeneracionDeToken() {
     }
   };
 
+  const handleAtras = async () => {
+    navigate("/login")
+  }
+
+
   return (
-    <div>
-      <Link to="/login">Atrás</Link>
-      <h2>Ingrese su correo electrónico para recuperar su contraseña</h2>
-      <input type="email" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <button onClick={handleEnviarToken}>Confirmar correo electrónico</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className='recuperacion-container'>
+      <div className='recuperacion'>
+        <div>
+          <div><button onClick={handleAtras}>Atras</button></div>
+          <div><h4>Ingrese su correo electrónico</h4></div>
+        </div>
+        <input type="email" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <button onClick={handleEnviarToken}>Confirmar correo electrónico</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }

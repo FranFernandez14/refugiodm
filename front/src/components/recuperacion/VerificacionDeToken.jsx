@@ -30,11 +30,12 @@ function VerificacionDeToken() {
   };
 
   return (
-    <div>
-      <h2>Ingrese el token que le hemos enviado por correo electrónico:</h2>
-      <input type="text" placeholder="Token" value={token} onChange={(e) => setToken(e.target.value)} />
-      <button onClick={handleVerificarToken}>Confirmar</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className='recuperacion-container'>
+      <div className='recuperacion'><h4>Ingrese el token</h4>
+        <input type="text" placeholder="Token" value={token} onChange={(e) => setToken(e.target.value)} />
+        <button onClick={handleVerificarToken}>Confirmar</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }

@@ -84,9 +84,9 @@ const BuscadorCabaña = () => {
               <div><img src={Cabin} width="50px" height="50px" /></div>
               <div>
                 <select className='selector' value={idTipoCabaña} onChange={handleTipoCabañaChange}>
-                  <option value="">Todas</option>
+                  <option value="0">Todas</option>
                   {tiposCabaña.map((tipoCabaña) => (
-                    <option key={tipoCabaña.idtipoCabaña} value={tipoCabaña.idtipoCabaña}>
+                    <option key={tipoCabaña.id} value={tipoCabaña.id}>
                       {tipoCabaña.nombre}
                     </option>
                   ))}

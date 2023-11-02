@@ -42,12 +42,14 @@ function RecuperarContraseña() {
   };
 
   return (
-    <div>
-      <h2>Ingrese la contraseña nueva:</h2>
-      <input type="password" placeholder="Contraseña nueva" value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
-      <input type="password" placeholder="Confirmar contraseña" value={confirmarContraseña} onChange={(e) => setConfirmarContraseña(e.target.value)} />
-      <button onClick={handleCambiarContraseña}>Confirmar</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className='recuperacion-container'>
+      <div className='recuperacion-contraseña'>
+        <h4>Ingrese la contraseña nueva:</h4>
+        <input type="password" placeholder="Contraseña nueva" value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
+        <input type="password" placeholder="Confirmar contraseña" value={confirmarContraseña} onChange={(e) => setConfirmarContraseña(e.target.value)} />
+        <button onClick={handleCambiarContraseña}>Confirmar</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }

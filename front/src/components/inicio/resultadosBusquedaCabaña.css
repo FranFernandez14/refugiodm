@@ -1,0 +1,53 @@
+/* resultadosBusquedaCabaña.css */
+.cabañas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .cabaña-card {
+    width: 30%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .cabaña-card h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  .imagen-container {
+    margin-top: 10px;
+  }
+  
+  .cabaña-imagen {
+    width: 100%;
+  }
+  
+  .cabaña-card p {
+    font-size: 1rem;
+
+  }
+  
+  .cabaña-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .caracteristica-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .svg-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+  

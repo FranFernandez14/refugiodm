@@ -4,7 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import es from 'date-fns/locale/es';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './gestionarCabaña.css'
+import { Carousel } from 'react-responsive-carousel'; // Importar Carousel desde la librería
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Estilos de Carousel
+import './gestionarCabaña.css';
 
 
 const GestionarCabaña = () => {
@@ -166,44 +168,42 @@ const GestionarCabaña = () => {
     <div className='gestionar-container'>
       <div className='gestionar-container2'>
         <div className='titulo'>
-          
           <div><button onClick={handleCancelar}>Atrás</button></div>
-          <div><h2>Gestionar Cabaña {id}</h2></div></div>
+          <div><h2>Gestionar Cabaña {id}</h2></div>
+        </div>
         <div>Capacidad: {cabaña.tamaño}</div>
 
         <div><h3>Imágenes Existentes</h3></div>
         <div>
-          {currentImage && (
+          {cabaña.imagenes && cabaña.imagenes.length > 0 && ( // Comprobar si hay imágenes
             <div id="imagen-container">
-              <div id='cabaña-imagen-container'>
-                <img className='cabaña-imagen'
-                  src={`http://localhost:8080/api/cabañas/${id}/imagenes/${currentImage.id}`}
-                  alt="Cabaña"
-                />
-              </div>
-              <div className='botones-gestionar'>
-                <div>
-                  <button onClick={handlePrevImage}>Anterior</button>
-                </div>
-                <div>
-                  <button onClick={() => handleEliminarImagen(currentImage.id)}>Eliminar</button>
-                </div>
-                <div>
-                  <button onClick={handleNextImage}>Siguiente</button>
-                </div>
-
-
-              </div>
+              <Carousel
+              className='carousel'
+                selectedItem={imagenIndex}
+                showThumbs={false}
+                dynamicHeight={true} // Opcional: ajusta la altura automáticamente
+              >
+                {cabaña.imagenes.map((imagen, index) => (
+                  <div key={imagen.id}>
+                    <img
+                      className='cabaña-imagen'
+                      src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
+                      alt={`Cabaña ${id} - Imagen ${index + 1}`}
+                    />
+                  </div>
+                ))}
+              </Carousel>
             </div>
           )}
           <div>
             <div>
-              <div><input
-                type="file"
-                name=""
-                onChange={(e) => setNuevaImagen(e.target.files)}
-                multiple
-              />
+              <div>
+                <input
+                  type="file"
+                  name=""
+                  onChange={(e) => setNuevaImagen(e.target.files)}
+                  multiple
+                />
               </div>
               <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
             </div>

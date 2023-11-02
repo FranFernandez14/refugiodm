@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { decodeToken } from 'react-jwt';
+import './detalleReserva.css'
+import checkIcon from '../../assets/tilde-verde.svg'
 
 const DetalleReserva = () => {
   const location = useLocation();
@@ -31,98 +33,69 @@ const DetalleReserva = () => {
   const navigate = useNavigate();
 
   const handleConfirmarReserva = () => {
-    setMostrarConfirmarModal(true);
-    setMostrarCancelarModal(false);
-  };
-
-  const handleCancelarReserva = () => {
-    setMostrarCancelarModal(true);
-    setMostrarConfirmarModal(false);
-  };
-
-  const handleConfirmarReservaAceptado = () => {
     axios
       .post('http://localhost:8080/api/reservas/reservar', {
-        IDUsuario: id, 
+        IDUsuario: id,
         IDCabaña: idCabaña,
         cantPersonas: tamaño,
         montoTotal: costoTotal,
-        fechaInicio: fechaInicio.toISOString().substring(0,10),
-        fechaFin: fechaFin.toISOString().substring(0,10),
+        fechaInicio: fechaInicio.toISOString().substring(0, 10),
+        fechaFin: fechaFin.toISOString().substring(0, 10),
       })
       .then((response) => {
-        setReservaConfirmada(true);
-        navigate('/');
+        if (response.status === 200) {
+          setReservaConfirmada(true);
+        }
       })
       .catch((error) => {
         console.error('Error al confirmar la reserva:', error);
       });
-    setMostrarConfirmarModal(false);
   };
 
-  const handleConfirmarCancelar = (confirmar) => {
-    if (confirmar) {
-      navigate('/');
-    } else {
-      setMostrarCancelarModal(false);
-    }
+  const handleCancelarReserva = () => {
+    navigate('/');
   };
 
   return (
-    <div>
-      {reservaConfirmada ? (
-        <div>
-          <h2>Reserva Confirmada</h2>
-          <p>ID de Reserva: #{/* Deberías mostrar el ID de reserva aquí */}</p>
-          <p>Tipo de Cabaña: {nombreTipoCabaña}</p>
-          <p>Características:</p>
-          <ul>
-            {caracteristicas.map((caracteristica) => (
-              <li key={caracteristica.idCaracteristica}>
-                {caracteristica.nombreCaracteristica}
-              </li>
-            ))}
-          </ul>
-          <p>Costo Total: ${costoTotal}</p>
-          <p>Fecha de Inicio: {fechaInicio.toISOString().substring(0,10)}</p>
-          <p>Fecha de Fin: {fechaFin.toISOString().substring(0,10)}</p>
+    <div className='detalle-reserva-container'>
+      <div className='detalle-reserva'>
+        <h2>Detalle de la Reserva</h2>
+        <p>Cabaña N° {idCabaña}</p>
+        <p>Tipo de Cabaña: {nombreTipoCabaña}</p>
+        <p>Características:</p>
+        <div id='caracteristicas'><ul>
+          {caracteristicas.map((caracteristica) => (
+            <li key={caracteristica.nombreCaracteristica}>
+              <div className="caracteristica-item">
+                <img src={checkIcon} alt="Check Icon" className="svg-icon" />
+                <span>{caracteristica.nombreCaracteristica}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
         </div>
-      ) : (
-        <div>
-          <h2>Detalle de la Reserva</h2>
-          <p>ID de Cabaña: {idCabaña}</p>
-          <p>Tipo de Cabaña: {nombreTipoCabaña}</p>
-          <p>Características:</p>
-          <ul>
-            {caracteristicas.map((caracteristica) => (
-              <li key={caracteristica.idCaracteristica}>
-                {caracteristica.nombreCaracteristica}
-              </li>
-            ))}
-          </ul>
-          <p>Costo Total: ${costoTotal}</p>
-          <p>Fecha de Inicio: {fechaInicio.toISOString().substring(0,10)}</p>
-          <p>Fecha de Fin: {fechaFin.toISOString().substring(0,10)}</p>
-          <button onClick={handleConfirmarReserva}>Confirmar Reserva</button>
-          <button onClick={handleCancelarReserva}>Cancelar</button>
-        </div>
-      )}
 
-      {mostrarCancelarModal && (
-        <div className="modal">
-          <h2>¿Está seguro que desea cancelar?</h2>
-          <button onClick={() => handleConfirmarCancelar(true)}>Sí</button>
-          <button onClick={() => handleConfirmarCancelar(false)}>No</button>
-        </div>
-      )}
+        <p>Costo Total: ${costoTotal}</p>
+        <p>Fecha de Inicio: {fechaInicio.toISOString().substring(0, 10)}</p>
+        <p>Fecha de Fin: {fechaFin.toISOString().substring(0, 10)}</p>
 
-      {mostrarConfirmarModal && (
-        <div className="modal">
-          <h2>¿Está seguro que desea confirmar la reserva?</h2>
-          <button onClick={handleConfirmarReservaAceptado}>Sí</button>
-          <button onClick={() => setMostrarConfirmarModal(false)}>No</button>
-        </div>
-      )}
+        {reservaConfirmada ? (
+          <p style={{ color: 'green' }}>Reserva confirmada</p>
+        ) : (
+          <div className='detalle-botones'>
+            <div>
+              <button onClick={handleConfirmarReserva}>Confirmar Reserva</button>
+            </div>
+            <div>
+              <button onClick={handleCancelarReserva}>Cancelar</button>
+            </div>
+          </div>
+        )}
+
+        {reservaConfirmada && (
+          <button onClick={() => navigate('/reservas')}>Ir a mis reservas</button>
+        )}
+      </div>
     </div>
   );
 };

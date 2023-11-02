@@ -38,12 +38,14 @@
 
 #cabaña-imagen-container {
   display: flex;
-  width: 50%;
 }
 
 .cabaña-imagen{
-  width: 100%;
-  display: block; 
+  max-width: 600px; /* Ajusta el ancho máximo de la imagen */
+  max-height: 600px; 
+}
+.carousel{
+
 }
 
 #calendario-estados-container{
@@ -83,4 +85,8 @@
 
   .titulo>div{
     padding: 10px;
+  }
+
+  .carousel-image-smaller {
+/* Ajusta el alto máximo de la imagen */
   }

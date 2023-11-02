@@ -66,24 +66,24 @@ export default function Navbar() {
         )}
         {userRoles === 1 && (
           <>
-            <li><Link to="/perfil">Mi perfil</Link></li>
-            <li><Link to="/reservas">Mis reservas</Link></li>
+            <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
+            <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
             <li><Link onClick={handleLogout} >Cerrar sesión</Link></li>
           </>
         )}
         {userRoles === 2 && (
           <>
-            <li><Link to="/perfil">Mi perfil</Link></li>
-            <li><Link to="/reservas">Mis reservas</Link></li>
-            <li><Link to="/admin/reservas">Menú de administrador</Link></li>
+            <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
+            <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
+            <li><Link to="/admin/reservas" onClick={handleToggleMenu}>Menú de administrador</Link></li>
             <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
           </>
         )}
         {userRoles === 3 && (
           <>
-            <li><Link to="/perfil">Mi perfil</Link></li>
-            <li><Link to="/reservas">Mis reservas</Link></li>
-            <li><Link to="/admin/reservas">Menú de administrador</Link></li>
+            <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
+            <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
+            <li><Link to="/admin/reservas" onClick={handleToggleMenu}>Menú de administrador</Link></li>
             <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
           </>
         )}

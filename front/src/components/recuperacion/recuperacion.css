@@ -1,0 +1,43 @@
+.recuperacion-container{
+    background-image: url('../../assets/loginBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recuperacion{
+    height: 30vh;
+    width: 70vh;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.recuperacion div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-right: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.recuperacion-contraseña{
+    height: 30vh;
+    width: 70vh;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
