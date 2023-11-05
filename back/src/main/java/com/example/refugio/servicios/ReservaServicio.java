@@ -254,7 +254,7 @@ public class ReservaServicio {
         });
 
         ReservaEstado reservaEstado = new ReservaEstado();
-        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el adminastrador").get());
+        reservaEstado.setEstadoReserva(estadoReservaRepositorio.findByNombreER("Cancelada por el administrador").get());
         reservaEstado.setFechaInicioRE(LocalDateTime.now());
         reservaEstado.setReserva(reserva);
         reservaEstadoServicio.saveOrUpdate(reservaEstado);

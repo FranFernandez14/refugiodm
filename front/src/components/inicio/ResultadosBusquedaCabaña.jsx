@@ -4,14 +4,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './resultadosBusquedaCabaña.css';
-import checkIcon from '../../assets/tilde-verde.svg'
+import checkIcon from '../../assets/tilde-verde.svg';
 
 const ResultadosBusquedaCabaña = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { resultados, fechaInicio, fechaFin } = location.state;
   const [precios, setPrecios] = useState({});
-  const [imagenIndex, setImagenIndex] = useState(0);
+  // Usar un objeto para rastrear el índice de la imagen seleccionada por cabaña
+  const [imagenIndices, setImagenIndices] = useState({});
 
   useEffect(() => {
     resultados.forEach((cabaña) => {
@@ -21,6 +22,11 @@ const ResultadosBusquedaCabaña = () => {
           setPrecios((prevPrecios) => ({
             ...prevPrecios,
             [cabaña.idcabaña]: response.data,
+          }));
+          // Inicializar el índice de la imagen seleccionada para cada cabaña
+          setImagenIndices((prevIndices) => ({
+            ...prevIndices,
+            [cabaña.idcabaña]: 0,
           }));
         })
         .catch((error) => {
@@ -45,8 +51,12 @@ const ResultadosBusquedaCabaña = () => {
     return precioTotal;
   };
 
-  const handleImageChange = (index) => {
-    setImagenIndex(index);
+  const handleImageChange = (cabañaId, index) => {
+    // Actualizar el índice de la imagen seleccionada para la cabaña específica
+    setImagenIndices((prevIndices) => ({
+      ...prevIndices,
+      [cabañaId]: index,
+    }));
   };
 
   return (
@@ -61,9 +71,9 @@ const ResultadosBusquedaCabaña = () => {
             {cabaña.imagenes && cabaña.imagenes.length > 0 && (
               <div className="imagen-container">
                 <Carousel
-                  selectedItem={imagenIndex}
+                  selectedItem={imagenIndices[cabaña.idcabaña]} // Usar el índice específico
                   showThumbs={false}
-                  onChange={handleImageChange}
+                  onChange={(index) => handleImageChange(cabaña.idcabaña, index)} // Pasar el ID de la cabaña
                 >
                   {cabaña.imagenes.map((imagen) => (
                     <div key={imagen.id}>
@@ -82,11 +92,11 @@ const ResultadosBusquedaCabaña = () => {
             <div id='caracteristicas'><ul>
               {cabaña.tipoCabaña.caracteristicas.map((caracteristica) => (
                 <li key={caracteristica.nombreCaracteristica}>
-                <div className="caracteristica-item">
+                  <div className="caracteristica-item">
                     <img src={checkIcon} alt="Check Icon" className="svg-icon" />
                     <span>{caracteristica.nombreCaracteristica}</span>
-                </div>
-            </li>
+                  </div>
+                </li>
               ))}
             </ul>
             </div>
