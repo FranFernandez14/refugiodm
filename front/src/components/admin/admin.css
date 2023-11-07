@@ -61,5 +61,18 @@ table{
 .modal-content button{
     flex-grow: 1;
     border-radius: 0;
+}
 
+.button-ganancia {
+    background-color: #efedc1;
+    color: black;
+    width: 42.5vw;
+    margin: 1rem 0;
+    border-radius: 0;
+}
+.button-ganancia:hover {
+    background-color: #efedc1
+}
+.button-ganancia-mod {
+    border-left: 1px solid black;
 }

@@ -38,11 +38,11 @@ function Login() {
       <div className='login'>
         <div className='login1'>
           <div className='login2'>
-            <div>
+
               <button className='atras' onClick={handleCancelar}>
-                <img src={Atras} width="22px" height="22px" id='svgatras' />
+                Atrás
               </button>
-            </div>
+            
             <div className='tituloLogin'>
               Iniciar sesión
             </div>
@@ -76,7 +76,7 @@ function Login() {
           </button>
           <div id='noregistrado'>
             <div>¿No estás registrado?</div>
-            <div><Link to="/registro"><div className='links'>Registrarse</div></Link></div>
+            <div><Link to="/registro"><div className='links links-mod'>Registrarse</div></Link></div>
           </div>
         </div>
       </div>
