@@ -80,7 +80,7 @@ const GestionarReserva = ({ }) => {
       <div className='gestionar-reserva'>
         <h2>Gestionar Reserva</h2>
         <div>
-          <h3>Detalles de la reserva:</h3>
+          <h3 className='titulo-estados'>Detalles de la reserva:</h3>
           <p>ID de Cabaña: {reserva.idCabaña}</p>
           <p>Cantidad de Personas: {reserva.cantPersonas}</p>
           <p>Monto Total: {reserva.montoTotal}</p>
@@ -95,7 +95,7 @@ const GestionarReserva = ({ }) => {
         </div>
         <div>
           {reserva.estadoActual === 'Pendiente' && (
-            <div>
+            <div className='reserva-buttons'>
               <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
               <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
             </div>
@@ -118,7 +118,7 @@ const GestionarReserva = ({ }) => {
           )}
         </div>
         <div>
-          <h3>Estados de la reserva:</h3>
+          <h3 className='titulo-estados'>Estados de la reserva:</h3>
           <table>
             <thead>
               <tr>

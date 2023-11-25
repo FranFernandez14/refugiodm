@@ -1,12 +1,12 @@
 .reservas-usuario-container {
   max-width: 80%;
-  margin: 0 auto;
-  padding: 2%;
+  margin: 1rem auto;
 }
 
 .reservas-titulo {
-  font-size: 3vw;
-  margin-bottom: 1%;
+  font-size: 1.5rem;
+
+  text-align: center;
 }
 
 .reservas-error {
@@ -26,18 +26,21 @@
 .reserva-item {
   border: 1px solid #ccc;
   padding: 2%;
-  margin: 2% 0;
+  margin: 1rem 0;
+}
+.reserva-item > button {
+  margin-top: 1rem;
 }
 
 .reserva-id {
-  font-size: 2vw;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
 .reserva-fecha,
 .reserva-descripcion {
-  font-size: 1.5vw;
-  margin-bottom: 1%;
+  font-size: 1rem;
+  margin-bottom: .1rem;
 }
 
 .container-calificacion {
@@ -85,4 +88,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.reserva-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  margin: .5rem 0;
+}
+.reserva-buttons-mod {
+  justify-content: end;
 }

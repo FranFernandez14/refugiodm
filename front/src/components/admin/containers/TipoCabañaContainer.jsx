@@ -42,8 +42,8 @@ const TipoCabañaContainer = () => {
                 <td>{tipoCabaña.cantCabañas}</td>
                 <td>{tipoCabaña.valorPorPersonaActual}</td>
                 <td>{tipoCabaña.valorInicialActual}</td>
-                <td>
-                  <Link to={`/gestionartipo/${tipoCabaña.id}`}>Editar</Link>
+                <td className='button-table-container'>
+                  <button><Link className="modify-button" to={`/gestionartipo/${tipoCabaña.id}`}>Editar</Link></button>
                 </td>
               </tr>
             ))}

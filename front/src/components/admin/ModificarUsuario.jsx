@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './admin.css';
 const ModificarUsuario = ({ usuario }) => {
 
   const handleAsignarRol = async (rol) => {
@@ -48,27 +48,27 @@ const ModificarUsuario = ({ usuario }) => {
       <div className="modal">
         <div className="modal-content">
           {usuario.roles.length !== 3 && (
-            <button onClick={() => handleAsignarRol('asignarAdministrador')}>
+            <button className="modify-button" onClick={() => handleAsignarRol('asignarAdministrador')}>
               Asignar Administrador
             </button>
           )}
           {usuario.roles.length !== 2 && (
-            <button onClick={() => handleAsignarRol('asignarEmpleado')}>
+            <button className="modify-button" onClick={() => handleAsignarRol('asignarEmpleado')}>
               Asignar Empleado
             </button>
           )}
           {usuario.roles.length !== 1 && (
-            <button onClick={() => handleAsignarRol('asignarUsuario')}>
+            <button className="modify-button" onClick={() => handleAsignarRol('asignarUsuario')}>
               Asignar Usuario
             </button>
           )}
           {usuario.fechaHoraBaja == null && (
-            < button onClick={() => handleDarBaja()}>
+            < button className="modify-button" onClick={() => handleDarBaja()}>
               Dar de baja
             </button>
           )}
           {usuario.fechaHoraBaja != null && (
-            < button onClick={() => handleCancelarBaja()}>
+            < button className="modify-button" onClick={() => handleCancelarBaja()}>
               Cancelar baja
             </button>
           )}

@@ -167,13 +167,13 @@ const GestionarCabaña = () => {
   return (
     <div className='gestionar-container'>
       <div className='gestionar-container2'>
+          <div className='back-button'><button onClick={handleCancelar}>Atrás</button></div>
         <div className='titulo'>
-          <div><button onClick={handleCancelar}>Atrás</button></div>
           <div><h2>Gestionar Cabaña {id}</h2></div>
         </div>
         <div>Capacidad: {cabaña.tamaño}</div>
 
-        <div><h3>Imágenes Existentes</h3></div>
+        <div><h3>Imágenes existentes:</h3></div>
         <div>
           {cabaña.imagenes && cabaña.imagenes.length > 0 && ( // Comprobar si hay imágenes
             <div id="imagen-container">
@@ -184,7 +184,7 @@ const GestionarCabaña = () => {
                 dynamicHeight={true} // Opcional: ajusta la altura automáticamente
               >
                 {cabaña.imagenes.map((imagen, index) => (
-                  <div key={imagen.id}>
+                  <div key={imagen.id} className='cabaña-imagen-container'>
                     <img
                       className='cabaña-imagen'
                       src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
@@ -203,6 +203,7 @@ const GestionarCabaña = () => {
                   name=""
                   onChange={(e) => setNuevaImagen(e.target.files)}
                   multiple
+                  className='input-file'
                 />
               </div>
               <div><button onClick={handleAgregarImagen}>Agregar Imágenes</button></div>
@@ -327,7 +328,7 @@ const GestionarCabaña = () => {
       </div>
       {cabaña.fechaHoraBajaCabaña == null &&
 
-        <div>
+        <div className='baja-button'>
           <button onClick={() =>handleDarBaja()}>Dar de baja</button>
         </div>
       }

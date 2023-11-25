@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
 }
 
 .admin-usuario{
@@ -17,17 +18,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 #reserva-buttons{
     display: flex;
     flex-direction: row;
-    margin: 1rem 0;
+
 }
 
 #reserva-buttons>div{
     transition: background-color 0.3s ease; 
     padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
 
 #reserva-buttons>div:hover{
@@ -35,10 +39,10 @@
 }
 #reserva-buttons>div {
     border-bottom: 1px solid brown;
-    margin: 0 .3rem;
+
 }
 #reserva-buttons>div>a {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     color: brown;
 }
@@ -75,4 +79,21 @@ table{
 }
 .button-ganancia-mod {
     border-left: 1px solid black;
+}
+.reserva-container-mod {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 1rem;
+}
+.modify-button {
+    margin: .1rem;
+}
+.button-table-container {
+    display: flex;
+    justify-content: center;
 }

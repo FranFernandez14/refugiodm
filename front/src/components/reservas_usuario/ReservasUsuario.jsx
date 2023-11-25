@@ -56,7 +56,7 @@ const ReservasUsuario = () => {
       <ul className="reservas-lista">
         {reservas.map(reserva => (
           <li key={reserva.id} className="reserva-item">
-            <h3 className="reserva-id">Reserva #{reserva.idReserva}</h3>
+            <h3 className="reservas-titulo">Reserva #{reserva.idReserva}</h3>
             <p className='reserva-descripcion'>Cabaña N°{reserva.idCabaña}</p>
             <p className="reserva-fecha">Fecha de Ingreso: {new Date(reserva.fechaInicio).toLocaleDateString()}</p>
             <p className="reserva-fecha">Fecha de Salida: {new Date(reserva.fechaFin).toLocaleDateString()}</p>
@@ -64,17 +64,23 @@ const ReservasUsuario = () => {
             <p className='reserva-descripcion'>Estado actual: {reserva.estadoActual}</p>
             <p className='reserva-descripcion'>Monto: ${reserva.montoTotal}</p>
             {reserva.estadoActual === 'Finalizada' && (
-              <Link to={`/calificar/${reserva.idReserva}`}>
-                <button>Calificar</button>
-              </Link>
+              <div className="reserva-buttons">
+                <Link to={`/calificar/${reserva.idReserva}`}>
+                  <button>Calificar</button>
+                </Link>
+              </div>
             )}
             {reserva.estadoActual === 'Pendiente' && (
-              <button onClick={() => handleCancelarReserva(reserva.idReserva)}>Cancelar</button>
+              <div className="reserva-buttons reserva-buttons-mod">
+                <button onClick={() => handleCancelarReserva(reserva.idReserva)}>Cancelar</button>
+              </div>
             )}
             {reserva.estadoActual === 'Calificada' && (
-              <Link to={`/editar-calificacion/${reserva.idReserva}`}>
-                <button>Editar Calificación</button>
-              </Link>
+              <div className="reserva-buttons">
+                <Link to={`/editar-calificacion/${reserva.idReserva}`}>
+                  <button>Editar Calificación</button>
+                </Link>
+              </div>
             )}
           </li>
         ))}

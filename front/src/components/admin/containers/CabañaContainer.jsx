@@ -99,7 +99,7 @@ const CabañaContainer = () => {
                 <td>{cabaña.idcabaña}</td>
                 <td>{cabaña.tamaño}</td>
                 <td>{cabaña.tipoCabaña.nombre}</td>
-                <td>
+                <td className='button-table-container'>
                   <button onClick={() => handleGestionarCabaña(cabaña.idcabaña)}>Gestionar Cabaña</button>
                 </td>
               </tr>

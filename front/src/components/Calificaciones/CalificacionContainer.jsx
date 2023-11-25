@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Calificacion from './Calificacion';
+import "./calificacion.css"
 
 const CalificacionContainer = () => {
   const [calificaciones, setCalificaciones] = useState([]);

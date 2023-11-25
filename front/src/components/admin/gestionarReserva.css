@@ -12,5 +12,20 @@
     background-color: white;
     padding: 1rem;
     border-radius: 10px;
-
+    width: 40vw;
+}
+.gestionar-reserva > h2 {
+    text-align: center;
+}
+.reserva-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 1rem 0;
+}
+.reserva-buttons > button {
+    margin: 0 .5rem;
+}
+.titulo-estados {
+    text-align: center;
 }
