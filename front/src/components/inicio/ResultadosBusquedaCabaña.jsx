@@ -65,10 +65,10 @@ const ResultadosBusquedaCabaña = () => {
       <div className="cabañas-grid">
         {resultados.map((cabaña) => (
           <div key={cabaña.idcabaña} className="cabaña-card">
-            <div>
-            <h3 className='cabaña-title'>Cabaña N° {cabaña.idcabaña}</h3>
-            <p>Tipo de Cabaña: {cabaña.tipoCabaña.nombre}</p>
-            <p>Tamaño: {cabaña.tamaño}</p>
+            <div className='contenedor-caracteristicas'>
+              <h3 className='cabaña-title'>Cabaña N° {cabaña.idcabaña}</h3>
+              <p>Tipo de Cabaña: {cabaña.tipoCabaña.nombre}</p>
+              <p>Tamaño: {cabaña.tamaño}</p>
             </div>
             {cabaña.imagenes && cabaña.imagenes.length > 0 && (
               <div className="imagen-container">
@@ -89,21 +89,22 @@ const ResultadosBusquedaCabaña = () => {
                 </Carousel>
               </div>
             )}
-            <div>
-            <p>Costo Total: ${calcularPrecioTotal(cabaña)}</p>
-            <p>Características:</p>
+            <div className='contenedor-caracteristicas-mod'>
+              <p>Costo Total: ${calcularPrecioTotal(cabaña)}</p>
+              <p>Características:</p>
+              <div id='caracteristicas'><ul>
+                {cabaña.tipoCabaña.caracteristicas.map((caracteristica) => (
+                  <li key={caracteristica.nombreCaracteristica}>
+                    <div className="caracteristica-item">
+                      <img src={checkIcon} alt="Check Icon" className="svg-icon" />
+                      <span>{caracteristica.nombreCaracteristica}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              </div>
             </div>
-            <div id='caracteristicas'><ul>
-              {cabaña.tipoCabaña.caracteristicas.map((caracteristica) => (
-                <li key={caracteristica.nombreCaracteristica}>
-                  <div className="caracteristica-item">
-                    <img src={checkIcon} alt="Check Icon" className="svg-icon" />
-                    <span>{caracteristica.nombreCaracteristica}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            </div>
+
             <button
               onClick={() => {
                 navigate(`/detalle-reserva/${cabaña.idcabaña}`, {
