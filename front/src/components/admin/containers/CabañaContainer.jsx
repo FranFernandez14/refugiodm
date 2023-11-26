@@ -69,8 +69,8 @@ const CabañaContainer = () => {
       <Sidebar />
       <div className='admin-right-content'>
         <h2>Cabañas</h2>
-        <select value={selectedTipoCabaña} onChange={handleTipoCabañaChange}>
-          <option value="">Seleccione un tipo de cabaña</option>
+        <select className='input-tamaño' value={selectedTipoCabaña} onChange={handleTipoCabañaChange}>
+          <option value="" >Seleccione un tipo de cabaña</option>
           {tiposCabaña.map((tipoCabaña) => (
             <option key={tipoCabaña.id} value={tipoCabaña.nombre}>
               {tipoCabaña.nombre}
@@ -82,8 +82,9 @@ const CabañaContainer = () => {
           value={selectedTamaño}
           onChange={handleTamañoChange}
           placeholder="Tamaño de Cabaña"
+          className='input-tamaño input-mod'
         />
-        <button onClick={handleAddCabaña}>Agregar Cabaña</button>
+        <button onClick={handleAddCabaña} className='button-mod'>Agregar Cabaña</button>
         <table>
           <thead>
             <tr>

@@ -60,14 +60,16 @@ const ResultadosBusquedaCabaña = () => {
   };
 
   return (
-    <div>
-      <h2>Resultados de la Búsqueda de Cabañas</h2>
+    <div className='resultados-container'>
+      <h2 className='resultados-title'>Resultados de la Búsqueda de Cabañas</h2>
       <div className="cabañas-grid">
         {resultados.map((cabaña) => (
           <div key={cabaña.idcabaña} className="cabaña-card">
-            <h3>Cabaña N° {cabaña.idcabaña}</h3>
+            <div>
+            <h3 className='cabaña-title'>Cabaña N° {cabaña.idcabaña}</h3>
             <p>Tipo de Cabaña: {cabaña.tipoCabaña.nombre}</p>
             <p>Tamaño: {cabaña.tamaño}</p>
+            </div>
             {cabaña.imagenes && cabaña.imagenes.length > 0 && (
               <div className="imagen-container">
                 <Carousel
@@ -76,7 +78,7 @@ const ResultadosBusquedaCabaña = () => {
                   onChange={(index) => handleImageChange(cabaña.idcabaña, index)} // Pasar el ID de la cabaña
                 >
                   {cabaña.imagenes.map((imagen) => (
-                    <div key={imagen.id}>
+                    <div key={imagen.id} className='cabaña-imagen-container'>
                       <img
                         className="cabaña-imagen"
                         src={`http://localhost:8080/api/cabañas/${cabaña.idcabaña}/imagenes/${imagen.id}`}
@@ -87,8 +89,10 @@ const ResultadosBusquedaCabaña = () => {
                 </Carousel>
               </div>
             )}
+            <div>
             <p>Costo Total: ${calcularPrecioTotal(cabaña)}</p>
             <p>Características:</p>
+            </div>
             <div id='caracteristicas'><ul>
               {cabaña.tipoCabaña.caracteristicas.map((caracteristica) => (
                 <li key={caracteristica.nombreCaracteristica}>

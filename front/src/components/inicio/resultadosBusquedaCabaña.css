@@ -13,25 +13,23 @@
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .cabaña-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 0;
     color: #333;
+    text-align: center;
   }
   
   .imagen-container {
-    margin-top: 10px;
+    margin-top: 1rem;
   }
-  
-  .cabaña-imagen {
-    width: 100%;
-  }
-  
   .cabaña-card p {
-    font-size: 1rem;
-
+    font-size: .9rem;
   }
   
   .cabaña-card ul {
@@ -39,15 +37,28 @@
     padding: 0;
     margin: 0;
   }
-  
   .caracteristica-item {
     display: flex;
     align-items: center;
   }
-  
   .svg-icon {
     width: 18px;
     height: 18px;
     margin-right: 10px;
   }
-  
+  .cabaña-imagen-container {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cabaña-imagen {
+    height: 100%;
+    width: 100%;
+    
+  }
+  .resultados-container {
+    margin: 1rem;
+  }
+  .resultados-title {
+    text-align: center;
+  }

@@ -97,3 +97,9 @@ table{
     display: flex;
     justify-content: center;
 }
+.input-tamaño {
+    width: 15rem;
+}
+.button-mod {
+    margin-bottom: 1rem;
+}
