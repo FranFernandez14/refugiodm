@@ -24,7 +24,7 @@ const Ganancia = () => {
         <div className='admin-container'>
             <Sidebar />
             <div className='admin-right-content'>
-                <div>
+                <div className='contenedor-button'>
                     <button onClick={() => setTipoGrafico('mensual')} className='button-ganancia'>Mensual</button>
                     <button onClick={() => setTipoGrafico('anual')} className='button-ganancia button-ganancia-mod'>Anual</button>
                 </div>

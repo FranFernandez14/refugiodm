@@ -54,6 +54,7 @@
   .cabaña-imagen {
     height: 100%;
     width: 100%;
+    object-fit: cover;
     
   }
   .resultados-container {
@@ -62,3 +63,12 @@
   .resultados-title {
     text-align: center;
   }
+  .carousel.carousel-slider {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    height: 20rem;
+}
+.carousel img {
+  height: 20rem;
+}

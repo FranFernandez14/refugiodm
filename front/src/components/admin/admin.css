@@ -70,7 +70,7 @@ table{
 .button-ganancia {
     background-color: #efedc1;
     color: black;
-    width: 42.5vw;
+    width: 49%;
     margin: 1rem 0;
     border-radius: 0;
 }
@@ -102,4 +102,7 @@ table{
 }
 .button-mod {
     margin-bottom: 1rem;
+}
+.contenedor-button {
+    width: 100%;
 }
