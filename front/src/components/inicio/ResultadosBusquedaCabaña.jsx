@@ -78,9 +78,9 @@ const ResultadosBusquedaCabaña = () => {
                   onChange={(index) => handleImageChange(cabaña.idcabaña, index)} // Pasar el ID de la cabaña
                 >
                   {cabaña.imagenes.map((imagen) => (
-                    <div key={imagen.id} className='cabaña-imagen-container'>
+                    <div key={imagen.id} className=''>
                       <img
-                        className="cabaña-imagen"
+                        className="cabaña-imagen-mod"
                         src={`http://localhost:8080/api/cabañas/${cabaña.idcabaña}/imagenes/${imagen.id}`}
                         alt="Cabaña"
                       />
