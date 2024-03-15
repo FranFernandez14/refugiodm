@@ -7,48 +7,65 @@ import { Link } from 'react-router-dom';
 
 const ReservaContainer = () => {
   const [reservas, setReservas] = useState([]);
-  const [estadoReserva, setEstadoReserva] = useState(""); // Estado actual de las reservas
+  const [estadoReserva, setEstadoReserva] = useState("");
+  const [fechaFinal, setFechaFinal] = useState('');
+  const [fechaInicio, setFechaInicio] = useState('');
 
-  const fetchReservas = async (estado) => {
+  const fetchReservasByState = async (estado, fechaInicio, fechaFin) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/reservas/${estado}`);
-      setReservas(response.data);
-      setEstadoReserva(estado); // Actualiza el estado de reserva
+      console.log("Hola");
+      const response = await axios.get('http://localhost:8080/api/reservas/byState', {
+        params: {
+          estado: estado,
+          fechaInicio: fechaInicio,
+          fechaFin: fechaFin
+        }
+      });
+      setReservas(response.data.content);
+      setEstadoReserva(estado);
     } catch (error) {
-      console.error('Error fetching reservas:', error);
+      console.error('Error fetching reservas by state:', error);
     }
   };
 
   useEffect(() => {
-    fetchReservas("pendientes"); // Carga inicialmente las reservas pendientes
+    fetchReservasByState("", "", ""); // Carga inicialmente todas las reservas
   }, []);
 
   return (
     <div className='admin-container'>
-
       <Sidebar />
       <div className='admin-right-content'>
         <div id='reserva-buttons'>
           <div>
-            <Link onClick={() => fetchReservas("pendientes")}>Ver reservas pendientes</Link>
+            <Link onClick={() => fetchReservasByState(5, fechaInicio, fechaFinal)}>Ver reservas pendientes</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservas("canceladas")}>Ver reservas canceladas</Link>
+            <Link onClick={() => fetchReservasByState(1, fechaInicio, fechaFinal)}>Ver reservas canceladas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservas("aceptadas")}>Ver reservas aceptadas</Link>
+            <Link onClick={() => fetchReservasByState(4, fechaInicio, fechaFinal)}>Ver reservas aceptadas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservas("iniciadas")}>Ver reservas iniciadas</Link>
+            <Link onClick={() => fetchReservasByState(7, fechaInicio, fechaFinal)}>Ver reservas iniciadas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservas("finalizadas")}>Ver reservas finalizadas</Link>
+            <Link onClick={() => fetchReservasByState(6, fechaInicio, fechaFinal)}>Ver reservas finalizadas</Link>
+          </div>
+        </div>
+        <div className='filtroFecha'>
+          <div className='Filtro'>
+            <label htmlFor="FechaInicio">Fecha de Inicio:</label>
+            <input type="date" id="FechaInicio" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
+          </div>
+          <div className='Filtro'>
+            <label htmlFor="FechaFin">Fecha de Fin:</label>
+            <input type="date" id="FechaFin" value={fechaFinal} onChange={(e) => setFechaFinal(e.target.value)} />
           </div>
         </div>
         <Reserva reservas={reservas} estadoReserva={estadoReserva} />
       </div>
     </div>
-
   );
 };
 

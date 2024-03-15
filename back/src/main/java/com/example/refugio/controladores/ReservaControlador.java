@@ -1,5 +1,6 @@
 package com.example.refugio.controladores;
 
+import com.example.refugio.dto.BuscarReservasDTO;
 import com.example.refugio.dto.CambiarEstadoReservaDTO;
 import com.example.refugio.dto.ReservaDTO;
 import com.example.refugio.dto.salida.VerReservaDTO;
@@ -9,10 +10,14 @@ import com.example.refugio.repositorios.EstadoCabañaRepositorio;
 import com.example.refugio.repositorios.EstadoReservaRepositorio;
 import com.example.refugio.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +57,15 @@ public class ReservaControlador {
     }
 
 
+    @GetMapping("/byState")
+    public ResponseEntity<Page<VerReservasDTO>> getReservasByState(
+            @RequestParam Long estado,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
+            Pageable pageable) {
+        Page<VerReservasDTO> reservas = reservaServicio.getReservasByState(estado, fechaInicio, fechaFin, pageable);
+        return ResponseEntity.ok().body(reservas);
+    }
     @PostMapping
     public void saveUpdate (@RequestBody Reserva reserva){
         reservaServicio.saveOrUpdate(reserva);
