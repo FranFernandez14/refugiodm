@@ -1,6 +1,7 @@
 package com.example.refugio.controladores;
 
 import com.example.refugio.dto.CambiarRolDTO;
+import com.example.refugio.dto.RolPermisoDTO;
 import com.example.refugio.entidades.Rol;
 import com.example.refugio.servicios.RolServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,20 @@ public class RolControlador {
         return rolServicio.getRol(id);
     }
 
+
+    @PostMapping("/crearRol")
+    public void crearRol(@RequestBody String nombre){
+        rolServicio.crearRol(nombre);
+    }
+
+    @PutMapping("/agregarPermiso")
+    public void agregarPermiso(RolPermisoDTO rolPermisoDTO){
+        rolServicio.agregarPermiso(rolPermisoDTO);
+    }
+
+
+
+    /*
     @PostMapping("/asignarUsuario")
     public void asignarUsuario(@RequestBody CambiarRolDTO cambiarRolDTO){
         rolServicio.asignarUsuario(cambiarRolDTO);
@@ -50,4 +65,6 @@ public class RolControlador {
     public void asignarAdministrador(@RequestBody CambiarRolDTO cambiarRolDTO){
         rolServicio.asignarAdministrador(cambiarRolDTO);
     }
+
+     */
 }

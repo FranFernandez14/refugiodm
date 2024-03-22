@@ -72,8 +72,8 @@ public class AutenticacionControlador {
         usuario.setDni(registroDTO.getDni());
         usuario.setNroTelefono(registroDTO.getNroTelefono());
 
-       Rol roles = rolRepositorio.findByNombre("usuario").get();
-       usuario.setRoles(Collections.singletonList(roles));
+       Rol rol = rolRepositorio.findByNombre("usuario").get();
+       usuario.setRol(rol);
 
         usuarioRepositorio.save(usuario);
 

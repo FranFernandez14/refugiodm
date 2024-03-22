@@ -1,9 +1,12 @@
 package com.example.refugio.servicios;
 
 import com.example.refugio.dto.CambiarRolDTO;
+import com.example.refugio.dto.RolPermisoDTO;
+import com.example.refugio.entidades.Permiso;
 import com.example.refugio.entidades.ReservaEstado;
 import com.example.refugio.entidades.Rol;
 import com.example.refugio.entidades.Usuario;
+import com.example.refugio.repositorios.PermisoRepositorio;
 import com.example.refugio.repositorios.ReservaEstadoRepositorio;
 import com.example.refugio.repositorios.RolRepositorio;
 import com.example.refugio.repositorios.UsuarioRepositorio;
@@ -25,6 +28,9 @@ public class RolServicio {
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    PermisoRepositorio permisoRepositorio;
+
 
     public List<Rol> getRoles(){
         return rolRepositorio.findAll();
@@ -42,12 +48,32 @@ public class RolServicio {
         rolRepositorio.deleteById(id);
     }
 
+    public void agregarPermiso(RolPermisoDTO rolPermisoDTO) {
+        Permiso permiso = permisoRepositorio.getReferenceById(rolPermisoDTO.getIdPermiso());
+        Rol rol = rolRepositorio.getReferenceById(rolPermisoDTO.getIdRol());
+        rol.getPermisos().add(permiso);
+        rolRepositorio.save(rol);
+    }
 
+    public void eliminarPermiso(RolPermisoDTO rolPermisoDTO){
+        Permiso permiso = permisoRepositorio.getReferenceById(rolPermisoDTO.getIdPermiso());
+        Rol rol = rolRepositorio.getReferenceById(rolPermisoDTO.getIdRol());
+        rol.getPermisos().remove(permiso);
+        rolRepositorio.save(rol);
+    }
+
+    public void crearRol(String nombre) {
+        Rol rol = new Rol();
+        rol.setNombre(nombre);
+        rolRepositorio.save(rol);
+    }
+
+/*
     public void asignarUsuario(CambiarRolDTO cambiarRolDTO){
         Usuario usuario = usuarioRepositorio.getReferenceById(cambiarRolDTO.getIdUsuario());
         List<Rol> roles = new ArrayList<>();
         roles.add(rolRepositorio.findByNombre("usuario").get());
-        usuario.setRoles(roles);
+        usuari.setRoles(roles);
         usuarioRepositorio.save(usuario);
    }
 
@@ -69,4 +95,6 @@ public class RolServicio {
         usuario.setRoles(roles);
         usuarioRepositorio.save(usuario);
     }
+
+ */
 }

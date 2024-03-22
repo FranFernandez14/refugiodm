@@ -1,5 +1,6 @@
 package com.example.refugio.seguridad;
 
+import com.example.refugio.entidades.Permiso;
 import com.example.refugio.entidades.Rol;
 import com.example.refugio.entidades.Usuario;
 import com.example.refugio.repositorios.UsuarioRepositorio;
@@ -28,13 +29,14 @@ public class JwtGenerator {
         Date expireDate = new Date (currentDate.getTime() + Constantes.JWTExpiration);
         Optional<Usuario> usuario = usuarioRepositorio.findByEmail(email);
 
-        int cantRoles = usuario.get().getRoles().size();
+        List<Permiso> permisos = usuario.get().getRol().getPermisos();
+
         Long id = usuario.get().getId();
 
         String token = Jwts.builder()
                 .setSubject(email)
                 .claim("id", id)
-                .claim("cantRoles", cantRoles)
+                .claim("permisos", permisos)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, Constantes.JWTSecret)

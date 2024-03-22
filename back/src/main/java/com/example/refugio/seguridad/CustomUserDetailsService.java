@@ -1,6 +1,6 @@
 package com.example.refugio.seguridad;
 
-import com.example.refugio.entidades.Rol;
+import com.example.refugio.entidades.Permiso;
 import com.example.refugio.entidades.Usuario;
 import com.example.refugio.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +31,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Usuario usuario = usuarioRepositorio.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        return new User(usuario.getEmail(), usuario.getPassword(), mapRolesToAuthorities(usuario.getRoles()));
+        return new User(usuario.getEmail(), usuario.getPassword(), mapRolesToAuthorities(usuario.getRol().getPermisos()));
 
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Rol> roles){
-        return roles.stream().map(rol -> new SimpleGrantedAuthority((rol.getNombre()))).collect(Collectors.toList());
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Permiso> permisos){
+        return permisos.stream().map(permiso -> new SimpleGrantedAuthority((permiso.getNombre()))).collect(Collectors.toList());
     }
 }

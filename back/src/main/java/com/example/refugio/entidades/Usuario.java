@@ -22,11 +22,9 @@ public class Usuario {
     @Column (name= "email", unique = true, nullable = false)
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "usuario_roles",
-            joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
-    private List<Rol> roles = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn (name = "IDRol")
+    private Rol rol;
     private String nombre;
     private String apellido;
     private String dni;
