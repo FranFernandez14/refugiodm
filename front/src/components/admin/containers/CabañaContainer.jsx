@@ -26,6 +26,10 @@ const CabañaContainer = () => {
         const selectedTipoCabañaObj = tiposCabaña.find((tipoCabaña) => tipoCabaña.nombre === selectedTipoCabaña);
   
         const response = await axios.post('http://localhost:8080/api/cabañas/crear', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }, {
           tamaño: selectedTamaño,
           idTipoCabaña: selectedTipoCabañaObj.id // Enviar el id del tipoCabaña
         });
@@ -46,10 +50,18 @@ const CabañaContainer = () => {
 
   const fetchCabañas = async () => {
     try {
-      const responseCabañas = await axios.get('http://localhost:8080/api/cabañas');
+      const responseCabañas = await axios.get('http://localhost:8080/api/cabañas', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setCabañas(responseCabañas.data);
 
-      const responseTiposCabaña = await axios.get('http://localhost:8080/api/cabañas/tipos');
+      const responseTiposCabaña = await axios.get('http://localhost:8080/api/cabañas/tipos', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setTiposCabaña(responseTiposCabaña.data);
     } catch (error) {
       console.error('Error fetching data:', error);

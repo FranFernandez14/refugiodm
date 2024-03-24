@@ -35,6 +35,10 @@ const DetalleReserva = () => {
   const handleConfirmarReserva = () => {
     axios
       .post('http://localhost:8080/api/reservas/reservar', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         IDUsuario: id,
         IDCabaña: idCabaña,
         cantPersonas: tamaño,

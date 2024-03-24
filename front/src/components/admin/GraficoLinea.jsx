@@ -21,7 +21,11 @@ const GraficoLinea = () => {
   });
 
   useEffect(() => {
-    Axios.get(`http://localhost:8080/api/ganancias/anual?year=${year}`).then((response) => {
+    Axios.get(`http://localhost:8080/api/ganancias/anual?year=${year}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then((response) => {
       const labels = response.data.map((item) => item.mes);
       const ganancias = response.data.map((item) => item.monto);
       setData({

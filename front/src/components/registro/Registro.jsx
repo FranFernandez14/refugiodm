@@ -20,6 +20,10 @@ function Registro() {
   const handleRegistro = async () => {
     try {
       const response = await axios.post('http://localhost:8080/api/auth/registro', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         email,
         password,
         nombre,

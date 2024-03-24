@@ -22,8 +22,12 @@ const Calificar = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(`http://localhost:8080/api/reservas/calificaciones/calificar/${idReserva}`, {
-        puntaje: rating, // Agrega el campo puntaje
-        reseña: review, // Agrega el campo reseña
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
+        puntaje: rating, 
+        reseña: review, 
       });
 
       if (response.status === 200) {

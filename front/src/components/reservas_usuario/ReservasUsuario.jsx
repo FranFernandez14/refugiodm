@@ -22,7 +22,11 @@ const ReservasUsuario = () => {
 
   const fetchReservas = async (id) => {
     try {
-      const responseReserva = await axios.get(`http://localhost:8080/api/reservas/misreservas/${id}`);
+      const responseReserva = await axios.get(`http://localhost:8080/api/reservas/misreservas/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
 
       if (responseReserva.status === 200) {
         // Ordenar las reservas en orden descendente
@@ -41,7 +45,11 @@ const ReservasUsuario = () => {
     const confirmed = window.confirm('¿Está seguro que quiere cancelar la reserva?');
     if (confirmed) {
       try {
-        await axios.post(`http://localhost:8080/api/reservas/${idReserva}/cancelarByUsuario`);
+        await axios.post(`http://localhost:8080/api/reservas/${idReserva}/cancelarByUsuario`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         fetchReservas(userId);
       } catch (error) {
         console.error('Error al cancelar la reserva:', error);

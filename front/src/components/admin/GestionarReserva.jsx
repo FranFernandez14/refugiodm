@@ -12,7 +12,11 @@ const GestionarReserva = ({ }) => {
 
   const fetchReserva = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/reservas/${idReserva}`);
+      const response = await axios.get(`http://localhost:8080/api/reservas/${idReserva}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setReserva(response.data);
     } catch (error) {
       console.error('Error fetching reserva:', error);
@@ -25,7 +29,11 @@ const GestionarReserva = ({ }) => {
 
   const handleCancelarByAdmin = async () => {
     try {
-      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/cancelarByAdmin`);
+      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/cancelarByAdmin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       // Realizar alguna acción después de cancelar la reserva
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
@@ -35,7 +43,11 @@ const GestionarReserva = ({ }) => {
 
   const handleAceptarByAdmin = async () => {
     try {
-      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/aceptarByAdmin`);
+      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/aceptarByAdmin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       // Realizar alguna acción después de aceptar la reserva
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
@@ -45,7 +57,11 @@ const GestionarReserva = ({ }) => {
 
   const handleFinalizarByAdmin = async () => {
     try {
-      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/finalizarByAdmin`);
+      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/finalizarByAdmin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       // Realizar alguna acción después de finalizar la reserva
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
@@ -55,7 +71,11 @@ const GestionarReserva = ({ }) => {
 
   const handleIniciarByAdmin = async () => {
     try {
-      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/iniciarByAdmin`);
+      await axios.post(`http://localhost:8080/api/reservas/${idReserva}/iniciarByAdmin`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       // Realizar alguna acción después de aceptar la reserva
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {

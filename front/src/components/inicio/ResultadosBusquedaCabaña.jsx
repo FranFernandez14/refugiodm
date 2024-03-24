@@ -17,7 +17,11 @@ const ResultadosBusquedaCabaña = () => {
   useEffect(() => {
     resultados.forEach((cabaña) => {
       axios
-        .get(`http://localhost:8080/api/cabañas/tipos/${cabaña.tipoCabaña.idtipoCabaña}/costoactual`)
+        .get(`http://localhost:8080/api/cabañas/tipos/${cabaña.tipoCabaña.idtipoCabaña}/costoactual`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
         .then((response) => {
           setPrecios((prevPrecios) => ({
             ...prevPrecios,

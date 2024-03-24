@@ -38,7 +38,11 @@ const ModificarDatos = () => {
 
   const fetchUsuario = async (userId) => {
     try {
-      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`);
+      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setUsuario(responseUsuario.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -62,7 +66,11 @@ const ModificarDatos = () => {
 
     try {
       // Envía una solicitud POST al servidor con los datos modificados
-      const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', datosModificados);
+      const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, datosModificados);
       console.log('Datos modificados con éxito:', response.data);
       if (response.status == 200) {
         navigate("/perfil")

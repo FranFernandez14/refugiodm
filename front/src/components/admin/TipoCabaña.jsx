@@ -20,7 +20,11 @@ const GestionarTipoCabaña = () => {
 
   const fetchCostos = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/costos/vercostos/${id}`);
+      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/costos/vercostos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setCostos(response.data);
     } catch (error) {
       console.error('Error fetching costos:', error);
@@ -29,7 +33,11 @@ const GestionarTipoCabaña = () => {
 
   const fetchCaracteristicas = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}/caracteristicas`);
+      const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}/caracteristicas`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setCaracteristicas(response.data);
     } catch (error) {
       console.error('Error fetching características:', error);
@@ -44,6 +52,10 @@ const GestionarTipoCabaña = () => {
   const handleAgregarCosto = async () => {
     try {
       const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/costos/crear`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         ...nuevoCosto,
         idTipoCabaña: id,
       });
@@ -61,6 +73,10 @@ const GestionarTipoCabaña = () => {
   const handleAgregarCaracteristica = async () => {
     try {
       const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/agregarCaracteristica`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         idTipoCabaña: id,
         idCaracteristica: selectedCaracteristica,
       });
@@ -76,6 +92,10 @@ const GestionarTipoCabaña = () => {
   const handleEliminarCaracteristica = async (idCaracteristica) => {
     try {
       const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/eliminarCaracteristica`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         idTipoCabaña: id,
         idCaracteristica,
       });

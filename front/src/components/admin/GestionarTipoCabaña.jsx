@@ -21,7 +21,11 @@ const GestionarTipoCabaña = () => {
     useEffect(() => {
         const fetchTipoCabaña = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}`);
+                const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}`, {
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                  });
                 setTipoCabaña(response.data);
                 setNuevaDescripcion(response.data.descripcion);
             } catch (error) {
@@ -42,7 +46,11 @@ const GestionarTipoCabaña = () => {
 
     const fetchCostos = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/costos/vercostos/${id}`);
+            const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/costos/vercostos/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              });
             setCostos(response.data);
         } catch (error) {
             console.error('Error fetching costos:', error);
@@ -55,7 +63,11 @@ const GestionarTipoCabaña = () => {
 
     const fetchCaracteristicasTipoCabaña = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}/caracteristicas`);
+            const response = await axios.get(`http://localhost:8080/api/cabañas/tipos/${id}/caracteristicas`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              });
             setCaracteristicasTipoCabaña(response.data);
         } catch (error) {
             console.error('Error fetching características del tipo de cabaña:', error);
@@ -69,6 +81,10 @@ const GestionarTipoCabaña = () => {
     const handleModificarDescripcion = async () => {
         try {
             const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/${id}/modificarDescripcion`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }, {
                 descripcion: nuevaDescripcion,
             });
 
@@ -83,6 +99,10 @@ const GestionarTipoCabaña = () => {
     const handleAgregarCaracteristica = async () => {
         try {
             const response = await axios.post('http://localhost:8080/api/cabañas/tipos/agregarCaracteristica', {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }, {
                 idTipoCabaña: id,
                 nombreCaracteristica: selectedCaracteristicaNombre,
             });
@@ -99,6 +119,10 @@ const GestionarTipoCabaña = () => {
     const handleEliminarCaracteristica = async (nombreCaracteristica) => {
         try {
             const response = await axios.post('http://localhost:8080/api/cabañas/tipos/eliminarCaracteristica', {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }, {
                 idTipoCabaña: id,
                 nombreCaracteristica,
             });
@@ -114,6 +138,10 @@ const GestionarTipoCabaña = () => {
     const handleAgregarCosto = async () => {
         try {
             const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/costos/crear`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }, {
                 ...nuevoCosto,
                 idTipoCabaña: id,
             });

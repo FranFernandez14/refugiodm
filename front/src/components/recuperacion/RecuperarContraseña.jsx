@@ -25,6 +25,10 @@ function RecuperarContraseña() {
 
     try {
       const response = await axios.post('http://localhost:8080/api/auth/resetearContraseña', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         email: email,
         token: token,
         contraseñaNueva: contraseña,

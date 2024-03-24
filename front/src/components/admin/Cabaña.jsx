@@ -27,7 +27,7 @@ const Cabaña = ({ cabañas, tiposCabaña, selectedTipoCabaña, selectedTamaño,
             <th>ID</th>
             <th>Tamaño</th>
             <th>Tipo de Cabaña</th>
-            <th>Acciones</th> {/* Añadimos la columna de acciones */}
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>

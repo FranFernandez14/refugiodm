@@ -20,7 +20,11 @@ const GestionarCabaña = () => {
 
   const fetchCabaña = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/cabañas/${id}`);
+      const response = await axios.get(`http://localhost:8080/api/cabañas/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setCabaña(response.data);
     } catch (error) {
       console.error('Error fetching cabaña:', error);
@@ -29,7 +33,11 @@ const GestionarCabaña = () => {
 
   const fetchEstados = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/cabañas/${id}/estados`);
+      const response = await axios.get(`http://localhost:8080/api/cabañas/${id}/estados`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setEstados(response.data);
     } catch (error) {
       console.error('Error fetching estados:', error);
@@ -38,7 +46,11 @@ const GestionarCabaña = () => {
 
   const handleEliminarImagen = async (imagenId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/cabañas/${id}/imagenes/${imagenId}`);
+      await axios.delete(`http://localhost:8080/api/cabañas/${id}/imagenes/${imagenId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       fetchCabaña();
     } catch (error) {
       console.error('Error eliminando imagen:', error);
@@ -49,29 +61,34 @@ const GestionarCabaña = () => {
     if (nuevaImagen && nuevaImagen.length > 0) {
       try {
         const formData = new FormData();
-
+  
         for (let i = 0; i < nuevaImagen.length; i++) {
           formData.append('files', nuevaImagen[i]);
         }
-
+  
+        // La URL, formData (el cuerpo de la petición), y luego la configuración incluyendo headers deben ir dentro de axios.post()
         await axios.post(`http://localhost:8080/api/cabañas/${id}/imagenes`, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'multipart/form-data', // Este header se puede omitir en algunos casos ya que Axios y los navegadores pueden establecerlo automáticamente con el FormData.
           },
         });
         setNuevaImagen(null);
-        console.log("hola") // Restablecer el campo de entrada de archivos
+        console.log("campo restablecido") // Restablecer el campo de entrada de archivos
         fetchCabaña(); // Actualizar la lista de imágenes
       } catch (error) {
-        fetchCabaña();
         console.error('Error al agregar imágenes:', error);
       }
     }
   };
-
+  
   const handleEliminarMantenimiento = async (estadoId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/estados/cabañaestados/${estadoId}`);
+      await axios.delete(`http://localhost:8080/api/estados/cabañaestados/${estadoId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       fetchEstados();
     } catch (error) {
       console.error('Error eliminando estado de mantenimiento:', error);
@@ -113,13 +130,16 @@ const GestionarCabaña = () => {
     if (selectedDateRange[0] && selectedDateRange[1]) {
       const fechaInicio = selectedDateRange[0].toISOString().substring(0, 10);
       const fechaFin = selectedDateRange[1].toISOString().substring(0, 10);
-
+  
       try {
         await axios.post(`http://localhost:8080/api/cabañas/${id}/mantenimiento`, {
-          id,
           nombre: 'Mantenimiento',
           fechaInicio,
           fechaFin,
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         });
         setSelectedDateRange([null, null]);
         fetchEstados();
@@ -130,33 +150,40 @@ const GestionarCabaña = () => {
       console.error('Las fechas de inicio y fin deben seleccionarse.');
     }
   };
+  
 
   const handleDarBaja = async () => {
     try {
-      const response = await axios.put('http://localhost:8080/api/cabañas/darDeBaja/' + id, {
+      const response = await axios.put(`http://localhost:8080/api/cabañas/darDeBaja/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       });
-
-      if (response.status == 200) {
+  
+      if (response.status === 200) {
         fetchCabaña();
       }
     } catch (error) {
       console.error('Error al dar de baja:', error);
     }
   };
-
+  
   const handleCancelarBaja = async () => {
     try {
-      const response = await axios.put('http://localhost:8080/api/cabañas/cancelarBaja/' + id, {
+      const response = await axios.put(`http://localhost:8080/api/cabañas/cancelarBaja/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       });
-
-      if (response.status == 200) {
+  
+      if (response.status === 200) {
         fetchCabaña();
       }
     } catch (error) {
       console.error('Error al cancelar baja:', error);
     }
   };
-
+  
   const handleCancelar = async () => {
     navigate('/admin/cabañas')
   }

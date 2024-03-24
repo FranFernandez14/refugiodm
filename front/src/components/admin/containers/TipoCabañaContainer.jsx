@@ -9,7 +9,11 @@ const TipoCabañaContainer = () => {
   useEffect(() => {
     const fetchTiposCabaña = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/cabañas/tipos');
+        const response = await axios.get('http://localhost:8080/api/cabañas/tipos', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         setTiposCabaña(response.data);
       } catch (error) {
         console.error('Error fetching tipos de cabaña:', error);

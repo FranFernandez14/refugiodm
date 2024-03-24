@@ -19,7 +19,11 @@ const GraficoBarra = ({ year, month }) => {
   });
 
   useEffect(() => {
-    Axios.get(`http://localhost:8080/api/ganancias/mensual?year=${year}&month=${month}`).then((response) => {
+    Axios.get(`http://localhost:8080/api/ganancias/mensual?year=${year}&month=${month}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then((response) => {
       const lastDay = new Date(year, month, 0).getDate(); // Obtenemos el último día del mes
       const labels = Array.from({ length: lastDay }, (_, index) => {
         const day = index + 1;

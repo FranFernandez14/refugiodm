@@ -18,7 +18,11 @@ const BuscadorCabaña = () => {
   const navigate = useNavigate();
   const fetchTiposCabaña = () => {
     axios
-      .get('http://localhost:8080/api/cabañas/tipos')
+      .get('http://localhost:8080/api/cabañas/tipos', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then((response) => {
         setTiposCabaña(response.data);
       })
@@ -54,6 +58,10 @@ const BuscadorCabaña = () => {
       } else {
         axios
           .get(`http://localhost:8080/api/cabañas/buscar`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          }, {
             params: {
               fechaInicio: fechaInicio.toISOString().substring(0, 10),
               fechaFin: fechaFin.toISOString().substring(0, 10),

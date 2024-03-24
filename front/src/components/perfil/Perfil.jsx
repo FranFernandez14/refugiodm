@@ -23,7 +23,11 @@ const Perfil = () => {
 
   const fetchUsuario = async (userId) => {
     try {
-      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`);
+      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setUsuario(responseUsuario.data);
     } catch (error) {
       console.error('Error fetching data:', error);

@@ -11,7 +11,11 @@ const CalificacionContainer = () => {
     // Realizar la solicitud GET para obtener las calificaciones
     async function fetchCalificaciones() {
       try {
-        const response = await axios.get('http://localhost:8080/api/reservas/calificaciones');
+        const response = await axios.get('http://localhost:8080/api/reservas/calificaciones', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         if (response.status === 200) {
           setCalificaciones(response.data);
         } else {

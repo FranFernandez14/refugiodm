@@ -7,18 +7,24 @@ import { Link } from 'react-router-dom';
 
 const ReservaContainer = () => {
   const [reservas, setReservas] = useState([]);
-  const [estadoReserva, setEstadoReserva] = useState("");
+  const [estadoReserva, setEstadoReserva] = useState(5);
   const [fechaFinal, setFechaFinal] = useState('');
   const [fechaInicio, setFechaInicio] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchReservasByState = async (estado, fechaInicio, fechaFin) => {
+  const fetchReservasByState = async (estado, fechaInicio, fechaFin, page) => {
     try {
-      console.log("Hola");
       const response = await axios.get('http://localhost:8080/api/reservas/byState', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         params: {
           estado: estado,
           fechaInicio: fechaInicio,
-          fechaFin: fechaFin
+          fechaFin: fechaFin,
+         // page: page,
+          size: 10
         }
       });
       setReservas(response.data.content);
@@ -29,8 +35,18 @@ const ReservaContainer = () => {
   };
 
   useEffect(() => {
-    fetchReservasByState("", "", ""); // Carga inicialmente todas las reservas
-  }, []);
+    fetchReservasByState("", "", "", currentPage); // Cargar inicialmente las reservas de la página 1
+  }, [currentPage]); // Ejecutar cuando currentPage cambia
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1); // Ir a la página anterior
+    }
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage(currentPage + 1); // Ir a la página siguiente
+  };
 
   return (
     <div className='admin-container'>
@@ -38,19 +54,19 @@ const ReservaContainer = () => {
       <div className='admin-right-content'>
         <div id='reserva-buttons'>
           <div>
-            <Link onClick={() => fetchReservasByState(5, fechaInicio, fechaFinal)}>Ver reservas pendientes</Link>
+            <Link onClick={() => fetchReservasByState(5, fechaInicio, fechaFinal, currentPage)}>Ver reservas pendientes</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservasByState(1, fechaInicio, fechaFinal)}>Ver reservas canceladas</Link>
+            <Link onClick={() => fetchReservasByState(1, fechaInicio, fechaFinal, currentPage)}>Ver reservas canceladas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservasByState(4, fechaInicio, fechaFinal)}>Ver reservas aceptadas</Link>
+            <Link onClick={() => fetchReservasByState(4, fechaInicio, fechaFinal, currentPage)}>Ver reservas aceptadas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservasByState(7, fechaInicio, fechaFinal)}>Ver reservas iniciadas</Link>
+            <Link onClick={() => fetchReservasByState(7, fechaInicio, fechaFinal, currentPage)}>Ver reservas iniciadas</Link>
           </div>
           <div>
-            <Link onClick={() => fetchReservasByState(6, fechaInicio, fechaFinal)}>Ver reservas finalizadas</Link>
+            <Link onClick={() => fetchReservasByState(6, fechaInicio, fechaFinal, currentPage)}>Ver reservas finalizadas</Link>
           </div>
         </div>
         <div className='filtroFecha'>
@@ -64,6 +80,11 @@ const ReservaContainer = () => {
           </div>
         </div>
         <Reserva reservas={reservas} estadoReserva={estadoReserva} />
+        <div className='numPagina'>
+          <button onClick={goToPreviousPage}>Anterior</button> {/* Botón para ir a la página anterior */}
+          <span>Página {currentPage}</span> {/* Mostrar el número de página actual */}
+          <button onClick={goToNextPage}>Siguiente</button> {/* Botón para ir a la página siguiente */}
+        </div>
       </div>
     </div>
   );

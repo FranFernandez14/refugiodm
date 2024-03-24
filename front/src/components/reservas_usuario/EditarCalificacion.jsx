@@ -18,7 +18,11 @@ const EditarCalificacion = () => {
     // Obtener la calificación y reseña existentes
     async function fetchCalificacion() {
       try {
-        const response = await axios.get(`http://localhost:8080/api/reservas/calificaciones/${idReserva}`);
+        const response = await axios.get(`http://localhost:8080/api/reservas/calificaciones/${idReserva}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         if (response.status === 200) {
           const data = response.data;
           setOriginalRating(data.puntaje);
@@ -50,6 +54,10 @@ const EditarCalificacion = () => {
   const handleGuardar = async () => {
     try {
       const response = await axios.put(`http://localhost:8080/api/reservas/calificaciones/editar/${idReserva}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, {
         puntaje: rating,
         reseña: review,
       });

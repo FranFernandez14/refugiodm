@@ -7,7 +7,11 @@ const TipoCabaña = () => {
   useEffect(() => {
     // Realizar una solicitud GET a la API para obtener tipos de cabaña
     axios
-      .get('http://localhost:8080/api/cabañas/tipos')
+      .get('http://localhost:8080/api/cabañas/tipos', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then((response) => {
         // Al recibir la respuesta exitosa, actualiza el estado con los tipos de cabaña
         setTiposCabaña(response.data);

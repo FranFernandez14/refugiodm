@@ -11,7 +11,11 @@ function VerificacionDeToken() {
 
   const handleVerificarToken = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/verificarToken', null, {
+      const response = await axios.post('http://localhost:8080/api/auth/verificarToken', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }, null, {
         params: {
           email: email,
           token: token,

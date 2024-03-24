@@ -30,8 +30,8 @@ const Reserva = ({ reservas, estadoReserva }) => {
             {reservas.map((reserva) => (
               <tr key={reserva.idReserva}>
                 <td>{reserva.idReserva}</td>
-                <td>{reserva.idCabaña}</td>
                 <td>{reserva.cantPersonas}</td>
+                <td>{reserva.idcabaña}</td>
                 <td>{reserva.montoTotal}</td>
                 <td>{formatDate(reserva.fechaInicio)}</td>
                 <td>{formatDate(reserva.fechaFin)}</td>

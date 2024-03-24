@@ -27,7 +27,11 @@ const CambiarContraseña = () => {
 
   const fetchUsuario = async (userId) => {
     try {
-      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`);
+      const responseUsuario = await axios.get(`http://localhost:8080/api/usuarios/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setUsuario(responseUsuario.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -44,6 +48,10 @@ const CambiarContraseña = () => {
     } else {
       try {
         const response = await axios.post(`http://localhost:8080/api/auth/cambiarContraseña`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }, {
           idUsuario: userId,
           contraseñaActual: contraseñaActual,
           contraseñaNueva: contraseñaNueva
