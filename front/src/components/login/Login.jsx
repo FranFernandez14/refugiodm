@@ -21,7 +21,7 @@ function Login() {
         password
       });
       if (response.status === 200 && response.data.accessToken) {
-        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('token', response.data.accessToken);
         navigate('/');
         window.location.reload();
       } else {

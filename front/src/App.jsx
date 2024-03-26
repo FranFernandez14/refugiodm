@@ -56,7 +56,7 @@ const App = () => {
         <Route path="/opiniones" element={<CalificacionContainer/>}/>
         <Route path="/cabañas" element={<NuestrasCabañas/>}/>
 
-        {userRoles === 0 && (
+        
           <>
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
@@ -64,9 +64,9 @@ const App = () => {
             <Route path="/verificar-token" element={<VerificacionDeToken/>}/>
             <Route path="/recuperar-contraseña" element={<RecuperarContraseña/>}/>
           </>
-        )}
+       
 
-        {userRoles >= 1 && (
+        
           <>
             <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
             <Route path="/perfil" element={<Perfil/>}/>
@@ -76,18 +76,18 @@ const App = () => {
             <Route path="/calificar/:idReserva" element={<Calificar/>}/>
             <Route path="/editar-calificacion/:idReserva" element={<EditarCalificacion/>}/>
           </>
-        )}
+       
 
-        {userRoles >= 2 && (
+        
           <>
             <Route path="/admin" element={<RutaAdmin />} />
             <Route path="/admin/reservas" element={<ReservaContainer />} />
             <Route path="/gestionarreserva/:id" element={<GestionarReserva />} />
             <Route path="/gestionartipo/:id" element={<GestionarTipoCabaña/>}/>
           </>
-        )}
+        
 
-        {userRoles >= 3 && (
+        
           <>
             <Route path="/admin/*" element={<RutaAdmin />} />
             <Route path="/admin/usuarios" element={<UsuarioContainer />} />
@@ -96,7 +96,7 @@ const App = () => {
             <Route path="/admin/tipos-cabaña" element={<TipoCabañaContainer />} />
             <Route path="/admin/ganancias" element={<Ganancia/>}/>
           </>
-        )}
+        
 
         <Route
           path="/forbidden"

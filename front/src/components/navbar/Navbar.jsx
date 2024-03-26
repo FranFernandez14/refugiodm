@@ -14,8 +14,6 @@ export default function Navbar() {
 
     if (token) {
       const decodedToken = decodeToken(token, 'secret');
-      const cantRoles = decodedToken.cantRoles;
-      setUserRoles(cantRoles);
     }
 
     const handleScroll = () => {
@@ -38,7 +36,7 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('token');
     navigate('/');
     window.location.reload();
   };
@@ -58,27 +56,24 @@ export default function Navbar() {
         </div>
       </div>
       <ol className={`nav-links ${menuVisible ? 'active' : ''}`}>
-        {userRoles === 0 && (
           <>
             <li><Link to="/login" onClick={handleToggleMenu}>Iniciar Sesión</Link></li>
             <li><Link to="/registro" onClick={handleToggleMenu}>Registrarse</Link></li>
           </>
-        )}
-        {userRoles === 1 && (
+       
           <>
             <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
             <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
             <li><Link onClick={handleLogout} >Cerrar sesión</Link></li>
           </>
-        )}
-        {userRoles > 1 && (
+        
           <>
             <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
             <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
             <li><Link to="/admin/reservas" onClick={handleToggleMenu}>Menú de administrador</Link></li>
             <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
           </>
-        )}
+        
       </ol>
     </div>
   );
