@@ -9,6 +9,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // Agregar estado para el manejo de errores
   const navigate = useNavigate();
+  
 
   const handleCancelar = async () => {
     navigate('/')
@@ -21,7 +22,9 @@ function Login() {
         password
       });
       if (response.status === 200 && response.data.accessToken) {
-        localStorage.setItem('token', response.data.accessToken);
+        let token = response.data.accessToken;
+        localStorage.setItem('token', token);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         navigate('/');
         window.location.reload();
       } else {

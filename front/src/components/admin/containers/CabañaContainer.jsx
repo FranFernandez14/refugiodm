@@ -22,20 +22,19 @@ const CabañaContainer = () => {
   const handleAddCabaña = async () => {
     if (selectedTamaño >= 1) {
       try {
-        // Find the selected tipoCabaña by its nombre
         const selectedTipoCabañaObj = tiposCabaña.find((tipoCabaña) => tipoCabaña.nombre === selectedTipoCabaña);
   
-        const response = await axios.post('http://localhost:8080/api/cabañas/crear', {
+        const response = await axios.post('http://localhost:8080/api/cabañas/crear',  {
+          tamaño: selectedTamaño,
+          idTipoCabaña: selectedTipoCabañaObj.id
+        },
+        {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
-        }, {
-          tamaño: selectedTamaño,
-          idTipoCabaña: selectedTipoCabañaObj.id // Enviar el id del tipoCabaña
-        });
+        },);
   
         if (response.status === 200) {
-          // Refetch cabañas after successful POST
           fetchCabañas();
         }
       } catch (error) {

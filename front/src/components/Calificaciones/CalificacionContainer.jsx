@@ -12,7 +12,7 @@ const CalificacionContainer = () => {
       try {
         const response = await axios.get('http://localhost:8080/api/reservas/calificaciones', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('acccessToken')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         });
         if (response.status === 200) {
