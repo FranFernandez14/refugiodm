@@ -14,21 +14,26 @@ const UsuarioContainer = () => {
   
   const fetchUsuarios = async (page) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/usuarios', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      }, {
-        params: {
-          page: page,
-          size: 10
+      const response = await axios.get(
+        'http://localhost:8080/api/usuarios',
+        {
+          params: {
+            page: page,
+            size: 10
+          },
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
       setUsuarios(response.data);
     } catch (error) {
       console.error('Error fetching usuarios:', error);
     }
   };
+  
   
   useEffect(() => {
     fetchUsuarios(currentPage); // Cargar inicialmente los usuarios de la página 1

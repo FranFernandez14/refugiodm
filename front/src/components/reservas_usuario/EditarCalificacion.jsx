@@ -53,15 +53,19 @@ const EditarCalificacion = () => {
 
   const handleGuardar = async () => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/reservas/calificaciones/editar/${idReserva}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.put(
+        `http://localhost:8080/api/reservas/calificaciones/editar/${idReserva}`,
+        {
+          puntaje: rating,
+          reseña: review,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        puntaje: rating,
-        reseña: review,
-      });
-
+      );
+  
       if (response.status === 200) {
         navigate('/reservas');
       } else {
@@ -72,6 +76,7 @@ const EditarCalificacion = () => {
       console.error('Error al guardar la calificación:', error);
     }
   };
+  
 
   const handleCancelar = () => {
     navigate('/reservas');

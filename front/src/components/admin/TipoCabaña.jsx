@@ -51,15 +51,19 @@ const GestionarTipoCabaña = () => {
 
   const handleAgregarCosto = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/costos/crear`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        `http://localhost:8080/api/cabañas/tipos/costos/crear`,
+        {
+          ...nuevoCosto,
+          idTipoCabaña: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        ...nuevoCosto,
-        idTipoCabaña: id,
-      });
-
+      );
+  
       if (response.status === 200) {
         fetchCostos();
         setNuevoCosto({ valorInicial: 0, valorPorPersona: 0 });
@@ -69,18 +73,23 @@ const GestionarTipoCabaña = () => {
       console.error('Error al agregar el costo:', error);
     }
   };
+  
 
   const handleAgregarCaracteristica = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/agregarCaracteristica`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        `http://localhost:8080/api/cabañas/tipos/agregarCaracteristica`,
+        {
+          idTipoCabaña: id,
+          idCaracteristica: selectedCaracteristica,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        idTipoCabaña: id,
-        idCaracteristica: selectedCaracteristica,
-      });
-
+      );
+  
       if (response.status === 200) {
         fetchCaracteristicas();
       }
@@ -88,18 +97,23 @@ const GestionarTipoCabaña = () => {
       console.error('Error al agregar la característica:', error);
     }
   };
+  
 
   const handleEliminarCaracteristica = async (idCaracteristica) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/cabañas/tipos/eliminarCaracteristica`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        `http://localhost:8080/api/cabañas/tipos/eliminarCaracteristica`,
+        {
+          idTipoCabaña: id,
+          idCaracteristica,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        idTipoCabaña: id,
-        idCaracteristica,
-      });
-
+      );
+  
       if (response.status === 200) {
         fetchCaracteristicas();
       }
@@ -107,6 +121,7 @@ const GestionarTipoCabaña = () => {
       console.error('Error al eliminar la característica:', error);
     }
   };
+  
 
   return (
     <div className="admin-container">

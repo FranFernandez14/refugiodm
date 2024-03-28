@@ -11,12 +11,12 @@ function GeneracionDeToken() {
   const handleEnviarToken = async () => {
     try {
       const response = await axios.post('http://localhost:8080/api/auth/generarToken', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      }, null, {
         params: {
           email: email,
+        } 
+      }, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         },
       });
 

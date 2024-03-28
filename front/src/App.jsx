@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Modal from 'react-modal';
 import Navbar from './components/navbar/Navbar';
 import ReservaContainer from './components/admin/containers/ReservaContainer';
 import UsuarioContainer from './components/admin/containers/UsuarioContainer';
@@ -28,11 +29,18 @@ import RecuperarContraseña from './components/recuperacion/RecuperarContraseña
 import GeneracionDeToken from './components/recuperacion/GeneracionDeToken';
 import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
 import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
-
-
+import ErrorPermiso from './components/error/ErrorPermisos';
 
 const App = () => {
-  const [userRoles, setUserRoles] = useState(0);
+  const [mostrarError, setMostrarError] = useState(false); // Estado para controlar si la ventana emergente está abierta o cerrada
+
+  const abrirModalError = () => {
+    setMostrarError(true);
+  };
+
+  const cerrarModalError = () => {
+    setMostrarError(false);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');

@@ -51,23 +51,22 @@ const BuscadorCabaña = () => {
 
   const handleBuscarClick = () => {
     const [fechaInicio, fechaFin] = dateRange;
-
+  
     if (fechaInicio && fechaFin && cantPersonas >= 1) {
       if (fechaFin <= fechaInicio) {
         setError('La fecha de salida debe ser posterior a la fecha de entrada.');
       } else {
         axios
           .get(`http://localhost:8080/api/cabañas/buscar`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-          }, {
             params: {
               fechaInicio: fechaInicio.toISOString().substring(0, 10),
               fechaFin: fechaFin.toISOString().substring(0, 10),
               cantPersonas,
               idTipoCabaña,
             },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
           })
           .then((response) => {
             navigate('/resultados-busqueda', {
@@ -82,6 +81,7 @@ const BuscadorCabaña = () => {
       setError('Seleccione las fechas');
     }
   };
+  
 
   return (
     <div className="buscador">
