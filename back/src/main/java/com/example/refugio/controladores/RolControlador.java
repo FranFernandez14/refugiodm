@@ -48,6 +48,11 @@ public class RolControlador {
         rolServicio.agregarPermiso(rolPermisoDTO);
     }
 
+    @PutMapping("/eliminarPermiso")
+    public void eliminarPermiso(RolPermisoDTO rolPermisoDTO){
+        rolServicio.eliminarPermiso(rolPermisoDTO);
+    }
+
 
 
     /*

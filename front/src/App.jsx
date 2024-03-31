@@ -28,6 +28,7 @@ import RecuperarContraseña from './components/recuperacion/RecuperarContraseña
 import GeneracionDeToken from './components/recuperacion/GeneracionDeToken';
 import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
 import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
+import GestionarRoles from './components/admin/GestionarRoles';
 
 
 
@@ -95,6 +96,7 @@ const App = () => {
             <Route path="/gestionarcabaña/:id" element={<GestionarCabaña />} />
             <Route path="/admin/tipos-cabaña" element={<TipoCabañaContainer />} />
             <Route path="/admin/ganancias" element={<Ganancia/>}/>
+            <Route path="/admin/roles" element={<GestionarRoles/>}/>
           </>
         
 

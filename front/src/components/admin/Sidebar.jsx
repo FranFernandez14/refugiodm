@@ -16,14 +16,13 @@ const Sidebar = () => {
         <div className="sidebar">
             <ol className='sidebar-buttons'>
                 <li><Link to="/admin/reservas">Reservas</Link></li>
-                
                     <>
                         <li><Link to="/admin/usuarios">Usuarios</Link></li>
                         <li><Link to="/admin/tipos-cabaña">Tipos de Cabaña</Link></li>
                         <li><Link to="/admin/cabañas">Cabañas</Link></li>
                         <li><Link to="/admin/ganancias">Ganancias</Link></li>
+                        <li><Link to="/admin/roles">Roles</Link></li>
                     </>
-                
             </ol>
         </div>
     );
