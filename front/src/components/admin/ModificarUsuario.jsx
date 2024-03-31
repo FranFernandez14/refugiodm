@@ -5,21 +5,25 @@ const ModificarUsuario = ({ usuario }) => {
 
   const handleAsignarRol = async (rol) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/usuarios/roles/' + rol, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        'http://localhost:8080/api/usuarios/roles/' + rol,
+        {
+          idUsuario: usuario.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        idUsuario: usuario.id,
-      });
-
+      );
+  
       if (response.status === 200) {
       }
     } catch (error) {
       console.error('Error al asignar rol:', error);
     }
   };
-
+  
   const handleDarBaja = async () => {
     try {
       const response = await axios.put('http://localhost:8080/api/usuarios/darDeBaja/' + usuario.id, {

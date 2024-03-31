@@ -34,7 +34,7 @@ const GestionarReserva = ({ }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      // Realizar alguna acción después de cancelar la reserva
+
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
       console.error('Error cancelando la reserva:', error);
@@ -48,7 +48,7 @@ const GestionarReserva = ({ }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      // Realizar alguna acción después de aceptar la reserva
+     
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
       console.error('Error aceptando la reserva:', error);
@@ -62,7 +62,7 @@ const GestionarReserva = ({ }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      // Realizar alguna acción después de finalizar la reserva
+
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
       console.error('Error finalizando la reserva:', error);
@@ -76,7 +76,7 @@ const GestionarReserva = ({ }) => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      // Realizar alguna acción después de aceptar la reserva
+   
       fetchReserva(); // Refetch de los datos después de la acción
     } catch (error) {
       console.error('Error aceptando la reserva:', error);

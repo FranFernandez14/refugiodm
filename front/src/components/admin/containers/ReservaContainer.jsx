@@ -14,16 +14,17 @@ const ReservaContainer = () => {
 
   const fetchReservasByState = async (estado, fechaInicio, fechaFin, page) => {
     try {
-      const response = await axios.get(
-        'http://localhost:8080/api/reservas/byState', 
+      const response = await axios.get('http://localhost:8080/api/reservas/byState',
         {
           params: {
             estado: estado,
             fechaInicio: fechaInicio,
             fechaFin: fechaFin,
-            // page: page,
+            // page: page, 
             size: 10
-          },
+          }
+        },
+        {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -34,7 +35,8 @@ const ReservaContainer = () => {
     } catch (error) {
       console.error('Error fetching reservas by state:', error);
     }
-  }; 
+  };
+  
 
   useEffect(() => {
     fetchReservasByState("", "", "", currentPage); // Cargar inicialmente las reservas de la página 1

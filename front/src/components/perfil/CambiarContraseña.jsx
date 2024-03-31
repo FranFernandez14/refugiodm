@@ -47,16 +47,20 @@ const CambiarContraseña = () => {
       setError('Todos los campos deben estar llenos.');
     } else {
       try {
-        const response = await axios.post(`http://localhost:8080/api/auth/cambiarContraseña`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+        const response = await axios.post(
+          `http://localhost:8080/api/auth/cambiarContraseña`,
+          {
+            idUsuario: userId,
+            contraseñaActual: contraseñaActual,
+            contraseñaNueva: contraseñaNueva
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
           }
-        }, {
-          idUsuario: userId,
-          contraseñaActual: contraseñaActual,
-          contraseñaNueva: contraseñaNueva
-        });
-
+        );
+  
         if (response.status === 200) {
           setMensaje('Contraseña cambiada con éxito.');
         } else {
@@ -68,6 +72,7 @@ const CambiarContraseña = () => {
       }
     }
   };
+  
   return (
     <div className='ccontraseña-container'>
       <div className='ccontraseña'>

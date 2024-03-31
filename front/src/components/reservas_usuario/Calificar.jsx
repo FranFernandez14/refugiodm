@@ -21,15 +21,19 @@ const Calificar = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/reservas/calificaciones/calificar/${idReserva}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        `http://localhost:8080/api/reservas/calificaciones/calificar/${idReserva}`,
+        {
+          puntaje: rating, 
+          reseña: review, 
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        puntaje: rating, 
-        reseña: review, 
-      });
-
+      );
+  
       if (response.status === 200) {
         navigate('/reservas');
       } else {
@@ -40,6 +44,7 @@ const Calificar = () => {
       console.error('Error al enviar la reseña:', error);
     }
   };
+  
 
   return (
     <div className='container-calificacion'>

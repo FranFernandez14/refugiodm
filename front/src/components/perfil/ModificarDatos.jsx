@@ -66,21 +66,24 @@ const ModificarDatos = () => {
 
     try {
       // Envía una solicitud POST al servidor con los datos modificados
-      const response = await axios.post('http://localhost:8080/api/usuarios/modificarDatos', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        'http://localhost:8080/api/usuarios/modificarDatos',
+        datosModificados,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, datosModificados);
+      );
       console.log('Datos modificados con éxito:', response.data);
-      if (response.status == 200) {
+      if (response.status === 200) {
         navigate("/perfil")
       }
-
     } catch (error) {
       console.error('Error al modificar datos:', error);
     }
   };
-
+  
   return (
     <div className='perfil1-container'>
       <div className='perfil1'>

@@ -16,24 +16,28 @@ function RecuperarContraseña() {
       setError('Las contraseñas no coinciden. Inténtelo nuevamente.');
       return;
     }
-
+  
     // Agregar validación de longitud de contraseña
     if (contraseña.length < 8) {
       setError('La contraseña debe tener al menos 8 caracteres.');
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/resetearContraseña', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.post(
+        'http://localhost:8080/api/auth/resetearContraseña',
+        {
+          email: email,
+          token: token,
+          contraseñaNueva: contraseña,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        email: email,
-        token: token,
-        contraseñaNueva: contraseña,
-      });
-
+      );
+  
       if (response.status === 200) {
         navigate('/login');
       } else {
@@ -44,6 +48,7 @@ function RecuperarContraseña() {
       console.error('Error al cambiar la contraseña:', error);
     }
   };
+  
 
   return (
     <div className='recuperacion-container'>

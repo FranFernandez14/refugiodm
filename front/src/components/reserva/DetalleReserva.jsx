@@ -34,18 +34,22 @@ const DetalleReserva = () => {
 
   const handleConfirmarReserva = () => {
     axios
-      .post('http://localhost:8080/api/reservas/reservar', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+      .post(
+        'http://localhost:8080/api/reservas/reservar',
+        {
+          IDUsuario: id,
+          IDCabaña: idCabaña,
+          cantPersonas: tamaño,
+          montoTotal: costoTotal,
+          fechaInicio: fechaInicio.toISOString().substring(0, 10),
+          fechaFin: fechaFin.toISOString().substring(0, 10),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         }
-      }, {
-        IDUsuario: id,
-        IDCabaña: idCabaña,
-        cantPersonas: tamaño,
-        montoTotal: costoTotal,
-        fechaInicio: fechaInicio.toISOString().substring(0, 10),
-        fechaFin: fechaFin.toISOString().substring(0, 10),
-      })
+      )
       .then((response) => {
         if (response.status === 200) {
           setReservaConfirmada(true);
@@ -55,7 +59,7 @@ const DetalleReserva = () => {
         console.error('Error al confirmar la reserva:', error);
       });
   };
-
+  
   const handleCancelarReserva = () => {
     navigate('/');
   };
