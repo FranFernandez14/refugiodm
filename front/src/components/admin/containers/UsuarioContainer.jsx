@@ -36,17 +36,17 @@ const UsuarioContainer = () => {
   
   
   useEffect(() => {
-    fetchUsuarios(currentPage); // Cargar inicialmente los usuarios de la página 1
-  }, [currentPage]); // Ejecutar cuando currentPage cambia
+    fetchUsuarios(currentPage); 
+  }, [currentPage]);
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1); // Ir a la página anterior
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const goToNextPage = () => {
-    setCurrentPage(currentPage + 1); // Ir a la página siguiente
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -56,9 +56,9 @@ const UsuarioContainer = () => {
         <Usuario usuarios={usuarios} />
       </div>
       <div className='numPagina'>
-          <button onClick={goToPreviousPage}>Anterior</button> {/* Botón para ir a la página anterior */}
-          <span>Página {currentPage}</span> {/* Mostrar el número de página actual */}
-          <button onClick={goToNextPage}>Siguiente</button> {/* Botón para ir a la página siguiente */}
+          <button onClick={goToPreviousPage}>Anterior</button> 
+          <span>Página {currentPage}</span> 
+          <button onClick={goToNextPage}>Siguiente</button> 
       </div>
     </div>
   );

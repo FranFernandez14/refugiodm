@@ -30,6 +30,7 @@ import GeneracionDeToken from './components/recuperacion/GeneracionDeToken';
 import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
 import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
 import ErrorPermiso from './components/error/ErrorPermisos';
+import GestionarRoles from './components/admin/GestionarRoles';
 
 const App = () => {
   const [mostrarError, setMostrarError] = useState(false); // Estado para controlar si la ventana emergente está abierta o cerrada
@@ -92,6 +93,7 @@ const App = () => {
             <Route path="/admin/reservas" element={<ReservaContainer />} />
             <Route path="/gestionarreserva/:id" element={<GestionarReserva />} />
             <Route path="/gestionartipo/:id" element={<GestionarTipoCabaña/>}/>
+            <Route path="/admin/roles" element={<GestionarRoles/>}/>
           </>
         
 

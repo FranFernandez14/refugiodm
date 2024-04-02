@@ -44,12 +44,12 @@ public class RolControlador {
     }
 
     @PutMapping("/agregarPermiso")
-    public void agregarPermiso(RolPermisoDTO rolPermisoDTO){
+    public void agregarPermiso(@RequestBody RolPermisoDTO rolPermisoDTO){
         rolServicio.agregarPermiso(rolPermisoDTO);
     }
 
     @PutMapping("/eliminarPermiso")
-    public void eliminarPermiso(RolPermisoDTO rolPermisoDTO){
+    public void eliminarPermiso(@RequestBody RolPermisoDTO rolPermisoDTO){
         rolServicio.eliminarPermiso(rolPermisoDTO);
     }
 

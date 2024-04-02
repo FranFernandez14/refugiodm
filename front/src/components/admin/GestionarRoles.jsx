@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Sidebar from './Sidebar';
 
 const GestionarRoles = () => {
     const [roles, setRoles] = useState([]);
@@ -9,7 +10,6 @@ const GestionarRoles = () => {
     const [newRoleName, setNewRoleName] = useState('');
 
     useEffect(() => {
-        // Obtener los roles al montar el componente
         fetchRoles();
         fetchAllPermissions();
     }, []);
@@ -113,49 +113,58 @@ const GestionarRoles = () => {
     };
 
     return (
-        <div>
-            <div className="column">
-                <h2>Roles</h2>
-                <ul>
-                    {roles.map(role => (
-                        <li 
-                            key={role.id} 
-                            onClick={() => handleRoleSelect(role.id)}
-                            style={{ cursor: 'pointer', textDecoration: role.id === selectedRole ? 'underline' : 'none' }}
-                        >
-                            {role.nombre}
-                        </li>
-                    ))}
-                </ul>
-                <input
-                    type="text"
-                    placeholder="Nuevo Rol"
-                    value={newRoleName}
-                    onChange={(e) => setNewRoleName(e.target.value)}
-                />
-                <button onClick={handleNewRoleSubmit}>+</button>
-            </div>
-            <div className="column">
-                <h2>Permisos del Rol</h2>
-                <ul>
-                    {permissionsOfSelectedRole.map(permission => (
-                        <li key={permission.id}>
-                            {permission.nombre}
-                            <button onClick={() => handlePermissionRemove(permission.id)}>➡</button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="column">
-                <h2>Todos los Permisos</h2>
-                <ul>
-                    {allPermissions.map(permission => (
-                        <li key={permission.id}>
-                            <button onClick={() => handlePermissionAdd(permission.id)}>⬅</button>
-                            {permission.nombre}
-                        </li>
-                    ))}
-                </ul>
+        <div className='admin-container'>
+            <Sidebar />
+            <div className='admin-right-content'>
+                <div className='columnas-roles'>
+                    <div className="columna-rol">
+                        <h2>Roles</h2>
+                        <ul>
+                            {roles.map(role => (
+                                <li
+                                    key={role.id}
+                                    onClick={() => handleRoleSelect(role.id)}
+                                    style={{ cursor: 'pointer', textDecoration: role.id === selectedRole ? 'underline' : 'none' }}
+                                >
+                                    {role.nombre}
+                                </li>
+                            ))}
+                        </ul>
+                        <div className='nuevo-rol'>
+                            <input
+                                type="text"
+                                placeholder="Nuevo Rol"
+                                value={newRoleName}
+                                onChange={(e) => setNewRoleName(e.target.value)}
+                            />
+                            <button onClick={handleNewRoleSubmit}>+</button>
+                        </div>
+                    </div>
+                    <div className="columna-rol">
+                        <h2>Permisos del Rol</h2>
+                        <ul>
+                            {permissionsOfSelectedRole.map(permission => (
+                                <li key={permission.id}>
+                                    {permission.nombre}
+                                    <button onClick={() => handlePermissionRemove(permission.id)}>➡</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="columna-rol">
+                        <h2>Todos los Permisos</h2>
+                        <ul>
+                            {allPermissions
+                                .filter(permission => !permissionsOfSelectedRole.some(p => p.id === permission.id))
+                                .map(permission => (
+                                    <li key={permission.id}>
+                                        <button onClick={() => handlePermissionAdd(permission.id)}>⬅</button>
+                                        {permission.nombre}
+                                    </li>
+                                ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     );
