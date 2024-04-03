@@ -1,6 +1,7 @@
 package com.example.refugio.servicios;
 
 import com.example.refugio.dto.CambiarRolDTO;
+import com.example.refugio.dto.NuevoRolDTO;
 import com.example.refugio.dto.RolPermisoDTO;
 import com.example.refugio.entidades.Permiso;
 import com.example.refugio.entidades.ReservaEstado;
@@ -62,39 +63,11 @@ public class RolServicio {
         rolRepositorio.save(rol);
     }
 
-    public void crearRol(String nombre) {
+    public void crearRol(NuevoRolDTO nuevoRolDTO) {
         Rol rol = new Rol();
-        rol.setNombre(nombre);
+        rol.setNombre(nuevoRolDTO.getNombre());
         rolRepositorio.save(rol);
     }
 
-/*
-    public void asignarUsuario(CambiarRolDTO cambiarRolDTO){
-        Usuario usuario = usuarioRepositorio.getReferenceById(cambiarRolDTO.getIdUsuario());
-        List<Rol> roles = new ArrayList<>();
-        roles.add(rolRepositorio.findByNombre("usuario").get());
-        usuari.setRoles(roles);
-        usuarioRepositorio.save(usuario);
-   }
 
-    public void asignarEmpleado(CambiarRolDTO cambiarRolDTO){
-        Usuario usuario = usuarioRepositorio.getReferenceById(cambiarRolDTO.getIdUsuario());
-        List<Rol> roles = new ArrayList<>();
-        roles.add(rolRepositorio.findByNombre("usuario").get());
-        roles.add(rolRepositorio.findByNombre("empleado").get());
-        usuario.setRoles(roles);
-        usuarioRepositorio.save(usuario);
-    }
-
-    public void asignarAdministrador(CambiarRolDTO cambiarRolDTO){
-        Usuario usuario = usuarioRepositorio.getReferenceById(cambiarRolDTO.getIdUsuario());
-        List<Rol> roles = new ArrayList<>();
-        roles.add(rolRepositorio.findByNombre("usuario").get());
-        roles.add(rolRepositorio.findByNombre("empleado").get());
-        roles.add(rolRepositorio.findByNombre("administrador").get());
-        usuario.setRoles(roles);
-        usuarioRepositorio.save(usuario);
-    }
-
- */
 }

@@ -124,7 +124,7 @@ const GestionarRoles = () => {
                                 <li
                                     key={role.id}
                                     onClick={() => handleRoleSelect(role.id)}
-                                    style={{ cursor: 'pointer', textDecoration: role.id === selectedRole ? 'underline' : 'none' }}
+                                    style={{ cursor: 'pointer', color: role.id === selectedRole ? '#006494' : 'black' }}
                                 >
                                     {role.nombre}
                                 </li>
@@ -137,7 +137,7 @@ const GestionarRoles = () => {
                                 value={newRoleName}
                                 onChange={(e) => setNewRoleName(e.target.value)}
                             />
-                            <button onClick={handleNewRoleSubmit}>+</button>
+                            <button onClick={handleNewRoleSubmit} className='boton-mas'>+</button>
                         </div>
                     </div>
                     <div className="columna-rol">
@@ -145,8 +145,10 @@ const GestionarRoles = () => {
                         <ul>
                             {permissionsOfSelectedRole.map(permission => (
                                 <li key={permission.id}>
-                                    {permission.nombre}
-                                    <button onClick={() => handlePermissionRemove(permission.id)}>➡</button>
+                                    <div className='permisos-rol'>
+                                        <div>{permission.nombre}</div>
+                                        <div><button onClick={() => handlePermissionRemove(permission.id)}>➡</button></div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>

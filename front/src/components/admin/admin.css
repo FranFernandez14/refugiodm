@@ -1,8 +1,9 @@
-.admin-container{
+.admin-container {
     background-color: brown;
     display: flex;
 }
-.admin-right-content{
+
+.admin-right-content {
     background-color: white;
     width: 100%;
     height: 92vh;
@@ -13,7 +14,7 @@
     padding: 1rem;
 }
 
-.admin-usuario{
+.admin-usuario {
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -21,48 +22,52 @@
     width: 100%;
 }
 
-#reserva-buttons{
+#reserva-buttons {
     display: flex;
     flex-direction: row;
 
 }
 
-#reserva-buttons>div{
-    transition: background-color 0.3s ease; 
+#reserva-buttons>div {
+    transition: background-color 0.3s ease;
     padding: 10px;
     font-size: 1rem;
     margin-bottom: 1rem;
 }
 
-#reserva-buttons>div:hover{
-    background-color: #f5f5f5; 
+#reserva-buttons>div:hover {
+    background-color: #f5f5f5;
 }
+
 #reserva-buttons>div {
     border-bottom: 1px solid brown;
 
 }
+
 #reserva-buttons>div>a {
     font-size: 1rem;
     font-weight: 500;
     color: brown;
 }
-.grafico{
+
+.grafico {
     width: 75%;
 }
 
-td, th{
+td,
+th {
     border: 1px solid black;
 }
 
-table{
+table {
     border-collapse: collapse;
 }
 
-.modal-content{
+.modal-content {
     display: flex;
 }
 
-.modal-content button{
+.modal-content button {
     flex-grow: 1;
     border-radius: 0;
 }
@@ -74,9 +79,11 @@ table{
     margin: 1rem 0;
     border-radius: 0;
 }
+
 .button-ganancia:hover {
     background-color: #efedc1
 }
+
 .button-ganancia-mod {
     border-left: 1px solid black;
 }
@@ -84,16 +91,20 @@ table{
 .modify-button {
     margin: .1rem;
 }
+
 .button-table-container {
     display: flex;
     justify-content: center;
 }
+
 .input-tamaño {
     width: 15rem;
 }
+
 .button-mod {
     margin-bottom: 1rem;
 }
+
 .contenedor-button {
     width: 100%;
 }
@@ -111,14 +122,54 @@ table{
     margin-top: 25px;
 }
 
-.columnas-roles{
+.columnas-roles {
     display: flex;
     flex-direction: row;
-    justify-content:space-around;
+    justify-content: space-around;
     width: 100%;
     height: 100%;
 }
 
-.columna-rol ul{
- list-style: none;   
+.columna-rol ul {
+    list-style: none;
+}
+
+.columna-rol ul {
+    list-style: none;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.columna-rol li {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.columna-rol li button {
+    height: 100%;
+    width: 2.5rem;
+    margin-right: 5px;
+}
+
+.nuevo-rol {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.boton-mas {
+    float: right;
+    height: 100%;
+    width: 2.5rem;
+    margin-left: 2px;
+}
+
+.permisos-rol{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.permisos-rol button{
+    margin-left: 2px;
 }

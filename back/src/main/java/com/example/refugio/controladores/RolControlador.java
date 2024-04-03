@@ -1,6 +1,7 @@
 package com.example.refugio.controladores;
 
 import com.example.refugio.dto.CambiarRolDTO;
+import com.example.refugio.dto.NuevoRolDTO;
 import com.example.refugio.dto.RolPermisoDTO;
 import com.example.refugio.entidades.Rol;
 import com.example.refugio.servicios.RolServicio;
@@ -39,8 +40,8 @@ public class RolControlador {
 
 
     @PostMapping("/crearRol")
-    public void crearRol(@RequestBody String nombre){
-        rolServicio.crearRol(nombre);
+    public void crearRol(@RequestBody NuevoRolDTO nuevoRolDTO){
+        rolServicio.crearRol(nuevoRolDTO);
     }
 
     @PutMapping("/agregarPermiso")
@@ -55,21 +56,4 @@ public class RolControlador {
 
 
 
-    /*
-    @PostMapping("/asignarUsuario")
-    public void asignarUsuario(@RequestBody CambiarRolDTO cambiarRolDTO){
-        rolServicio.asignarUsuario(cambiarRolDTO);
-    }
-
-    @PostMapping("/asignarEmpleado")
-    public void asignarEmpleado(@RequestBody CambiarRolDTO cambiarRolDTO){
-        rolServicio.asignarEmpleado(cambiarRolDTO);
-    }
-
-    @PostMapping("/asignarAdministrador")
-    public void asignarAdministrador(@RequestBody CambiarRolDTO cambiarRolDTO){
-        rolServicio.asignarAdministrador(cambiarRolDTO);
-    }
-
-     */
 }

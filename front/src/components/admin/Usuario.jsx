@@ -13,7 +13,7 @@ const Usuario = ({ usuarios }) => {
               <th>ID</th>
               <th>Email</th>
               <th>Nombre</th>
-              <th>Tipo de usuario</th>
+              <th>Rol</th>
               <th>Estado</th>
               <th>Acciones</th> 
             </tr>
@@ -24,7 +24,7 @@ const Usuario = ({ usuarios }) => {
                 <td>{usuario.id}</td>
                 <td>{usuario.email}</td>
                 <td>{usuario.nombre + ' ' + usuario.apellido}</td>
-                <td>{getTipoUsuario(usuario)}</td>
+                <td>{usuario.rol.nombre}</td>
                 <td>
                   {usuario.fechaHoraBaja == null && <div>Alta</div>}
                   {usuario.fechaHoraBaja != null && <div>Baja</div>}
@@ -40,19 +40,6 @@ const Usuario = ({ usuarios }) => {
     </div>
   );
 };
-
-function getTipoUsuario(usuario) {
-  const numRoles = usuario.roles.length;
-  if (numRoles === 1) {
-    return 'Usuario';
-  } else if (numRoles === 2) {
-    return 'Empleado';
-  } else if (numRoles === 3) {
-    return 'Administrador';
-  } else {
-    return 'Desconocido';
-  }
-}
 
 export default Usuario;
 
