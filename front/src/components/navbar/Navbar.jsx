@@ -7,13 +7,14 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [menuVisible, setMenuVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [userRoles, setUserRoles] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
     if (token) {
       const decodedToken = decodeToken(token, 'secret');
+      const userPermisos = token ? decodeToken(token, 'secret').permisos.map(p => p.nombre) : [];
+
     }
 
     const handleScroll = () => {
@@ -56,23 +57,16 @@ export default function Navbar() {
         </div>
       </div>
       <ol className={`nav-links ${menuVisible ? 'active' : ''}`}>
-          <>
+          
             <li><Link to="/login" onClick={handleToggleMenu}>Iniciar Sesión</Link></li>
             <li><Link to="/registro" onClick={handleToggleMenu}>Registrarse</Link></li>
-          </>
-       
-          <>
+
             <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
             <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
-            <li><Link onClick={handleLogout} >Cerrar sesión</Link></li>
-          </>
-        
-          <>
             <li><Link to="/perfil" onClick={handleToggleMenu}>Mi perfil</Link></li>
             <li><Link to="/reservas" onClick={handleToggleMenu}>Mis reservas</Link></li>
             <li><Link to="/admin/reservas" onClick={handleToggleMenu}>Menú de administrador</Link></li>
-            <li><Link onClick={handleLogout}>Cerrar sesión</Link></li>
-          </>
+            <li><Link onClick={handleLogout} >Cerrar sesión</Link></li>
         
       </ol>
     </div>

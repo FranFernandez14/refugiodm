@@ -1,5 +1,6 @@
+// Importa los componentes necesarios
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Modal from 'react-modal';
 import Navbar from './components/navbar/Navbar';
 import ReservaContainer from './components/admin/containers/ReservaContainer';
@@ -31,88 +32,67 @@ import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
 import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
 import ErrorPermiso from './components/error/ErrorPermisos';
 import GestionarRoles from './components/admin/GestionarRoles';
+import PrivateRoute from './routes/PrivateRoute';
+import Forbidden from './routes/Forbidden';
 
 const App = () => {
-  const [mostrarError, setMostrarError] = useState(false); // Estado para controlar si la ventana emergente está abierta o cerrada
-
+  const [mostrarError, setMostrarError] = useState(false);
   const abrirModalError = () => {
     setMostrarError(true);
   };
+  const [userPermisos, setUserPermisos] = useState([]);
 
   const cerrarModalError = () => {
     setMostrarError(false);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-
+    const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = decodeToken(token, 'secret');
-      const cantRoles = decodedToken.cantRoles;
-
-      setUserRoles(cantRoles);
+      setUserPermisos(decodedToken.permisos.map(permiso => permiso.nombre));
     }
   }, []);
 
   return (
     <BrowserRouter>
-      {<Navbar/>}
+      {<Navbar />}
       <div className='wrapper'>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/resultados-busqueda" element={<ResultadosBusquedaCabaña />} />
-        <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
-        <Route path="/opiniones" element={<CalificacionContainer/>}/>
-        <Route path="/cabañas" element={<NuestrasCabañas/>}/>
+        <Routes>
+          {/* Rutas públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="/generar-token" element={<GeneracionDeToken />} />
+          <Route path="/verificar-token" element={<VerificacionDeToken />} />
+          <Route path="/recuperar-contraseña" element={<RecuperarContraseña />} />
+          <Route path="/resultados-busqueda" element={<PrivateRoute component={ResultadosBusquedaCabaña} permiso={"BUSCAR_CABAÑA"} />} />
+          <Route path="/detalle-reserva/:idReserva" element={<PrivateRoute component={DetalleReserva} permiso={"BUSCAR_CABAÑA"} />} />
+          <Route path="/opiniones" element={<PrivateRoute component={CalificacionContainer} permiso={"VER_OPINIONES"} />} />
 
-        
-          <>
-            <Route path="/login" element={<Login />} />
-            <Route path="/registro" element={<Registro />} />
-            <Route path="/generar-token" element={<GeneracionDeToken/>}/>
-            <Route path="/verificar-token" element={<VerificacionDeToken/>}/>
-            <Route path="/recuperar-contraseña" element={<RecuperarContraseña/>}/>
-          </>
-       
+          {/* Rutas que requieren autorización */}
+          <Route path="/cabañas" element={<PrivateRoute component={NuestrasCabañas} permiso="VER_NUESTRAS_CABAÑAS" />} />
+          <Route path="/perfil" element={<PrivateRoute component={Perfil} permiso="GESTIONAR_MIS_DATOS" />} />
+          <Route path="/perfil/modificardatos" element={<PrivateRoute component={ModificarDatos} permiso={"GESTIONAR_MIS_DATOS"} />} />
+          <Route path="/perfil/cambiarcontraseña" element={<PrivateRoute component ={CambiarContraseña} permiso={"GESTIONAR_MIS_DATOS"}/>} />
+          <Route path="/reservas" element={<PrivateRoute component={ReservasUsuario} permiso="GESTIONAR_MI_RESERVA" />} />
+          <Route path="/calificar/:idReserva" element={<PrivateRoute component={Calificar} permiso="GESTIONAR_MI_RESERVA" />} />
+          <Route path="/editar-calificacion/:idReserva" element={<PrivateRoute component={EditarCalificacion} permiso="GESTIONAR_MI_RESERVA" />} />
 
-        
-          <>
-            <Route path="/detalle-reserva/:idReserva" element={<DetalleReserva />} />
-            <Route path="/perfil" element={<Perfil/>}/>
-            <Route path="/perfil/modificardatos" element={<ModificarDatos/>}/>
-            <Route path="/perfil/cambiarcontraseña" element={<CambiarContraseña/>}/>
-            <Route path="/reservas" element={<ReservasUsuario/>}/>
-            <Route path="/calificar/:idReserva" element={<Calificar/>}/>
-            <Route path="/editar-calificacion/:idReserva" element={<EditarCalificacion/>}/>
-          </>
-       
+          {/* Rutas de administrador */}
+          <Route path="/admin/reservas" element={<PrivateRoute component={ReservaContainer} permiso="GESTIONAR_RESERVAS" />} />
+          <Route path="/gestionarreserva/:id" element={<PrivateRoute component={GestionarReserva} permiso="GESTIONAR_RESERVAS" />} />
+          <Route path="/admin/roles" element={<PrivateRoute component={GestionarRoles} permiso="GESTIONAR_ROLES" />} />
+          <Route path="/admin/usuarios" element={<PrivateRoute component={UsuarioContainer} permiso="GESTIONAR_USUARIOS" />} />
+          <Route path="/admin/cabañas" element={<PrivateRoute component={CabañaContainer} permiso="GESTIONAR_CABAÑAS" />} />
+          <Route path="/gestionarcabaña/:id" element={<PrivateRoute component={GestionarCabaña} permiso="GESTIONAR_CABAÑAS" />} />
+          <Route path="/gestionartipo/:id" element={<PrivateRoute component={GestionarTipoCabaña} permiso="GESTIONAR_TIPO_CABAÑA" />} />
+          <Route path="/admin/tipos-cabaña" element={<PrivateRoute component={TipoCabañaContainer} permiso="GESTIONAR_TIPO_CABAÑA" />} />
+          <Route path="/admin/ganancias" element={<PrivateRoute component={Ganancia} permiso="VER_GANANCIAS" />} />
 
-        
-          <>
-            <Route path="/admin" element={<RutaAdmin />} />
-            <Route path="/admin/reservas" element={<ReservaContainer />} />
-            <Route path="/gestionarreserva/:id" element={<GestionarReserva />} />
-            <Route path="/gestionartipo/:id" element={<GestionarTipoCabaña/>}/>
-            <Route path="/admin/roles" element={<GestionarRoles/>}/>
-          </>
-        
-
-        
-          <>
-            <Route path="/admin/*" element={<RutaAdmin />} />
-            <Route path="/admin/usuarios" element={<UsuarioContainer />} />
-            <Route path="/admin/cabañas" element={<CabañaContainer />} />
-            <Route path="/gestionarcabaña/:id" element={<GestionarCabaña />} />
-            <Route path="/admin/tipos-cabaña" element={<TipoCabañaContainer />} />
-            <Route path="/admin/ganancias" element={<Ganancia/>}/>
-          </>
-        
-
-        <Route
-          path="/forbidden"
-          element={<Navigate to="/" replace />}
-        />
-      </Routes>
+          {/* Ruta Forbidden */}
+          <Route path="/forbidden" element={<Forbidden />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );
