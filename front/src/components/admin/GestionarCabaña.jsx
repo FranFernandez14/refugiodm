@@ -4,8 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import es from 'date-fns/locale/es';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Carousel } from 'react-responsive-carousel'; // Importar Carousel desde la librería
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Estilos de Carousel
+import { Carousel } from 'react-responsive-carousel'; 
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; 
 import './gestionarCabaña.css';
 
 
@@ -66,11 +66,11 @@ const GestionarCabaña = () => {
           formData.append('files', nuevaImagen[i]);
         }
   
-        // La URL, formData (el cuerpo de la petición), y luego la configuración incluyendo headers deben ir dentro de axios.post()
+      
         await axios.post(`http://localhost:8080/api/cabañas/${id}/imagenes`, formData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'multipart/form-data', // Este header se puede omitir en algunos casos ya que Axios y los navegadores pueden establecerlo automáticamente con el FormData.
+            'Content-Type': 'multipart/form-data', 
           },
         });
         setNuevaImagen(null);
@@ -211,12 +211,14 @@ const GestionarCabaña = () => {
                 dynamicHeight={true} // Opcional: ajusta la altura automáticamente
               >
                 {cabaña.imagenes.map((imagen, index) => (
-                  <div key={imagen.id} className='cabaña-imagen-container'>
-                    <img
-                      className='cabaña-imagen'
-                      src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
-                      alt={`Cabaña ${id} - Imagen ${index + 1}`}
-                    />
+                  <div key={index} className='cabaña-imagen-container'>
+                    {imagen && imagen.id && (
+                      <img
+                        className='cabaña-imagen'
+                        src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
+                        alt={`Cabaña ${id} - Imagen ${index + 1}`}
+                      />
+                    )}
                   </div>
                 ))}
               </Carousel>
