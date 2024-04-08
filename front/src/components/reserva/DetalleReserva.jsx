@@ -9,7 +9,7 @@ const DetalleReserva = () => {
   const location = useLocation();
   const [id, setId] = useState(0);
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = decodeToken(token, 'secret');
       const id = decodedToken.id;

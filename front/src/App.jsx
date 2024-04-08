@@ -1,7 +1,5 @@
-// Importa los componentes necesarios
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Modal from 'react-modal';
 import Navbar from './components/navbar/Navbar';
 import ReservaContainer from './components/admin/containers/ReservaContainer';
 import UsuarioContainer from './components/admin/containers/UsuarioContainer';
@@ -30,28 +28,13 @@ import RecuperarContraseña from './components/recuperacion/RecuperarContraseña
 import GeneracionDeToken from './components/recuperacion/GeneracionDeToken';
 import GestionarTipoCabaña from './components/admin/GestionarTipoCabaña';
 import NuestrasCabañas from './components/nuestras_cabañas/NuestrasCabañas';
-import ErrorPermiso from './components/error/ErrorPermisos';
 import GestionarRoles from './components/admin/GestionarRoles';
 import PrivateRoute from './routes/PrivateRoute';
 import Forbidden from './routes/Forbidden';
 
 const App = () => {
-  const [mostrarError, setMostrarError] = useState(false);
-  const abrirModalError = () => {
-    setMostrarError(true);
-  };
-  const [userPermisos, setUserPermisos] = useState([]);
-
-  const cerrarModalError = () => {
-    setMostrarError(false);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = decodeToken(token, 'secret');
-      setUserPermisos(decodedToken.permisos.map(permiso => permiso.nombre));
-    }
   }, []);
 
   return (

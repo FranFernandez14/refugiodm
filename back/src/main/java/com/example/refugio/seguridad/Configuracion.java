@@ -47,7 +47,7 @@ public class Configuracion {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/*").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/cabañas/crear")).hasAnyAuthority("GESTIONAR_CABAÑAS")
-                        .requestMatchers(new AntPathRequestMatcher("/api/cabañas/buscar")).hasAnyAuthority("BUSCAR_CABAÑAS")
+                        .requestMatchers(new AntPathRequestMatcher("/api/cabañas/buscar")).hasAnyAuthority("BUSCAR_CABAÑA")
                         .requestMatchers(new AntPathRequestMatcher("/api/cabañas/{id}/imagenes")).hasAnyAuthority("GESTIONAR_CABAÑAS")
                         .requestMatchers(new AntPathRequestMatcher("/api/cabañas/{cabañaId}/imagenes/{imagenId}")).hasAnyAuthority("GESTIONAR_CABAÑAS")
                         .requestMatchers(new AntPathRequestMatcher("/api/estados}")).hasAnyAuthority("GESTIONAR_CABAÑAS")

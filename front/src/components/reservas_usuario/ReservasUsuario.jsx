@@ -10,7 +10,7 @@ const ReservasUsuario = () => {
   const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('token');
 
     if (token) {
       const decodedToken = decodeToken(token, 'secret');
