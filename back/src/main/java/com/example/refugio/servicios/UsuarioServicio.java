@@ -1,8 +1,11 @@
 package com.example.refugio.servicios;
 
+import com.example.refugio.dto.CambiarRolDTO;
 import com.example.refugio.dto.ModificarDatosDTO;
 import com.example.refugio.dto.salida.VerUsuariosDTO;
+import com.example.refugio.entidades.Rol;
 import com.example.refugio.entidades.Usuario;
+import com.example.refugio.repositorios.RolRepositorio;
 import com.example.refugio.repositorios.UsuarioRepositorio;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
@@ -26,6 +29,9 @@ public class UsuarioServicio {
 
     @Autowired
     EntityManager entityManager;
+
+    @Autowired
+    RolRepositorio rolRepositorio;
 
     public List<Usuario> getUsuarios(){
         return usuarioRepositorio.findAll();
@@ -129,5 +135,12 @@ public class UsuarioServicio {
         return new VerUsuariosDTO(usuario.getId(), usuario.getNombre(), usuario.getApellido(), usuario.getEmail(),
                 usuario.getDni(), usuario.getRol().getNombre(), usuario.getNroTelefono(), usuario.getFechaHoraAlta(),
                 usuario.getFechaHoraBaja());
+    }
+
+    public void cambiarRol(CambiarRolDTO cambiarRolDTO) {
+        Usuario usuario = usuarioRepositorio.getReferenceById(cambiarRolDTO.getIdUsuario());
+        Rol rol = rolRepositorio.getReferenceById(cambiarRolDTO.getIdRol());
+        usuario.setRol(rol);
+        usuarioRepositorio.save(usuario);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.refugio.controladores;
 
+import com.example.refugio.dto.CambiarRolDTO;
 import com.example.refugio.dto.ModificarDatosDTO;
 import com.example.refugio.dto.salida.VerUsuariosDTO;
 import com.example.refugio.entidades.Usuario;
@@ -18,7 +19,7 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
     @GetMapping
-    public Page<VerUsuariosDTO> getUsuarios (Pageable pageable){
+    public Page<VerUsuariosDTO> getUsuarios ( Pageable pageable){
         return usuarioServicio.buscar(pageable);
     }
     @PostMapping
@@ -54,7 +55,12 @@ public class UsuarioControlador {
 
 
     @GetMapping("/buscar")
-    public Page<VerUsuariosDTO> buscarPorParametros(@RequestParam List<String> parametros, Pageable pageable){
+    public Page<VerUsuariosDTO> buscarPorParametros(@RequestParam List<String> parametros,   Pageable pageable){
         return usuarioServicio.buscarUsuarios(parametros, pageable);
+    }
+
+    @PutMapping("/cambiarRol")
+    public void cambiarRola (@RequestBody CambiarRolDTO cambiarRolDTO){
+        usuarioServicio.cambiarRol(cambiarRolDTO);
     }
     }

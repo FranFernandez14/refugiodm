@@ -29,11 +29,6 @@ function Registro() {
           dni,
           telefono
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
       );
   
       if (response.status === 200) {

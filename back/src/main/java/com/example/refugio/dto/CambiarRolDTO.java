@@ -6,5 +6,6 @@ import lombok.Data;
 public class CambiarRolDTO {
 
     private Long idUsuario;
+    private Long idRol;
 
 }

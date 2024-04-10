@@ -173,3 +173,8 @@ table {
 .permisos-rol button{
     margin-left: 2px;
 }
+
+.usuarios-container{
+    display: flex;
+    flex-direction: column;
+}

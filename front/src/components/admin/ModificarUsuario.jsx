@@ -16,14 +16,14 @@ const ModificarUsuario = ({ usuario }) => {
           }
         }
       );
-  
+
       if (response.status === 200) {
       }
     } catch (error) {
       console.error('Error al asignar rol:', error);
     }
   };
-  
+
   const handleDarBaja = async () => {
     try {
       const response = await axios.put('http://localhost:8080/api/usuarios/darDeBaja/' + usuario.id, {
@@ -63,21 +63,6 @@ const ModificarUsuario = ({ usuario }) => {
 
       <div className="modal">
         <div className="modal-content">
-          {usuario.roles.length !== 3 && (
-            <button className="modify-button" onClick={() => handleAsignarRol('asignarAdministrador')}>
-              Asignar Administrador
-            </button>
-          )}
-          {usuario.roles.length !== 2 && (
-            <button className="modify-button" onClick={() => handleAsignarRol('asignarEmpleado')}>
-              Asignar Empleado
-            </button>
-          )}
-          {usuario.roles.length !== 1 && (
-            <button className="modify-button" onClick={() => handleAsignarRol('asignarUsuario')}>
-              Asignar Usuario
-            </button>
-          )}
           {usuario.fechaHoraBaja == null && (
             < button className="modify-button" onClick={() => handleDarBaja()}>
               Dar de baja
