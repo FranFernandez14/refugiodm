@@ -45,7 +45,7 @@ const ReservasUsuario = () => {
     const confirmed = window.confirm('¿Está seguro que quiere cancelar la reserva?');
     if (confirmed) {
       try {
-        await axios.post(`http://localhost:8080/api/reservas/${idReserva}/cancelarByUsuario`, {
+        await axios.post(`http://localhost:8080/api/reservas/cancelarByUsuario/${idReserva}`,{}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -56,6 +56,8 @@ const ReservasUsuario = () => {
       }
     }
   };
+  
+
 
   return (
     <div className='reservas-usuario-container'>

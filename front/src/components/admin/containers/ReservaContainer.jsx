@@ -10,32 +10,29 @@ const ReservaContainer = () => {
   const [estadoReserva, setEstadoReserva] = useState(5);
   const [fechaFinal, setFechaFinal] = useState('');
   const [fechaInicio, setFechaInicio] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const fetchReservasByState = async (estado, fechaInicio, fechaFin, page) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/reservas/byState',
-        {
-          params: {
-            estado: estado,
-            fechaInicio: fechaInicio,
-            fechaFin: fechaFin,
-            // page: page, 
-            size: 10
-          }
+      const response = await axios.get('http://localhost:8080/api/reservas/byState', {
+        params: {
+          estado: estado,
+          fechaInicio: fechaInicio,
+          fechaFin: fechaFin,
+          page: page,
+          size: 10
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      );
+      });
       setReservas(response.data.content);
       setEstadoReserva(estado);
     } catch (error) {
       console.error('Error fetching reservas by state:', error);
     }
-  };
+};
+
   
 
   useEffect(() => {
@@ -43,7 +40,7 @@ const ReservaContainer = () => {
   }, [currentPage]); // Ejecutar cuando currentPage cambia
 
   const goToPreviousPage = () => {
-    if (currentPage > 1) {
+    if (currentPage > 0) {
       setCurrentPage(currentPage - 1); // Ir a la página anterior
     }
   };
@@ -58,7 +55,7 @@ const ReservaContainer = () => {
       <div className='admin-right-content'>
         <div id='reserva-buttons'>
           <div>
-            <Link onClick={() => fetchReservasByState(5, fechaInicio, fechaFinal, currentPage)}>Ver reservas pendientes</Link>
+            <Link onClick={() => fetchReservasByState(3, fechaInicio, fechaFinal, currentPage)}>Ver reservas pendientes</Link>
           </div>
           <div>
             <Link onClick={() => fetchReservasByState(1, fechaInicio, fechaFinal, currentPage)}>Ver reservas canceladas</Link>
@@ -86,7 +83,7 @@ const ReservaContainer = () => {
         <Reserva reservas={reservas} estadoReserva={estadoReserva} />
         <div className='numPagina'>
           <button onClick={goToPreviousPage}>Anterior</button> {/* Botón para ir a la página anterior */}
-          <span>Página {currentPage}</span> {/* Mostrar el número de página actual */}
+          <span>Página {currentPage+1}</span> {/* Mostrar el número de página actual */}
           <button onClick={goToNextPage}>Siguiente</button> {/* Botón para ir a la página siguiente */}
         </div>
       </div>

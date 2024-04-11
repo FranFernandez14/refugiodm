@@ -86,27 +86,27 @@ public class ReservaControlador {
        return reservaServicio.reservar(reservaDTO);
     }
 
-    @PostMapping("/{id}/cancelarByUsuario")
+    @PostMapping("/cancelarByUsuario/{id}")
     public void cancelarByUsuario(@PathVariable ("id") Long id){
         reservaServicio.cancelarByUsuario(id);
     }
 
-    @PostMapping("/{id}/cancelarByAdmin")
+    @PostMapping("/cancelarByAdmin/{id}")
     public void cancelarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.cancelarByAdmin(id);
     }
 
-    @PostMapping("/{id}/aceptarByAdmin")
+    @PostMapping("/aceptarByAdmin/{id}")
     public void aceptarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.aceptarByAdmin(id);
     }
 
-    @PostMapping("/{id}/finalizarByAdmin")
+    @PostMapping("/finalizarByAdmin/{id}")
     public void finalizarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.finalizarByAdmin(id);
     }
 
-    @PostMapping("/{id}/iniciarByAdmin")
+    @PostMapping("/iniciarByAdmin/{id}")
     public void iniciarByAdmin(@PathVariable ("id") Long id){
         reservaServicio.iniciarByAdmin(id);
     }
