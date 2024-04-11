@@ -9,11 +9,21 @@ const UsuarioContainer = () => {
   const [roles, setRoles] = useState([]);
   const [selectedRoles, setSelectedRoles] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRoleId, setSelectedRoleId] = useState("");
 
   useEffect(() => {
     fetchUsuarios(currentPage);
     fetchRoles();
   }, [currentPage]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchUsuarios();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   const fetchUsuarios = async (page) => {
     try {
@@ -28,7 +38,7 @@ const UsuarioContainer = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         }
-      );      
+      );
       setUsuarios(response.data.content ? response.data.content : []);
     } catch (error) {
       console.error('Error fetching usuarios:', error);
@@ -44,7 +54,7 @@ const UsuarioContainer = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         }
-      );      
+      );
       setRoles(response.data);
       setSelectedRoles(
         response.data.reduce((acc, role) => {
@@ -53,6 +63,26 @@ const UsuarioContainer = () => {
       );
     } catch (error) {
       console.error('Error fetching roles:', error);
+    }
+  };
+
+  const searchUsuarios = async () => {
+    try {
+      if (searchQuery.trim() !== "") {
+        const response = await axios.get(
+          `http://localhost:8080/api/usuarios/buscar?parametros=${encodeURIComponent(searchQuery)}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          }
+        );
+        setUsuarios(response.data.content ? response.data.content : []);
+      } else {
+        fetchUsuarios(currentPage); // Reiniciar la búsqueda
+      }
+    } catch (error) {
+      console.error('Error searching usuarios:', error);
     }
   };
 
@@ -77,6 +107,16 @@ const UsuarioContainer = () => {
     }
   };
 
+  const handleTickButtonClick = async (userId) => {
+    if (selectedRoleId !== "") {
+      try {
+        await handleRoleChange(userId, selectedRoleId);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
   const goToPreviousPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
@@ -87,6 +127,14 @@ const UsuarioContainer = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleRoleSelectChange = (e) => {
+    setSelectedRoleId(e.target.value);
+  };
+
   return (
     <div>
       <div className='admin-container'>
@@ -94,6 +142,14 @@ const UsuarioContainer = () => {
         <div className='admin-right-content'>
           <div className='admin-usuario'>
             <h2>Usuarios</h2>
+            <div>
+              <input
+                type="text"
+                placeholder="Buscar usuarios"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </div>
             <table>
               <thead>
                 <tr>
@@ -101,6 +157,7 @@ const UsuarioContainer = () => {
                   <th>Email</th>
                   <th>Nombre</th>
                   <th>Rol</th>
+                  <th>Cambiar rol</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
@@ -112,6 +169,9 @@ const UsuarioContainer = () => {
                     <td>{usuario.email}</td>
                     <td>{usuario.nombre + ' ' + usuario.apellido}</td>
                     <td>
+                      {usuario.rol}
+                    </td>
+                    <td>
                       <select
                         value={selectedRoles[usuario.id]}
                         onChange={(e) => {
@@ -119,16 +179,16 @@ const UsuarioContainer = () => {
                             ...selectedRoles,
                             [usuario.id]: e.target.value
                           });
-                          handleRoleChange(usuario.id, e.target.value);
+                          handleRoleSelectChange(e); // Actualizar selectedRoleId
                         }}
                       >
-                        <option value="" disabled hidden>
-                          {usuario.rol}
-                        </option>
+                        <option value="">Seleccione el rol</option>
                         {roles.map((rol) => (
                           <option key={rol.id} value={rol.id}>{rol.nombre}</option>
                         ))}
                       </select>
+
+                      <button onClick={() => handleTickButtonClick(usuario.id)}>✔️</button>
                     </td>
                     <td>
                       {usuario.fechaHoraBaja == null ? <div>Alta</div> : <div>Baja</div>}
@@ -143,7 +203,7 @@ const UsuarioContainer = () => {
           </div>
           <div className='numPagina'>
             <button onClick={goToPreviousPage}>Anterior</button>
-            <span>Página {currentPage+1}</span>
+            <span>Página {currentPage + 1}</span>
             <button onClick={goToNextPage}>Siguiente</button>
           </div>
         </div>
