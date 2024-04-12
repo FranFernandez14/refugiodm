@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../admin.css';
 import Sidebar from '../Sidebar';
 import ModificarUsuario from '../ModificarUsuario';
+import './UsuarioContainer.css';
 
 const UsuarioContainer = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -171,7 +172,7 @@ const UsuarioContainer = () => {
                     <td>
                       {usuario.rol}
                     </td>
-                    <td>
+                    <td className='casillaRol'>
                       <select
                         value={selectedRoles[usuario.id]}
                         onChange={(e) => {
@@ -187,8 +188,7 @@ const UsuarioContainer = () => {
                           <option key={rol.id} value={rol.id}>{rol.nombre}</option>
                         ))}
                       </select>
-
-                      <button onClick={() => handleTickButtonClick(usuario.id)}>✔️</button>
+                      <button onClick={() => handleTickButtonClick(usuario.id)}> ✔️</button>
                     </td>
                     <td>
                       {usuario.fechaHoraBaja == null ? <div>Alta</div> : <div>Baja</div>}

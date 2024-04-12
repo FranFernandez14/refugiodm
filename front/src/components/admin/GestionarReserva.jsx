@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './gestionarReserva.css'
 
 const GestionarReserva = () => {
@@ -107,29 +108,39 @@ const GestionarReserva = () => {
           <p>Email: {reserva.email}</p>
           <p>Teléfono: {reserva.telefono}</p>
         </div>
-        <div>
+        <div className='botonesGestion'>
           {reserva.estadoActual === 'Pendiente' && (
             <div className='reserva-buttons'>
               <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
               <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
+              
             </div>
           )}
           {reserva.estadoActual === 'Aceptada' && (
             <div>
               <button onClick={handleCancelarByAdmin}>Cancelar Reserva</button>
               <button onClick={handleIniciarByAdmin}>Iniciar Reserva</button>
+              
             </div>
           )}
           {reserva.estadoActual === 'Iniciada' && (
             <div>
               <button onClick={handleFinalizarByAdmin}>Finalizar Reserva</button>
+              
             </div>
           )}
           {reserva.estadoActual === 'Cancelada' && (
             <div>
               <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
+              
             </div>
           )}
+          {reserva.estadoActual === 'Cancelada por el administrador' && (
+             <div>
+             <button onClick={handleAceptarByAdmin}>Aceptar Reserva</button>
+             
+           </div>
+         )}
         </div>
         <div>
           <h3 className='titulo-estados'>Estados de la reserva:</h3>
@@ -149,6 +160,9 @@ const GestionarReserva = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className='contContBoton'>
+        <button className='contBoton'><Link to="/admin/reservas">Atrás</Link></button>
         </div>
       </div>
     </div>

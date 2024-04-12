@@ -140,7 +140,8 @@ const GestionarCabaña = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
-        });
+        }
+        );
         setSelectedDateRange([null, null]);
         fetchEstados();
       } catch (error) {

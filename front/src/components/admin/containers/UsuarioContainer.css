@@ -1,0 +1,21 @@
+.casillaRol {
+    justify-content: space-between;
+    text-align: center;
+    display: flex;
+}
+
+.admin-usuario {
+    overflow-x: auto;
+}
+  
+.numPagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    margin-top: 1rem; 
+}
+  
+.numPagina button {
+    margin-bottom: 0.5rem; 
+}

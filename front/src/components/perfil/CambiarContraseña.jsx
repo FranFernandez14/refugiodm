@@ -14,7 +14,7 @@ const CambiarContraseña = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('token');
 
     if (token) {
       const decodedToken = decodeToken(token, 'secret');

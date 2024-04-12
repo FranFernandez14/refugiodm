@@ -8,7 +8,7 @@ const CabañaContainer = () => {
   const [cabañas, setCabañas] = useState([]);
   const [tiposCabaña, setTiposCabaña] = useState([]);
   const [selectedTipoCabaña, setSelectedTipoCabaña] = useState('');
-  const [selectedTamaño, setSelectedTamaño] = useState(0);
+  const [selectedTamaño, setSelectedTamaño] = useState('');
   const navigate = useNavigate();
 
   const handleTipoCabañaChange = (event) => {
