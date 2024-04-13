@@ -2,8 +2,12 @@
     justify-content: space-between;
     text-align: center;
     display: flex;
+    height: 100%;
 }
 
+.tick{
+    background-color: white;
+}
 .admin-usuario {
     overflow-x: auto;
 }

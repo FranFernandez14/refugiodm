@@ -4,8 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import es from 'date-fns/locale/es';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Carousel } from 'react-responsive-carousel'; 
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; 
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './gestionarCabaña.css';
 
 
@@ -61,16 +61,16 @@ const GestionarCabaña = () => {
     if (nuevaImagen && nuevaImagen.length > 0) {
       try {
         const formData = new FormData();
-  
+
         for (let i = 0; i < nuevaImagen.length; i++) {
           formData.append('files', nuevaImagen[i]);
         }
-  
-      
+
+
         await axios.post(`http://localhost:8080/api/cabañas/${id}/imagenes`, formData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'multipart/form-data', 
+            'Content-Type': 'multipart/form-data',
           },
         });
         setNuevaImagen(null);
@@ -81,7 +81,7 @@ const GestionarCabaña = () => {
       }
     }
   };
-  
+
   const handleEliminarMantenimiento = async (estadoId) => {
     try {
       await axios.delete(`http://localhost:8080/api/estados/cabañaestados/${estadoId}`, {
@@ -130,7 +130,7 @@ const GestionarCabaña = () => {
     if (selectedDateRange[0] && selectedDateRange[1]) {
       const fechaInicio = selectedDateRange[0].toISOString().substring(0, 10);
       const fechaFin = selectedDateRange[1].toISOString().substring(0, 10);
-  
+
       try {
         await axios.post(`http://localhost:8080/api/cabañas/${id}/mantenimiento`, {
           nombre: 'Mantenimiento',
@@ -151,7 +151,7 @@ const GestionarCabaña = () => {
       console.error('Las fechas de inicio y fin deben seleccionarse.');
     }
   };
-  
+
 
   const handleDarBaja = async () => {
     try {
@@ -160,7 +160,7 @@ const GestionarCabaña = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-  
+
       if (response.status === 200) {
         fetchCabaña();
       }
@@ -168,7 +168,7 @@ const GestionarCabaña = () => {
       console.error('Error al dar de baja:', error);
     }
   };
-  
+
   const handleCancelarBaja = async () => {
     try {
       const response = await axios.put(`http://localhost:8080/api/cabañas/cancelarBaja/${id}`, {}, {
@@ -176,7 +176,7 @@ const GestionarCabaña = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-  
+
       if (response.status === 200) {
         fetchCabaña();
       }
@@ -184,7 +184,7 @@ const GestionarCabaña = () => {
       console.error('Error al cancelar baja:', error);
     }
   };
-  
+
   const handleCancelar = async () => {
     navigate('/admin/cabañas')
   }
@@ -195,7 +195,7 @@ const GestionarCabaña = () => {
   return (
     <div className='gestionar-container'>
       <div className='gestionar-container2'>
-          <div className='back-button'><button onClick={handleCancelar}>Atrás</button></div>
+        <div className='back-button'><button onClick={handleCancelar}>Atrás</button></div>
         <div className='titulo'>
           <div><h2>Gestionar Cabaña {id}</h2></div>
         </div>
@@ -203,28 +203,39 @@ const GestionarCabaña = () => {
 
         <div><h3>Imágenes existentes:</h3></div>
         <div>
-          {cabaña.imagenes && cabaña.imagenes.length > 0 && ( // Comprobar si hay imágenes
+          {cabaña.imagenes && cabaña.imagenes.length > 0 && (
             <div id="imagen-container">
               <Carousel
-              className='carousel'
+                className='carousel'
                 selectedItem={imagenIndex}
                 showThumbs={false}
-                dynamicHeight={true} // Opcional: ajusta la altura automáticamente
+                dynamicHeight={true}
               >
                 {cabaña.imagenes.map((imagen, index) => (
                   <div key={index} className='cabaña-imagen-container'>
                     {imagen && imagen.id && (
-                      <img
-                        className='cabaña-imagen'
-                        src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
-                        alt={`Cabaña ${id} - Imagen ${index + 1}`}
-                      />
+                      <div>
+                        <img
+                          className='cabaña-imagen'
+                          src={`http://localhost:8080/api/cabañas/${id}/imagenes/${imagen.id}`}
+                          alt={`Cabaña ${id} - Imagen ${index + 1}`}
+                        />
+                      </div>
                     )}
                   </div>
                 ))}
               </Carousel>
+              {cabaña.imagenes[imagenIndex] && cabaña.imagenes[imagenIndex].id && (
+                <button
+                  className="delete-button"
+                  onClick={() => handleEliminarImagen(cabaña.imagenes[imagenIndex].id)}
+                >
+                  Eliminar
+                </button>
+              )}
             </div>
           )}
+
           <div>
             <div>
               <div>
@@ -359,13 +370,13 @@ const GestionarCabaña = () => {
       {cabaña.fechaHoraBajaCabaña == null &&
 
         <div className='baja-button'>
-          <button onClick={() =>handleDarBaja()}>Dar de baja</button>
+          <button onClick={() => handleDarBaja()}>Dar de baja</button>
         </div>
       }
       {cabaña.fechaHoraBajaCabaña != null &&
 
         <div>
-          <button onClick={() =>handleCancelarBaja()}>Cancelar baja</button>
+          <button onClick={() => handleCancelarBaja()}>Cancelar baja</button>
         </div>
       }
     </div>
