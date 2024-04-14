@@ -1,7 +1,7 @@
 .cabañas-grid {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
     padding: 20px;
   }
   
@@ -12,7 +12,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
   
   .cabaña-card h3 {
@@ -23,7 +22,9 @@
   }
   
   .imagen-container {
-    margin-top: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   .cabaña-card p {
     font-size: .9rem;
@@ -51,7 +52,7 @@
   }
   .cabaña-imagen {
     height: 100%;
-    width: 100% !important;
+    width: 100%;
 
   }
   .resultados-container {
@@ -59,9 +60,11 @@
   }
   .resultados-title {
     text-align: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
   }
   .carousel.carousel-slider {
-    position: relative;
+    position: center;
     margin: 0;
     overflow: hidden;
     height: 25rem;
@@ -69,17 +72,41 @@
 .carousel img {
   height: 25rem;
   width: 100%;
-  object-fit: fit;
+  object-fit: cover ;
 }
 
 .contenedor-caracteristicas{
-  height: 5rem;
+  height: 12%;
+  padding-bottom: 15px;
 }
 
 .contenedor-caracteristicas-mod{
-  height: 15rem;
-  margin-top: 0.5rem;
+  padding-top: 10px;
+  height: 18rem;
+  margin-top: 0.6rem;
 }
 .carousel.carousel-slider {
-  width: 40% !important;
+  width: 100% !important;
+}
+
+.carousel-root {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.precio {
+  color: rgb(3, 184, 3)
+}
+
+.titulocaracteristicas {
+  padding-top: 10px;
+}
+
+.cabaña-title {
+  padding-bottom: 10px;
+}
+
+.inline-block-element {
+  display: inline-block;
 }

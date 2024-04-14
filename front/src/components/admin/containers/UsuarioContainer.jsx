@@ -188,7 +188,7 @@ const UsuarioContainer = () => {
                           <option key={rol.id} value={rol.id}>{rol.nombre}</option>
                         ))}
                       </select>
-                      <div className='tick'><button onClick={() => handleTickButtonClick(usuario.id)}> ✔️</button></div>
+                      <div className='tick'><button onClick={() => handleTickButtonClick(usuario.id)}> ✔</button></div>
                     </td>
                     <td>
                       {usuario.fechaHoraBaja == null ? <div>Alta</div> : <div>Baja</div>}

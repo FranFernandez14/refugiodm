@@ -69,10 +69,11 @@ const ResultadosBusquedaCabaña = () => {
       <div className="cabañas-grid">
         {resultados.map((cabaña) => (
           <div key={cabaña.idcabaña} className="cabaña-card">
-            <div className='contenedor-caracteristicas'>
+            <div className='contenedor-caracteristicas'> 
               <h3 className='cabaña-title'>Cabaña N° {cabaña.idcabaña}</h3>
-              <p>Tipo de Cabaña: {cabaña.tipoCabaña.nombre}</p>
-              <p>Tamaño: {cabaña.tamaño}</p>
+              <h5  class="inline-block-element">Tipo de Cabaña: </h5> <p class="inline-block-element">{cabaña.tipoCabaña.nombre}</p>
+              <div>
+              <h5 class="inline-block-element">Tamaño: </h5> <p class="inline-block-element"> {cabaña.tamaño}</p></div>
             </div>
             {cabaña.imagenes && cabaña.imagenes.length > 0 && (
               <div className="imagen-container">
@@ -94,8 +95,8 @@ const ResultadosBusquedaCabaña = () => {
               </div>
             )}
             <div className='contenedor-caracteristicas-mod'>
-              <p>Costo Total: ${calcularPrecioTotal(cabaña)}</p>
-              <p>Características:</p>
+              <p className='precio'>Costo Total: ${calcularPrecioTotal(cabaña)}</p>
+              <h4 className='titulocaracteristicas'>Características:</h4>
               <div id='caracteristicas'><ul>
                 {cabaña.tipoCabaña.caracteristicas.map((caracteristica) => (
                   <li key={caracteristica.nombreCaracteristica}>
