@@ -3,16 +3,18 @@
     text-align: center;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 12px;
-    border-right-width: 0px;
-    border-left-width: 0px;
-    border-top-width: 0px;
+
+    height: 100%;
 }
 
+
+.selector-rol{
+    height: 3rem;
+}
 .tick{
-    background-color: white;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 0;
 }
 .admin-usuario {
     overflow-x: auto;
@@ -28,8 +30,4 @@
   
 .numPagina button {
     margin-bottom: 0.5rem; 
-}
-
-.tick {
-    min-width: 10%;
 }

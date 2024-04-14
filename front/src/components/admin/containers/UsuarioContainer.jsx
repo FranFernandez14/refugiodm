@@ -172,23 +172,28 @@ const UsuarioContainer = () => {
                     <td>
                       {usuario.rol}
                     </td>
-                    <td className='casillaRol'>
-                      <select
-                        value={selectedRoles[usuario.id]}
-                        onChange={(e) => {
-                          setSelectedRoles({
-                            ...selectedRoles,
-                            [usuario.id]: e.target.value
-                          });
-                          handleRoleSelectChange(e); // Actualizar selectedRoleId
-                        }}
-                      >
-                        <option value="">Seleccione el rol</option>
-                        {roles.map((rol) => (
-                          <option key={rol.id} value={rol.id}>{rol.nombre}</option>
-                        ))}
-                      </select>
-                      <div className='tick'><button onClick={() => handleTickButtonClick(usuario.id)}> ✔</button></div>
+                    <td>
+                      <div className='casillaRol'>
+                        <div className='selector-rol'>
+                          <select
+                          className='selector-rol'
+                            value={selectedRoles[usuario.id]}
+                            onChange={(e) => {
+                              setSelectedRoles({
+                                ...selectedRoles,
+                                [usuario.id]: e.target.value
+                              });
+                              handleRoleSelectChange(e);
+                            }}
+                          >
+                            <option value="">Seleccione el rol</option>
+                            {roles.map((rol) => (
+                              <option key={rol.id} value={rol.id}>{rol.nombre}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div><button className='tick' onClick={() => handleTickButtonClick(usuario.id)}> ✔</button></div>
+                      </div>
                     </td>
                     <td>
                       {usuario.fechaHoraBaja == null ? <div>Alta</div> : <div>Baja</div>}
