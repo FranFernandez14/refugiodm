@@ -11,6 +11,7 @@ import com.example.refugio.repositorios.PermisoRepositorio;
 import com.example.refugio.repositorios.ReservaEstadoRepositorio;
 import com.example.refugio.repositorios.RolRepositorio;
 import com.example.refugio.repositorios.UsuarioRepositorio;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RolServicio {
 
     @Autowired
@@ -70,4 +72,12 @@ public class RolServicio {
     }
 
 
+    public void eliminarRol(Long id) {
+        if (id!=1 && id!=2){
+            usuarioRepositorio.actualizarRol(id);
+            rolRepositorio.getReferenceById(id).getPermisos().clear();
+            rolRepositorio.save(rolRepositorio.getReferenceById(id));
+            rolRepositorio.delete(rolRepositorio.getReferenceById(id));
+        }
+    }
 }

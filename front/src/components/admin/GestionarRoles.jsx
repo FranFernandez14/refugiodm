@@ -112,6 +112,25 @@ const GestionarRoles = () => {
         }
     };
 
+    const confirmRoleDeletion = (roleId) => {
+        if (window.confirm('¿Estás seguro de que deseas eliminar este rol?')) {
+            handleRoleDelete(roleId);
+        }
+    };
+
+    const handleRoleDelete = async (roleId) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/usuarios/roles/eliminarRol/${roleId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            fetchRoles();
+        } catch (error) {
+            console.error('Error al eliminar rol:', error);
+        }
+    };
+
     return (
         <div className='admin-container'>
             <Sidebar />
@@ -126,7 +145,12 @@ const GestionarRoles = () => {
                                     onClick={() => handleRoleSelect(role.id)}
                                     style={{ cursor: 'pointer', color: role.id === selectedRole ? '#006494' : 'black' }}
                                 >
-                                    {role.nombre}
+                                    <div className='rol-boton'>
+                                        <div>{role.nombre}</div>
+                                        <div>{role.id !== 1 && role.id !== 2 && (
+                                            <button onClick={() => confirmRoleDeletion(role.id)}>&times;</button>
+                                        )}</div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>

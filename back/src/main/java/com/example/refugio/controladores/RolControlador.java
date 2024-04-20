@@ -44,6 +44,11 @@ public class RolControlador {
         rolServicio.crearRol(nuevoRolDTO);
     }
 
+    @DeleteMapping("/eliminarRol/{id}")
+    public void eliminarRol(@PathVariable ("id") Long id){
+        rolServicio.eliminarRol(id);
+    }
+
     @PutMapping("/agregarPermiso")
     public void agregarPermiso(@RequestBody RolPermisoDTO rolPermisoDTO){
         rolServicio.agregarPermiso(rolPermisoDTO);

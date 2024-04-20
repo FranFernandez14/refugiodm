@@ -26,7 +26,7 @@ public class Rol implements UserDetails {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_permisos",
             joinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permiso_id", referencedColumnName = "id"))

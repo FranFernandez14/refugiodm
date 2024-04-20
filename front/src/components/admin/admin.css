@@ -178,3 +178,9 @@ table {
     display: flex;
     flex-direction: column;
 }
+
+.rol-boton{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
