@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
+import deleteIcon from '../../assets/Cancelar.png';
 
 const GestionarRoles = () => {
     const [roles, setRoles] = useState([]);
@@ -145,10 +146,12 @@ const GestionarRoles = () => {
                                     onClick={() => handleRoleSelect(role.id)}
                                     style={{ cursor: 'pointer', color: role.id === selectedRole ? '#006494' : 'black' }}
                                 >
-                                    <div className='rol-boton'>
+                                    <div className='rol-boton' style={{justifyContent: 'space-between', alignItems: 'center'}}>
                                         <div>{role.nombre}</div>
                                         <div>{role.id !== 1 && role.id !== 2 && (
-                                            <button onClick={() => confirmRoleDeletion(role.id)}>&times;</button>
+                                            <button style={{display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'none', border: 'none', padding: 0, margin: 0}} onClick={() => confirmRoleDeletion(role.id)}>
+                                            <img src={deleteIcon} alt="Borrar Rol" style={{ width: '25px', height: '25px' }}/>
+                                          </button>
                                         )}</div>
                                     </div>
                                 </li>
